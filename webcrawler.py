@@ -8,7 +8,15 @@ import pandas as pd
 
 
 def search(page_limit=None):
-    news_url = 'https://news.google.com/rss/'
+    business_topic_id = "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB"
+    markets_subtopic_id = "/sections/CAQiXENCQVNQd29JTDIwdk1EbHpNV1lTQW1WdUdnSlZVeUlQQ0FRYUN3b0pMMjB2TURsNU5IQnRLaG9LR0FvVVRVRlNTMFZVVTE5VFJVTlVTVTlPWDA1QlRVVWdBU2dBKioIAComCAoiIENCQVNFZ29JTDIwdk1EbHpNV1lTQW1WdUdnSlZVeWdBUAFQAQ"
+    
+    # asta e pentru custom input
+    # news_url = f'https://news.google.com/rss/search?q=<{search_string}>'
+
+    # asta e pentru stiri legate de market
+    news_url = 'https://news.google.com/rss' + business_topic_id + markets_subtopic_id
+
     client = urlopen(news_url)
     xml_page = client.read()
     client.close()
@@ -16,10 +24,18 @@ def search(page_limit=None):
     news_list = soup_page.find_all('item')
     return news_list[:page_limit]
 
+def search(search_string:str, page_limit=None):
+    news_url = f'https://news.google.com/rss/search?q=<{search_string}>'
+    client = urlopen(news_url)
+    xml_page = client.read()
+    client.close()
+    soup_page = BeautifulSoup(xml_page, 'xml')
+    news_list = soup_page.find_all('item')
+    return news_list[:page_limit]
 
-def archive(archive_path, news_list, df):
+def archive(news_list, df):
     try:
-        file = open(archive_path + 'archive_dict.pkl', 'rb')
+        file = open('archive_dict.pkl', 'rb')
         archive_dict = pickle.load(file)
         file.close()
     except:
@@ -34,8 +50,7 @@ def archive(archive_path, news_list, df):
         filename = timestamp + ' ' + title + '.html'
         url = news.link.text
         if filename not in archive_dict:
-            try:  # try to download
-                urlretrieve(url, archive_path + filename)
+            try:
                 archive_dict.update({filename: [url, 1, news.source.text]})
                 success += 1
                 print(news.title.text)
@@ -49,29 +64,29 @@ def archive(archive_path, news_list, df):
                 print(e)
                 failed += 1
             print('-' * 60)
-
-    with open(archive_path + 'archive_dict.pkl', 'wb') as file:
+    print("Updating dictionary")
+    with open('archive_dict.pkl', 'wb') as file:
         pickle.dump(archive_dict, file)
 
     return success, failed, df
 
 
-def crawl(archive_path, page_limit=None):  # main
-    #df = pd.DataFrame(columns = ['Title', 'Link', "Date", "Source"])
+def crawl(page_limit=None, keyword=None):
     df = pd.read_excel('output.xlsx', index_col=0)
-    if not os.path.exists(archive_path):
-        os.makedirs(archive_path)
     print('Crawling news...')
     print('-' * 60)
-    news_list = search(page_limit)
-    success, failed, df = archive(archive_path, news_list, df)
+    if keyword is None:
+        news_list = search(page_limit)
+    else:
+        news_list = search(keyword, page_limit)
+    success, failed, df = archive(news_list, df)
     print('Downloaded : ' + str(success), end=' | ')
     print('Failed: ' + str(failed))
     print('-' * 60)
-    print(df.tail())
     df.to_excel("output.xlsx")
     
 
 if __name__ == '__main__':
-    path = os.getcwd() + '/News Archive/'
-    crawl(path)
+    path = os.getcwd()
+    crawl()
+    ### optional poti sa pui crawl("keyword") daca vrei ceva specific
