@@ -1,0 +1,14 @@
+- sa impartim pickelul in date de antrenare validare testare (cu split)
+
+- cream un model propriu zis (cu keras)
+
+- o sa folosim un grid search ca sa gasim cei mai buni params
+
+- si callbacks - pentru a pastra cele mai bune rezultate
+
+- salvam modelul 
+
+- scriptul ca sa folosim text ca input -> returneaza predictia ca output
+
+
+-  how to train a bert model with three  
