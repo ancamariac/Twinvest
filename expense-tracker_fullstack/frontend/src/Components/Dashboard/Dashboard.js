@@ -1,3 +1,4 @@
+import { Chart } from 'chart.js';
 import React from 'react'
 import styled from 'styled-components';
 import { InnerLayout } from '../../styles/Layouts';
@@ -6,7 +7,12 @@ function Dashboard() {
   return (
     <DashboardStyled>
         <InnerLayout>
-            <h2>Dashboard</h2>
+            <h1>All transactions</h1>
+            <div className="stats-con">
+              <div className="chart-con">
+                <Chart/>
+              </div>
+            </div>
         </InnerLayout>
     </DashboardStyled>
   )
