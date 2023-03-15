@@ -41,10 +41,10 @@ export const GlobalProvider = ({children}) => {
 
         return totalIncome;
     }
-    console.log('first', totalIncome())
-    //calculate incomes
-    const addExpense = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
+
+    //calculate expenses
+    const addExpense = async (expense) => {
+        const response = await axios.post(`${BASE_URL}add-expense`, expense)
             .catch((err) =>{
                 setError(err.response.data.message)
             })
@@ -63,12 +63,12 @@ export const GlobalProvider = ({children}) => {
     }
 
     const totalExpenses = () => {
-        let totalIncome = 0;
-        expenses.forEach((income) =>{
-            totalIncome = totalIncome + income.amount
+        let totalExpenses = 0;
+        expenses.forEach((exp) =>{
+            totalExpenses = totalExpenses + exp.amount
         })
 
-        return totalIncome;
+        return totalExpenses;
     }
 
 
