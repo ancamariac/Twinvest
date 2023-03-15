@@ -29,7 +29,7 @@ ChartJs.register(
 
 function Chart() {
 
-    const {incomes, expenses} = useGlobalContext()
+    const {incomes = [], expenses = []} = useGlobalContext() || {}
 
     const data = {
         labels: incomes.map((inc) =>{
@@ -64,9 +64,14 @@ function Chart() {
     
     return (
     <ChartStyled>
-        <Line data={data}/>
+        <Line data={data} options={options}/>
     </ChartStyled>
     )
+}
+
+const options = {
+    responsive: true,
+    maintainAspectRatio: false,
 }
 
 const ChartStyled = styled.div`
