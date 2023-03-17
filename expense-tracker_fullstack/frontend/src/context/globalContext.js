@@ -4,7 +4,6 @@ import axios from 'axios'
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
-
 const GlobalContext = React.createContext()
 
 export const GlobalProvider = ({children}) => {
@@ -35,6 +34,7 @@ export const GlobalProvider = ({children}) => {
 
     const totalIncome = () => {
         let totalIncome = 0;
+        //getIncomes();
         incomes.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })

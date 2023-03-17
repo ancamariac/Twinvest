@@ -1,5 +1,5 @@
 import Chart from '../Chart/Chart'
-import React from 'react'
+import React,  { useEffect }  from 'react'
 import styled from 'styled-components';
 import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
@@ -7,7 +7,12 @@ import { dollar } from '../../utils/Icons';
 
 function Dashboard() {
 
-  const {totalIncome} = useGlobalContext()
+  const {totalIncome, getIncomes, getExpenses} = useGlobalContext()
+
+  useEffect(() =>{
+    getIncomes()
+    getExpenses()
+  }, [])
 
   return (
     <DashboardStyled>

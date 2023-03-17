@@ -29,7 +29,7 @@ ChartJs.register(
 
 function Chart() {
 
-    const {incomes = [], expenses = []} = useGlobalContext() || {}
+    const {incomes, expenses} = useGlobalContext()
 
     const data = {
         labels: incomes.map((inc) =>{
