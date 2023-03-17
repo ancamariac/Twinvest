@@ -1,9 +1,14 @@
 import Chart from '../Chart/Chart'
 import React from 'react'
 import styled from 'styled-components';
+import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
+import { dollar } from '../../utils/Icons';
 
 function Dashboard() {
+
+  const {totalIncome} = useGlobalContext()
+
   return (
     <DashboardStyled>
         <InnerLayout>
@@ -11,7 +16,14 @@ function Dashboard() {
             <div className="stats-con">
               <div className="chart-con">
                 <Chart/>
-
+                <div className="amount-con">
+                  <div className="income">
+                    <h2>Total Income</h2>
+                    <p>
+                      {dollar} {totalIncome()}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
         </InnerLayout>

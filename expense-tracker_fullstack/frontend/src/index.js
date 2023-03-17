@@ -12,7 +12,6 @@ root.render(
     <GlobalProvider>
       <App/>
     </GlobalProvider>
-    <App />
   </React.StrictMode>
 );
 

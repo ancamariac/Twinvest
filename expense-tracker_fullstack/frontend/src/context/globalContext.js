@@ -35,10 +35,10 @@ export const GlobalProvider = ({children}) => {
 
     const totalIncome = () => {
         let totalIncome = 0;
-        incomes.forEach((income) =>{
+        incomes.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
-
+        console.log("Total INCOME: ", totalIncome)
         return totalIncome;
     }
 
