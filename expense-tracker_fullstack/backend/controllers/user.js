@@ -12,12 +12,14 @@ exports.createUser = async (req, res) => {
            username, email, password
         });
         await user.save();
-        res.json(user);
+        const token = jwt.sign({userId: user._id}, process.env.JWTSECRETKEY, {expiresIn: '1d'});
+        res.json({success:  true, user, token});
     }
 }
 
 exports.userSignIn = async (req, res) => {
     const {email, password} = req.body;
+    console.log(req.body);
     const user = await User.findOne({email: email});
     if (!user) {
         return res.json({success: false, message: 'User not found!'});

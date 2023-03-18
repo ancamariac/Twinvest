@@ -29,12 +29,11 @@ export const GlobalProvider = ({children}) => {
 
     const deleteIncome = async (id) => {
         const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
-        getIncomes()
+        getIncomes();
     }
 
     const totalIncome = () => {
         let totalIncome = 0;
-        //getIncomes();
         incomes.forEach((income) => {
             totalIncome = totalIncome + income.amount
         })
@@ -85,6 +84,27 @@ export const GlobalProvider = ({children}) => {
         return history.slice(0, 3)
     }
 
+    const saveToken = (token) => {
+        sessionStorage.removeItem('auth-token');
+        sessionStorage.setItem('auth-token', token);
+    }
+
+    const getToken = () => {
+        return sessionStorage.getItem('auth-token');
+    }
+
+    const getUser = () => {
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            return JSON.parse(user);
+        } 
+        return {};
+    }
+
+    const saveUser = (user) => {
+        sessionStorage.removeItem('user');
+        sessionStorage.setItem('user', JSON.stringify(user));
+    }
 
     return (
         <GlobalContext.Provider value={{
@@ -101,7 +121,11 @@ export const GlobalProvider = ({children}) => {
             totalBalance,
             transactionHistory,
             error,
-            setError
+            setError,
+            saveToken,
+            saveUser,
+            getToken,
+            getUser
         }}>
             {children}
         </GlobalContext.Provider>

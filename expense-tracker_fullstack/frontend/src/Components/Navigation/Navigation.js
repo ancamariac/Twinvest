@@ -2,15 +2,24 @@ import styled from 'styled-components'
 import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
+import { useGlobalContext } from "../../context/globalContext";
 
 function Navigation({active, setActive}) {
+    const {getToken, getUser} = useGlobalContext();
     
+    let username = getUser().user.username;
+    
+    function logout() {
+        sessionStorage.clear();
+        window.location.href = '/';
+    }
+
     return (
         <NavStyled>
             <div className="user-con">
                 <img src={avatar} alt="" />
                 <div className="text">
-                    <h2>Mike</h2>
+                    <h2>{username}</h2>
                     <p>Your Money</p>
                 </div>
             </div>
@@ -27,9 +36,9 @@ function Navigation({active, setActive}) {
                 })}
             </ul>
             <div className="bottom-nav">
-                <li>
-                    {signout} Sign Out
-                </li>
+                <button class="signout-button" onClick={logout()}>
+                    {signout} &nbsp; Sign Out
+                </button>
             </div>
         </NavStyled>
     )
@@ -108,6 +117,22 @@ const NavStyled = styled.nav`
             background: #222260;
             border-radius: 0 10px 10px 0;
         }
+    }
+
+    .signout-button {
+        grid-template-columns: 40px auto;
+        align-items: center;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+        color: rgba(34, 34, 96, .6);
+        position: relative;
+        border: none;
+        justify-content: center;
+        padding: 3px 5px 3px 5px;
+        display: flex;
+        background: initial;
+        font-size: 15px;
     }
 `;
 

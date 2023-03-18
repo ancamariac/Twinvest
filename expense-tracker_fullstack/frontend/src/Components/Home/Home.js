@@ -12,8 +12,7 @@ import { useGlobalContext } from '../../context/globalContext';
 function Home() {
   const [active, setActive] = useState(1)
 
-  const global = useGlobalContext;
-  console.log(global);
+  const {getUser, getToken} = useGlobalContext();
 
   const displayData = () => {
     switch(active){

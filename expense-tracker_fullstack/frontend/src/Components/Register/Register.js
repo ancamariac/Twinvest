@@ -1,6 +1,7 @@
 import React, { useContext, useState, setState} from "react"
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
+import { useGlobalContext } from "../../context/globalContext";
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
@@ -10,11 +11,22 @@ function Register() {
     const [username, setUsername] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const {saveToken, saveUser} = useGlobalContext();
+
     async function register(e) {
-        console.log(email, password, username, confirmPassword);
-        const response = await axios.post(BASE_URL + "create-user", {username, email, password, confirmPassword})
+        e.preventDefault()
+        
+        await axios.post(BASE_URL + "create-user", {username, email, password, confirmPassword})
         .then((result) => {
-            console.log(result);
+            var success = result.data.success;
+
+            if (success) {
+                saveToken(result.data.token);
+                saveUser(result.data);
+                window.location.href = '/home';
+            } else {
+                alert(result.data.message);
+            }
         })
         .catch((err) =>{
             console.log(err.response.data.message)
