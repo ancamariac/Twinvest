@@ -52,7 +52,7 @@ const AppStyled = styled.div`
   height: 100vh;
   background-image: url(${props => props.bg});
   position: relative;
-  background: linear-gradient(180deg, #804fcb 0%, #4bb982 100%);
+  background: linear-gradient(180deg, #78c7a7 40%, #a67cbc 90%);
   main{
     flex: 1;
     background: rgba(252, 246, 249, 0.78);
