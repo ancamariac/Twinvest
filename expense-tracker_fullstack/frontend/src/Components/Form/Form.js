@@ -40,6 +40,7 @@ function Form() {
 
     return (
     <FromStyled onSubmit={handleSubmit}>
+        {error && <p className='error'>{error}</p>}
         <div className="input-control">
             <input 
                 type="text"
