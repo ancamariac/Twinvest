@@ -36,7 +36,7 @@ function Navigation({active, setActive}) {
                 })}
             </ul>
             <div className="bottom-nav">
-                <button class="signout-button" onClick={logout()}>
+                <button class="signout-button" onClick={logout}>
                     {signout} &nbsp; Sign Out
                 </button>
             </div>
