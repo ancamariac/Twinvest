@@ -5,7 +5,7 @@ import { menuItems } from '../../utils/menuItems'
 import { useGlobalContext } from "../../context/globalContext";
 
 function Navigation({active, setActive}) {
-    const {getToken, getUser} = useGlobalContext();
+    const {getUser} = useGlobalContext();
     
     let username = getUser().user.username;
     
@@ -36,7 +36,7 @@ function Navigation({active, setActive}) {
                 })}
             </ul>
             <div className="bottom-nav">
-                <button class="signout-button" onClick={logout}>
+                <button className="signout-button" onClick={logout}>
                     {signout} &nbsp; Sign Out
                 </button>
             </div>
