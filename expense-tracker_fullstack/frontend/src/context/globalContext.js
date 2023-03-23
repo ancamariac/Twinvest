@@ -43,7 +43,11 @@ export const GlobalProvider = ({children}) => {
 
     //calculate expenses
     const addExpense = async (expense) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, expense)
+        const token = getToken();
+        const response = await axios.post(`${BASE_URL}add-expense`, expense, {
+            headers: {
+              'Authorization': `Basic ${token}` 
+            }})
             .catch((err) =>{
                 setError(err.response.data.message)
             })
