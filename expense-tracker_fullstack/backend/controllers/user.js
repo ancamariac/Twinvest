@@ -9,7 +9,7 @@ exports.createUser = async (req, res) => {
         return res.json({success: false, message: "This email is already in use, try sign-in"});
     } else {
         const user = await User({
-           username, email, password
+            username, email, password
         });
         await user.save();
         const token = jwt.sign({userId: user._id}, process.env.JWTSECRETKEY, {expiresIn: '1d'});

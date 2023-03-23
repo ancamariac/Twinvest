@@ -4,12 +4,18 @@ const ExpenseSchema = require("../models/ExpenseModel")
 exports.addExpense = async (req, res) => {
     const {title, amount, category, description, date}  = req.body
 
+    const userId = req.user; 
+
+    console.log('User ID:', userId);
+    console.log('Expense data:', { title, amount, category, description, date });
+
     const expense = ExpenseSchema({
         title,
         amount,
         category,
         description,
-        date
+        date,
+        userId
     })
 
     try {
@@ -30,6 +36,7 @@ exports.addExpense = async (req, res) => {
 }
 
 exports.getExpense = async (req, res) =>{
+
     try {
         const expenses = await ExpenseSchema.find().sort({createdAt: -1})
         res.status(200).json(expenses)
