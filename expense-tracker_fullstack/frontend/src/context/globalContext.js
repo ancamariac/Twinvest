@@ -14,7 +14,11 @@ export const GlobalProvider = ({children}) => {
 
     //calculate incomes
     const addIncome = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-income`, income)
+        const token = getToken();
+        const response = await axios.post(`${BASE_URL}add-income`, income, {
+            headers: {
+            'Authorization': `Basic ${token}` 
+            }})
             .catch((err) =>{
                 setError(err.response.data.message)
             })
@@ -22,7 +26,11 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getIncomes = async () => {
-        const response = await axios.get(`${BASE_URL}get-incomes`)
+        const token = getToken();
+        const response = await axios.get(`${BASE_URL}get-incomes`, {
+            headers: {
+                'Authorization': `Basic ${token}` 
+            }})
         setIncomes(response.data)
         console.log(response.data)
     }
@@ -46,7 +54,7 @@ export const GlobalProvider = ({children}) => {
         const token = getToken();
         const response = await axios.post(`${BASE_URL}add-expense`, expense, {
             headers: {
-              'Authorization': `Basic ${token}` 
+            'Authorization': `Basic ${token}` 
             }})
             .catch((err) =>{
                 setError(err.response.data.message)
@@ -58,7 +66,7 @@ export const GlobalProvider = ({children}) => {
         const token = getToken();
         const response = await axios.get(`${BASE_URL}get-expenses`, {
             headers: {
-              'Authorization': `Basic ${token}` 
+                'Authorization': `Basic ${token}` 
             }})
         setExpenses(response.data)
         console.log(response.data)

@@ -31,8 +31,19 @@ function Chart() {
 
     const {incomes, expenses} = useGlobalContext()
 
-    const data = {
-        labels: incomes.map((inc) =>{
+    let incomes_sorted = incomes.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+    });
+
+    let expenses_sorted = expenses.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+    });
+
+    console.log('expenses_sorted', expenses_sorted)
+
+    const data_incomes = {
+        labels:         
+            incomes_sorted.map((inc) =>{
             const {date} = inc
             return dateFormat(date)
         }),
@@ -40,18 +51,28 @@ function Chart() {
             {
                 label: 'Income',
                 data: [
-                    ...incomes.map((income) => {
+                    ...incomes_sorted.map((income) => {
                         const {amount} = income
                         return amount
                     })
                 ],
                 backgroundColor: 'green',
                 tension: .2
-            },
+            }
+        ]
+    }
+
+    const data_expenses = {
+        labels:         
+            expenses_sorted.map((inc) =>{
+            const {date} = inc
+            return dateFormat(date)
+        }),
+        datasets: [
             {
                 label: 'Expenses',
                 data: [
-                    ...expenses.map((expense) => {
+                    ...expenses_sorted.map((expense) => {
                         const {amount} = expense
                         return amount
                     })
@@ -63,15 +84,26 @@ function Chart() {
     }
     
     return (
-    <ChartStyled>
-        <Line data={data} options={options}/>
-    </ChartStyled>
+    <div >
+        <ChartStyled>
+            <Line data={data_incomes} options={options}/>
+        </ChartStyled>
+        <br></br>
+        <ChartStyled>
+            <Line data={data_expenses} options={options}/>
+        </ChartStyled>
+    </div>
     )
 }
 
 const options = {
     responsive: true,
     maintainAspectRatio: false,
+    scales: {
+        y: {
+            min: 0
+        }
+    }
 }
 
 const ChartStyled = styled.div`
