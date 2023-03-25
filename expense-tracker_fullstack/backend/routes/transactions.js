@@ -4,8 +4,8 @@ const { isAuth } = require("../middleware/auth");
 
 const router = require('express').Router();
 
-router.post('/add-income', addIncome)
-    .get('/get-incomes', getIncomes)
+router.post('/add-income', isAuth, addIncome)
+    .get('/get-incomes', isAuth, getIncomes)
     .delete('/delete-income/:id', deleteIncome)
     .post('/add-expense', isAuth, addExpense)
     .get('/get-expenses', isAuth, getExpense)
