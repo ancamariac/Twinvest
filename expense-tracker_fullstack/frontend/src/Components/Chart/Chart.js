@@ -1,4 +1,5 @@
 import React from 'react'
+import {useState} from 'react'
 import {Chart as ChartJs, 
     CategoryScale,
     LinearScale,
@@ -28,8 +29,13 @@ ChartJs.register(
 )
 
 function Chart() {
-
+    const [displayinc, setDisplayInc] = useState(true);
     const {incomes, expenses} = useGlobalContext()
+
+    function pressButton() {
+        setDisplayInc(!displayinc);
+        console.log(displayinc)
+      }
 
     let incomes_sorted = incomes.sort(function(a,b){
         return new Date(a.date) - new Date(b.date);
@@ -82,18 +88,23 @@ function Chart() {
             }
         ]
     }
-    
-    return (
-    <div >
-        <ChartStyled>
-            <Line data={data_incomes} options={options}/>
-        </ChartStyled>
-        <br></br>
-        <ChartStyled>
-            <Line data={data_expenses} options={options}/>
-        </ChartStyled>
-    </div>
-    )
+    let res;
+    if (displayinc) {
+        res = <div style={{height:'100%'}}>
+            <button onClick={() => pressButton()} >Expenses</button> 
+            <ChartStyled>
+                <Line data={data_incomes} options={options}/>
+            </ChartStyled>  
+        </div>
+    } else {
+        res = <div>
+            <button onClick={() => pressButton()} >Incomes</button>
+            <ChartStyled>
+                <Line data={data_expenses} options={options}/>   
+            </ChartStyled>
+        </div>
+    }
+    return (res)
 }
 
 const options = {
