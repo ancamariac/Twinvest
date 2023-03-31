@@ -37,15 +37,15 @@ function Login({goHome}) {
         <AppStyled>
             <CenteredModal>
                 <h1> Login </h1>
-                <form class="standard-form">
-                    <input class="input-line" type="email" onChange={(e) => {setEmail(e.target.value)}} placeholder="Email"/>
-                    <input class="input-line" type="password" onChange={(e) => {setPassword(e.target.value)}} placeholder="Password"/>
-                    <input class="submit-button" type="submit" onClick={(e) => login(e)}/>
+                <form className="standard-form">
+                    <input className="input-line" type="email" onChange={(e) => {setEmail(e.target.value)}} placeholder="Email"/>
+                    <input className="input-line" type="password" onChange={(e) => {setPassword(e.target.value)}} placeholder="Password"/>
+                    <input className="submit-button" type="submit" onClick={(e) => login(e)}/>
                 </form>
                 <br></br>
-                <div class="change-modal-text">
+                <div className="change-modal-text">
                     You don't have an account yet? Go to
-                    <Link class="link" to="/register">Register</Link>
+                    <Link className="link" to="/register">Register</Link>
                 </div>
 
             </CenteredModal>
@@ -60,7 +60,23 @@ const AppStyled = styled.div`
     background: linear-gradient(180deg, #78c7a7 40%, #a67cbc 90%);
     .standard-form {
         padding-top: 30px;
-    }   
+    }
+    input, textarea, select{
+        font-family: 'Nunito', sans-serif;
+        font-size: inherit;
+        outline: none;
+        border: none;
+        padding: .5rem 1rem;
+        border-radius: 5px;
+        border: 2px solid #fff;
+        background: transparent;
+        resize: none;
+        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+        color: rgba(34, 34, 96, 0.9);
+        &::placeholder{
+            color: rgba(34, 34, 96, 0.4);
+        }
+    }
 `
 
 export default Login;

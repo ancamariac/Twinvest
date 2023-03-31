@@ -9,8 +9,9 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     .submit-button {
+        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
         width: 100%;
-        background: rgba(34, 34, 96, 0.6);
+        background: rgba(50, 34, 96, 0.6);
         border: none;
         height: 5vh;
         border-radius: 10px;
@@ -18,6 +19,7 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 16px;
         opacity: 0.9;
         cursor: pointer;
+        
     }
     .change-modal-text {
         display: flex;
@@ -29,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     .input-line {
         width:100%;
-        font-size: 16px;
+        font-size: 30x;
         padding: 4px;
         margin-bottom: 20px;
     }

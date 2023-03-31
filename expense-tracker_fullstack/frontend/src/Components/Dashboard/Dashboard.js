@@ -63,7 +63,7 @@ return (
                         ${Math.max(...expenses.map(item => item.amount))}
                     </p>
                 </div>
-              </div>
+            </div>
             </div>
         </InnerLayout>
     </DashboardStyled>

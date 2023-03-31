@@ -35,7 +35,7 @@ function Chart() {
     function pressButton() {
         setDisplayInc(!displayinc);
         console.log(displayinc)
-      }
+    }
 
     let incomes_sorted = incomes.sort(function(a,b){
         return new Date(a.date) - new Date(b.date);
@@ -97,7 +97,7 @@ function Chart() {
             </ChartStyled>  
         </div>
     } else {
-        res = <div>
+        res = <div style={{height:'100%'}}>
             <button onClick={() => pressButton()} >Incomes</button>
             <ChartStyled>
                 <Line data={data_expenses} options={options}/>   
