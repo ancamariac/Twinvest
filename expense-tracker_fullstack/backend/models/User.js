@@ -44,7 +44,6 @@ userSchema.statics.isThisEmailInUse = async function(email) {
     }
 }
 
-
 userSchema.methods.comparePassword = async function(password) {
     if (!password) {
         throw new Error('Password is missing!')

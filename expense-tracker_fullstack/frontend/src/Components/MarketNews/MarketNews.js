@@ -5,9 +5,9 @@ import { InnerLayout } from '../../styles/Layouts';
 import Form from '../Form/Form';
 import IncomeItem from '../IncomeItem/IncomeItem';
 
-function Income() {
+function MarketNews() {
 
-  const {incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
+  const { incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
 
   useEffect(() =>{
     getIncomes()
@@ -76,4 +76,4 @@ const IncomeStyled = styled.div`
     }
 `;
 
-export default Income
+export default MarketNews

@@ -1,6 +1,6 @@
-import React, { useContext, useState, setState} from "react"
+import React, { useState } from "react"
 import axios from "axios";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../context/globalContext";
 import { CenteredModal } from "../../styles/Layouts";
 import styled from "styled-components";

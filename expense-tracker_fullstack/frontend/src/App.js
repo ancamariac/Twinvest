@@ -6,7 +6,7 @@ import Home from './Components/Home/Home';
 import jwtDecode from 'jwt-decode';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [setIsAuthenticated] = useState(false);
 
 
   function goHome()  {

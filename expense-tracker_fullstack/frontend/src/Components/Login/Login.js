@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useState } from "react"
 import axios from "axios";
 import { Link, useNavigate} from "react-router-dom";
 import { useGlobalContext } from "../../context/globalContext";
@@ -76,6 +76,7 @@ const AppStyled = styled.div`
         &::placeholder{
             color: rgba(34, 34, 96, 0.4);
         }
+
     }
 `
 

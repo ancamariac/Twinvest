@@ -1,13 +1,13 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components";
 import bg from '../../img/bg.png'
 import { MainLayout } from "../../styles/Layouts";
-import Orb from '../Orb/Orb'
 import Navigation from "../Navigation/Navigation";
 import Dashboard from '../Dashboard/Dashboard';
 import Income from '../Income/Income';
 import Expenses from '../Expenses/Expenses';
- 
+import MarketNews from '../MarketNews/MarketNews';
+
 function Home() {
   const [active, setActive] = useState(1)
 
@@ -16,7 +16,7 @@ function Home() {
       case 1:
         return <Dashboard />
       case 2:
-        return <Dashboard />
+        return <MarketNews />
       case 3:
         return <Income />
       case 4: 
@@ -26,13 +26,8 @@ function Home() {
     }
   }
 
-  const orbMemo = useMemo(() => {
-    return <Orb />
-  },[])
-
   return (
     <AppStyled bg={bg} className="Home">
-      {orbMemo}
       <MainLayout>
         <Navigation active={active} setActive={setActive}/>
         <main>
@@ -48,7 +43,7 @@ const AppStyled = styled.div`
   width: 100%;
   background-image: url(${props => props.bg});
   position: relative;
-  background: linear-gradient(180deg, #78c7a7 40%, #a67cbc 90%);
+  background: rgba(34, 34, 96, .6);
   main{
     flex: 1;
     background: rgba(252, 246, 249, 0.78);
