@@ -8,14 +8,14 @@ import History from '../../History/History';
 
 function Dashboard() {
 
-  const {totalExpenses, incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
+const {totalExpenses, incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
 
-  useEffect(() =>{
-    getIncomes()
-    getExpenses()
-  }, [])
+    useEffect(() =>{
+        getIncomes()
+        getExpenses()
+    }, [])
 
-  return (
+return (
     <DashboardStyled>
         <InnerLayout>
             <h1>All transactions</h1>

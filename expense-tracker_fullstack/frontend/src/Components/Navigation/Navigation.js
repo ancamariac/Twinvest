@@ -96,7 +96,7 @@ const NavStyled = styled.nav`
             position: relative;
             i{
                 color: rgba(34, 34, 96, 0.6);
-                font-size: 1.4rem;
+                font-size: 1.6rem;
                 transition: all .4s ease-in-out;
             }
         }
@@ -121,6 +121,7 @@ const NavStyled = styled.nav`
 
     .signout-button {
         grid-template-columns: 40px auto;
+        font-family: 'Nunito', sans-serif;
         align-items: center;
         font-weight: 500;
         cursor: pointer;
@@ -132,7 +133,7 @@ const NavStyled = styled.nav`
         padding: 3px 5px 3px 5px;
         display: flex;
         background: initial;
-        font-size: 15px;
+        font-size: 20px;
     }
 `;
 

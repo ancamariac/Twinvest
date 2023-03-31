@@ -7,7 +7,7 @@ import IncomeItem from '../IncomeItem/IncomeItem';
 
 function Income() {
 
-  const {addIncome,incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
+  const {addIncome, incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
 
   useEffect(() =>{
     getIncomes()
@@ -71,7 +71,7 @@ const IncomeStyled = styled.div`
         display: flex;
         gap: 2rem;
         .incomes{
-            flex: 1;
+          flex: 1;
         }
     }
 `;

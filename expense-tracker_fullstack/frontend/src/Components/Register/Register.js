@@ -2,6 +2,8 @@ import React, { useContext, useState, setState} from "react"
 import axios from "axios";
 import { Link, redirect } from "react-router-dom";
 import { useGlobalContext } from "../../context/globalContext";
+import { CenteredModal } from "../../styles/Layouts";
+import styled from "styled-components";
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
@@ -48,25 +50,43 @@ function Register() {
     }
 
     return(
-        <div className="register">
-            <h1> Register </h1>
-            
-            <form>
-                <input type="text" value={username} id="username" onChange = {(e) => handleInputChange(e)} placeholder="Username"/>
-                <input type="email"  value={email} id="email" onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
-                <input type="password"  value={password} id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
-                <input type="password"  value={confirmPassword} id="confirmPassword" onChange = {(e) => handleInputChange(e)}  placeholder="Password"/>
+        <AppStyled>
 
-                <input type="submit" onClick={(e) => register(e)} />
-            </form>
+            <CenteredModal>
 
-            <br>
-            </br>
+                <div className="register">
+                    <h1> Register </h1>
 
-            <Link to="/">Login</Link>
-        </div>
+                    <form class="standard-form">
+                        <input class="input-line" type="text" value={username} id="username" onChange = {(e) => handleInputChange(e)} placeholder="Username"/>
+                        <input class="input-line" type="email"  value={email} id="email" onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
+                        <input class="input-line" type="password"  value={password} id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
+                        <input class="input-line" type="password"  value={confirmPassword} id="confirmPassword" onChange = {(e) => handleInputChange(e)}  placeholder="Password"/>
+
+                        <input  class="submit-button" type="submit" onClick={(e) => register(e)} />
+                    </form>
+
+                    <br>
+                    </br>
+                    <div class="change-modal-text">
+                        Already have an account?  <Link class="link" to="/">Login</Link>
+                    </div>
+
+                </div>
+            </CenteredModal>
+        </AppStyled>
     );
 
 }
+
+const AppStyled = styled.div`
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(180deg, #78c7a7 40%, #a67cbc 90%);
+    .standard-form {
+        padding-top: 30px;
+    }
+    
+`
 
 export default Register;

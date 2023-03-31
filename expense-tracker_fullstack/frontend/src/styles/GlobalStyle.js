@@ -8,6 +8,32 @@ export const GlobalStyle = createGlobalStyle`
         list-style: none;
     }
 
+    .submit-button {
+        width: 100%;
+        background: rgba(34, 34, 96, 0.6);
+        border: none;
+        height: 5vh;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        opacity: 0.9;
+        cursor: pointer;
+    }
+    .change-modal-text {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .submit-button:hover {
+        opacity: 1;
+    }
+    .input-line {
+        width:100%;
+        font-size: 16px;
+        padding: 4px;
+        margin-bottom: 20px;
+    }
+
     :root{
         --primary-color: #222260;
         --primary-color2: 'color: rgba(34, 34, 96, .6)';
@@ -50,4 +76,17 @@ export const GlobalStyle = createGlobalStyle`
             }
         }
     }
+
+    .link {
+        text-decoration: none;
+        width: fit-content;
+        margin-left: 5px;
+        opacity: 0.9;
+    }
+    
+    .link:hover {
+        opacity: 1;
+    }
+
+    
 `;

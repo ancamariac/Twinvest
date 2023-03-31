@@ -1,6 +1,5 @@
-import {React, useState, useEffect} from 'react'
-import { useGlobalContext } from './context/globalContext';
-import {BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {React, useState} from 'react'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import Home from './Components/Home/Home';
