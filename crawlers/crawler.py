@@ -19,8 +19,8 @@ access_token_secret = os.getenv("ACCESS_TOKEN_SECRET")
 
 # set up the MongoDB connection
 client = pymongo.MongoClient(os.getenv("MONGO_URI"))
-db = client.twinvest
-collection = db.tweet
+db = client.test
+collection = db.tweets
 
 search_words = stocks
 

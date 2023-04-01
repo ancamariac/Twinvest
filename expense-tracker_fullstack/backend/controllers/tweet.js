@@ -1,26 +1,32 @@
-const TwitterCardSchema = require("../models/TweetModel")
+const TweetSchema = require("../models/TweetModel")
 
-/*
+
 exports.addTweet = async (req, res) => {
     const {name, username, description, date, url, tags}  = req.body
 
     //const userid = req.user["_id"];
 
     //console.log('User ID:', userid);
-    console.log('Tweet:', {name, username, description, date, url, tags});
+    console.log('Tweet:', {name, username, tweet, date, profile_image, followers, likes, spurce, retweets, hashtags, mentions, tweet_link});
 
-    const tweet = TwitterCardSchema({
+    const tweet = TweetSchema({
         name, 
         username, 
-        description, 
+        tweet, 
         date, 
-        url, 
-        tags
+        profile_image, 
+        followers,
+        likes,
+        source,
+        retweets,
+        hashtags,
+        mentions,
+        tweet_link
     })
 
     try {
         //validations
-        if(!name || !username || !description || !date || !url || !tags){
+        if(!name || !username || !tweet || !date){
             return res.status(400).json({message: 'All fields are required!'})
         }
         await tweet.save()
@@ -32,7 +38,7 @@ exports.addTweet = async (req, res) => {
 
     console.log(tweet)
 }
-*/
+
 exports.getTweets = async (req, res) =>{
     const userId = req.user["_id"];
     try {

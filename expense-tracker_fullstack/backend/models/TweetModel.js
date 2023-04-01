@@ -13,10 +13,10 @@ const TweetSchema = new mongoose.Schema({
         trim: true,
         maxLength: 50
     },
-    description: {
+    tweet: {
         type: String,
         required: true,
-        maxLength: 60,
+        maxLength: 200,
         trim: true
     },
     date: {
@@ -24,15 +24,41 @@ const TweetSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    /*profile: {
-        data: Buffer,
-        contentType: String,
-    },*/
-    url: {
+    profile_image: {
         type: String,
+        required: true,
+        maxLength: 100,
+        trim: true
+    },
+    followers: {
+        type: Number,
+        integerOnly: true,
         required: true
     },
-    tags: [String]
+    likes: {
+        type: Number,
+        integerOnly: true,
+        required: true
+    },
+    source: {
+        type: String,
+        required: true,
+        maxLength: 100,
+        trim: true
+    },
+    retweets: {
+        type: Number,
+        integerOnly: true,
+        required: true
+    },
+    hashtags: [String],
+    mentions: [String],
+    tweet_link: {
+        type: String,
+        required: true,
+        maxLength: 200,
+        trim: true
+    }
 }, {timestamps: true})
 
 module.exports = mongoose.model('Tweet', TweetSchema)
