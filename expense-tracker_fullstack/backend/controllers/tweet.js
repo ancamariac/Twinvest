@@ -1,19 +1,19 @@
 const TwitterCardSchema = require("../models/TweetModel")
 
+/*
 exports.addTweet = async (req, res) => {
-    const {name, username, description, date, /*profile,*/ url, tags}  = req.body
+    const {name, username, description, date, url, tags}  = req.body
 
     //const userid = req.user["_id"];
 
     //console.log('User ID:', userid);
-    console.log('Tweet:', {name, username, description, date, /*profile,*/ url, tags});
+    console.log('Tweet:', {name, username, description, date, url, tags});
 
     const tweet = TwitterCardSchema({
         name, 
         username, 
         description, 
         date, 
-        /*profile,*/ 
         url, 
         tags
     })
@@ -32,7 +32,7 @@ exports.addTweet = async (req, res) => {
 
     console.log(tweet)
 }
-
+*/
 exports.getTweets = async (req, res) =>{
     const userId = req.user["_id"];
     try {

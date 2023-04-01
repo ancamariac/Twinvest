@@ -4,49 +4,35 @@ import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
 import Form from '../Form/Form';
 import IncomeItem from '../IncomeItem/IncomeItem';
+import TweetCard from "react-tweet-card";
+import { Container } from "reactstrap";
 
 function MarketNews() {
 
-  const { incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
+  const { incomes, getIncomes } = useGlobalContext()
 
   useEffect(() =>{
     getIncomes()
   }, [])
   
   return (
-    <IncomeStyled>
+    <TweetStyled>
       <InnerLayout>
-        <h1>Incomes</h1>
-        <h2 className="total-income">Total income: <span>${totalIncome()}</span></h2>
+        <h1>Check the latest tweets 🐦</h1>
+        <br></br>
         <div className="income-content">
           <div className="form-container">
             <Form/>
           </div>
-            <div className="incomes">
-            {incomes.map((income) => {
-              const {_id, title, amount, date, category, description, type} = income;
-              return <IncomeItem
-                  key={_id}
-                  id={_id} 
-                  title={title} 
-                  description={description} 
-                  amount={amount} 
-                  date={date} 
-                  type={type}
-                  category={category} 
-                  indicatorColor="var(--color-green)"
-                  deleteItem={deleteIncome}
-              />
-            })}
-            </div>
+          
         </div>
           
       </InnerLayout>
-    </IncomeStyled>
+    </TweetStyled>
   )
 }
 
-const IncomeStyled = styled.div`
+const TweetStyled = styled.div`
     display: flex;
     overflow: auto;
     .total-income{
