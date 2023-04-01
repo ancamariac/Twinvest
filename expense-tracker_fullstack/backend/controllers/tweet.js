@@ -40,10 +40,10 @@ exports.addTweet = async (req, res) => {
 }
 
 exports.getTweets = async (req, res) =>{
-    const userId = req.user["_id"];
+   
     try {
-        const expenses = await ExpenseSchema.find().sort({createdAt: -1})
-        res.status(200).json(expenses)
+        const tweets = await TweetSchema.find().sort({createdAt: -1})
+        res.status(200).json(tweets)
     } catch (error) {
         res.status(500).json({message: 'Server Error'})
     }
