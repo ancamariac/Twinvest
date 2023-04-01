@@ -4,19 +4,14 @@ import { useGlobalContext } from '../../context/globalContext';
 import { InnerLayout } from '../../styles/Layouts';
 import Form from '../Form/Form';
 import IncomeItem from '../IncomeItem/IncomeItem';
-import TweetCard from "react-tweet-card";
 import { Container } from "reactstrap";
+import Tweet from "../Tweet/Tweet"
+import TweetCard from "react-tweet-card";
 
 function MarketNews() {
 
-  const { incomes, getIncomes } = useGlobalContext()
-
-  useEffect(() =>{
-    getIncomes()
-  }, [])
-  
   return (
-    <TweetStyled>
+    <MarketNewsStyled>
       <InnerLayout>
         <h1>Check the latest tweets 🐦</h1>
         <br></br>
@@ -28,11 +23,12 @@ function MarketNews() {
         </div>
           
       </InnerLayout>
-    </TweetStyled>
+      
+    </MarketNewsStyled>
   )
 }
 
-const TweetStyled = styled.div`
+const MarketNewsStyled = styled.div`
     display: flex;
     overflow: auto;
     .total-income{

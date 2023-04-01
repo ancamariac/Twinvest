@@ -40,7 +40,6 @@ exports.addTweet = async (req, res) => {
 }
 
 exports.getTweets = async (req, res) =>{
-   
     try {
         const tweets = await TweetSchema.find().sort({createdAt: -1})
         res.status(200).json(tweets)

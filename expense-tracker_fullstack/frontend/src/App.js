@@ -24,12 +24,11 @@ function App() {
       }
     }
   }
-
   return (
       <div className="app">
         <Router>
             <Routes>
-              <Route path="/" element={<Login goHome={goHome}/>} />
+              <Route path="/login" element={<Login goHome={goHome}/>} />
               <Route path="/register" element={<Register/>} />
               <Route path="/home" element={<Home/>}/>              
               

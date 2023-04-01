@@ -12,6 +12,5 @@ router.post('/add-income', isAuth, addIncome)
     .get('/get-expenses', isAuth, getExpense)
     .delete('/delete-expense/:id', deleteExpense)
     .get('/get-tweets', getTweets)
-    .post('/add-tweet', addTweet)
 
 module.exports = router
