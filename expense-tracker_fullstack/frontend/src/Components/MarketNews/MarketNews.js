@@ -1,61 +1,45 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { useGlobalContext } from '../../context/globalContext';
-import { InnerLayout } from '../../styles/Layouts';
-import Form from '../Form/Form';
-import IncomeItem from '../IncomeItem/IncomeItem';
-import { Container } from "reactstrap";
-import Tweet from "../Tweet/Tweet"
-import TweetCard from "react-tweet-card";
+import Tweet from '../Tweet/Tweet'
+import axios from 'axios'
+
+const BASE_URL = "http://localhost:5000/api/v1/";
 
 function MarketNews() {
 
+  const [tweets, setTweets] = useState('');  
+  
+  useEffect(() => {
+    async function getTweets() {
+      const response = await axios.get(`${BASE_URL}get-tweets`)
+      setTweets(response.data)
+    }
+    // Update the document title using the browser API
+    getTweets()
+  }, []);
+
+  console.log(tweets[0])
   return (
-    <MarketNewsStyled>
-      <InnerLayout>
-        <h1>Check the latest tweets 🐦</h1>
-        <br></br>
-        <div className="income-content">
-          <div className="form-container">
-            <Form/>
-          </div>
-          
-        </div>
-          
-      </InnerLayout>
-      
-    </MarketNewsStyled>
+    <>
+    {(tweets !== '') && 
+    <TweetStyled>
+        <Tweet {...tweets[0]}/>
+        <Tweet {...tweets[1]}/>
+        <Tweet {...tweets[2]}/>
+        <Tweet {...tweets[3]}/>
+        <Tweet {...tweets[4]}/>
+        <Tweet {...tweets[5]}/>
+        <Tweet {...tweets[6]}/>
+    </TweetStyled>}
+
+    </>
   )
 }
 
-const MarketNewsStyled = styled.div`
-    display: flex;
-    overflow: auto;
-    .total-income{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #FCF6F9;
-        border: 2px solid #FFFFFF;
-        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-        border-radius: 20px;
-        padding: 1rem;
-        margin: 1rem 0;
-        font-size: 2rem;
-        gap: .5rem;
-        span{
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--color-green);
-        }
-    }
-    .income-content{
-        display: flex;
-        gap: 2rem;
-        .incomes{
-          flex: 1;
-        }
-    }
+const TweetStyled = styled.div`
+    display: block;
+    margin-bottom: 10px;
 `;
 
 export default MarketNews
