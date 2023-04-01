@@ -3,8 +3,6 @@ import csv
 import tweepy as tw
 import os
 import pymongo
-import requests
-from io import BytesIO
 from dotenv import load_dotenv
 from crypto import crypto
 from general_economy import economicTerms
@@ -31,6 +29,10 @@ stocks = [word.lower() for word in stocks]
 
 search_words = crypto + economicTerms + stocks
 
+#search_words = ["Bitcoin", "Ethereum", "Cardano", "Tesla", "Apple", "Microsoft"]
+#print(search_words[1:200])
+#exit(0)
+
 # set the number of tweets to retrieve
 num_of_tweets = 1
 
@@ -40,7 +42,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tw.API(auth, wait_on_rate_limit=True)
 
 # search for the tweets and write them to a CSV file
-tweets = tw.Cursor(api.search_tweets, q=search_words, lang="en", tweet_mode="extended").items(num_of_tweets)
+tweets = tw.Cursor(api.search_tweets, q=crypto, lang="en", tweet_mode="extended").items(num_of_tweets)
 for tweet in tweets:
     
     tweet_data = {
