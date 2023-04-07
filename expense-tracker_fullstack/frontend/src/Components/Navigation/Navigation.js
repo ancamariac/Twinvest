@@ -11,7 +11,7 @@ function Navigation({active, setActive}) {
     
     function logout() {
         sessionStorage.clear();
-        window.location.href = '/login';
+        window.location.href = '/';
     }
 
     return (
