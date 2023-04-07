@@ -33,7 +33,15 @@ export const GlobalStyle = createGlobalStyle`
         width:100%;
         font-size: 30x;
         padding: 4px;
-        margin-bottom: 20px;
+    }
+
+    .input-with-error {
+        margin-bottom: 15px;
+
+        p {
+            color: var(--color-error);
+            padding: 5px;
+        }
     }
 
     :root{
@@ -44,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
         --color-grey: #aaa;
         --color-accent: #F56692;
         --color-delete: #FF0000;
+        --color-error: #FF3333;
     }
 
     body{

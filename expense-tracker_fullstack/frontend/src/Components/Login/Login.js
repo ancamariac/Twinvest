@@ -10,9 +10,12 @@ function Login({goHome}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const navigate = useNavigate()
+    const [errorType, setErrorType] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const {saveToken, saveUser} = useGlobalContext();
+
+    const navigate = useNavigate();
 
     async function login(e) {
         e.preventDefault();
@@ -25,7 +28,10 @@ function Login({goHome}) {
                     saveUser(result.data);
                     navigate('/home');
                 } else {
-                    alert(result.data.message);
+                    if (result.data.type) {
+                        setErrorType(result.data.type);
+                        setErrorMessage(result.data.message);
+                    }
                 }
             }
         ).catch((error) => {
@@ -38,8 +44,15 @@ function Login({goHome}) {
             <CenteredModal>
                 <h1> Login </h1>
                 <form className="standard-form">
-                    <input className="input-line" type="email" onChange={(e) => {setEmail(e.target.value)}} placeholder="Email"/>
-                    <input className="input-line" type="password" onChange={(e) => {setPassword(e.target.value)}} placeholder="Password"/>
+                    <div className="input-with-error">
+                        <input className="input-line" type="email" required={true} onChange={(e) => {setEmail(e.target.value)}} placeholder="Email"/>
+                        <p style={{display: errorType === 'email' || errorType === 'user' ? 'flex' : 'none'}}> {errorMessage}</p>
+                    </div>
+                    
+                    <div className="input-with-error">
+                        <input className="input-line" type="password" required={true} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password"/>
+                        <p style={{display: errorType === 'password' ? 'flex' : 'none'}}> {errorMessage} </p>
+                    </div>
                     <input className="submit-button" type="submit" onClick={(e) => login(e)}/>
                 </form>
                 <br></br>

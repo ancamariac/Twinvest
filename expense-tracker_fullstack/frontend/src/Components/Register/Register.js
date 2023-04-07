@@ -13,6 +13,9 @@ function Register() {
     const [username, setUsername] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [errorType, setErrorType] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+
     const {saveToken, saveUser} = useGlobalContext();
 
     async function register(e) {
@@ -27,7 +30,10 @@ function Register() {
                 saveUser(result.data);
                 window.location.href = '/home';
             } else {
-                alert(result.data.message);
+                if (result.data.type) {
+                    setErrorType(result.data.type);
+                    setErrorMessage(result.data.message);
+                }
             }
         })
         .catch((err) =>{
@@ -58,10 +64,25 @@ function Register() {
                     <h1> Register </h1>
 
                     <form className="standard-form">
-                        <input className="input-line" type="text" value={username} id="username" onChange = {(e) => handleInputChange(e)} placeholder="Username"/>
-                        <input className="input-line" type="email"  value={email} id="email" onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
-                        <input className="input-line" type="password"  value={password} id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
-                        <input className="input-line" type="password"  value={confirmPassword} id="confirmPassword" onChange = {(e) => handleInputChange(e)}  placeholder="Password"/>
+                        <div className="input-with-error">
+                            <input className="input-line" type="text" required={true} value={username} id="username" onChange = {(e) => handleInputChange(e)} placeholder="Username"/>
+                            <p style={{display: errorType === 'username' ? 'flex' : 'none'}}> {errorMessage} </p>
+                        </div>
+
+                        <div className="input-with-error"> 
+                            <input className="input-line" type="email" required={true}  value={email} id="email" onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
+                            <p style={{display: errorType === 'email' ? 'flex' : 'none'}}> {errorMessage} </p>
+                        </div>
+                        
+                        <div className="input-with-error">
+                            <input className="input-line" type="password" required={true}  value={password} id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
+                            <p style={{display: errorType === 'password' ? 'flex' : 'none'}}> {errorMessage} </p>
+                        </div>
+
+                        <div className="input-with-error">
+                            <input className="input-line" type="password" required={true} value={confirmPassword} id="confirmPassword" onChange = {(e) => handleInputChange(e)}  placeholder="Password"/>
+                            <p style={{display: errorType === 'confirmPassword' ? 'flex' : 'none'}}> {errorMessage} </p>
+                        </div>
 
                         <input  className="submit-button" type="submit" onClick={(e) => register(e)} />
                     </form>
