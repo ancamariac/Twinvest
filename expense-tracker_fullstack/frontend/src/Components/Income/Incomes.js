@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useGlobalContext } from '../../context/globalContext';
-import Form from '../Form/Form';
+import Form from './IncomeForm';
 import Item from '../Transaction/Transaction';
 
 function Income() {
