@@ -6,7 +6,7 @@ exports.createUser = async (req, res) => {
     const {username, email, password } = req.body;
     const isNewUser = await User.isThisEmailInUse(email);
     if (!isNewUser) {
-        return res.json({success: false, message: "This email is already in use, try sign-in"});
+        return res.json({success: false, type: 'email', message: "This email is already in use, try sign-in"});
     } else {
         const user = await User({
             username, email, password
@@ -22,12 +22,12 @@ exports.userSignIn = async (req, res) => {
     console.log(req.body);
     const user = await User.findOne({email: email});
     if (!user) {
-        return res.json({success: false, message: 'User not found!'});
+        return res.json({success: false, type: 'user', message: 'User not found!'});
     } else {
         const isMatch = await user.comparePassword(password);
 
         if (!isMatch) {
-            return res.json({success: false, message: 'Email or  password does not match!'});
+            return res.json({success: false, type: 'password', message: 'Invalid password!'});
         } else {
             const token = jwt.sign({userId: user._id}, process.env.JWTSECRETKEY, {expiresIn: '1d'});
             res.json({success:  true, user, token});

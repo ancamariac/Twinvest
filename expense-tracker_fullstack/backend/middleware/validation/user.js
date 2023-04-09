@@ -38,11 +38,11 @@ exports.userValidation = (req, res, next) => {
         return next();
     } else {
         const error = result[0].msg;
-        return res.json({success: false, message: error});
+        return res.json({success: false, type: result[0].param, message: error});
     }
 }
 
 exports.validateUserSignIn = [
-    check('email').trim().isEmail().withMessage('email / password is required!'),
-    check('password').trim().notEmpty().withMessage('email / password is required!')
+    check('email').trim().isEmail().withMessage('Invalid email!'),
+    check('password').trim().notEmpty().withMessage('Invalid password!')
 ]

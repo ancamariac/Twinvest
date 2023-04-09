@@ -54,6 +54,15 @@ const AppStyled = styled.div`
     &::-webkit-scrollbar{
       width: 0;
     }
+
+    .container {
+      height: 100%;
+      padding: 1rem;
+    }
+
+    .content-row {
+      height: 85%;
+    }
   }
 `;
 
