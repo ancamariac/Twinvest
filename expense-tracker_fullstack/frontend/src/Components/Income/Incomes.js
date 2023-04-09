@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useGlobalContext } from '../../context/globalContext';
-import Form from './IncomeForm';
+import IncomeForm from './IncomeForm';
 import Item from '../Transaction/Transaction';
 
-function Income() {
+function Incomes() {
 
   const {incomes, getIncomes, deleteIncome, totalIncome} = useGlobalContext()
 
@@ -22,7 +22,7 @@ function Income() {
         </div>
         <div className="income-content">
           <div className="form-container">
-            <Form/>
+            <IncomeForm/>
           </div>
             <div className="incomes">
             {incomes.map((income) => {
@@ -47,4 +47,4 @@ function Income() {
   )
 }
 
-export default Income
+export default Incomes

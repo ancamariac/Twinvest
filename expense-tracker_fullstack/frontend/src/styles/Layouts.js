@@ -23,8 +23,3 @@ export const CenteredModal = styled.div`
     padding: 20px;
     box-shadow: 10px 10px 5px #888888;
 `
-
-export const InnerLayout = styled.div`
-    padding: 2rem 1.5rem;
-    width: 100%;
-`;

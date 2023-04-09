@@ -9,7 +9,7 @@ function Expenses() {
 
     useEffect(() =>{
         getExpenses()
-    })
+    }, [])
     return (
         <div className="container">
             <div className="row">

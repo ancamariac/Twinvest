@@ -12,7 +12,7 @@ const {totalExpenses, incomes, expenses, totalIncome, totalBalance, getIncomes, 
     useEffect(() =>{
         getIncomes()
         getExpenses()
-    })
+    }, [])
 
     return (
         <div className="container">
