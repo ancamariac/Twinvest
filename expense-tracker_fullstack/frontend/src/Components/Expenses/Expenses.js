@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useGlobalContext } from '../../context/globalContext';
-import IncomeItem from '../IncomeItem/IncomeItem';
+import Item from '../Transaction/Transaction';
 import ExpenseForm from './ExpenseForm';
 import './Expenses.style.scss';
 
@@ -27,7 +27,7 @@ function Expenses() {
                         {expenses.map((income) => {
                             const {_id, title, amount, date, category, description, type} = income;
                             console.log(income)
-                            return <IncomeItem
+                            return <Item
                                 key={_id}
                                 id={_id} 
                                 title={title} 

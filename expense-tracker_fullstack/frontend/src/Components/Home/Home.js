@@ -4,7 +4,7 @@ import bg from '../../img/bg.png'
 import { MainLayout } from "../../styles/Layouts";
 import Navigation from "../Navigation/Navigation";
 import Dashboard from '../Dashboard/Dashboard';
-import Income from '../Income/Income';
+import Income from '../Income/Incomes';
 import Expenses from '../Expenses/Expenses';
 import MarketNews from '../MarketNews/MarketNews';
 

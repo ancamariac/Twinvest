@@ -17,7 +17,7 @@ function IncomeItem({
     type
 }) {
 
-    const categoryIcon = () =>{
+    const incomeCatIcon = () =>{
         switch(category) {
             case 'salary':
                 return money;
@@ -66,9 +66,9 @@ function IncomeItem({
     console.log('type', type)
 
     return (
-        <IncomeItemStyled indicator={indicatorColor}>
+        <ItemStyled indicator={indicatorColor}>
             <div className="icon">
-                {type === 'expense' ? expenseCatIcon() : categoryIcon()}
+                {type === 'expense' ? expenseCatIcon() : incomeCatIcon()}
             </div>
             <div className="content">
                 <h5>{title}</h5>
@@ -95,11 +95,11 @@ function IncomeItem({
                     </div>
                 </div>
             </div>
-        </IncomeItemStyled>
+        </ItemStyled>
     )
 }
 
-const IncomeItemStyled = styled.div`
+const ItemStyled = styled.div`
     background: #FCF6F9;
     border: 2px solid #FFFFFF;
     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
