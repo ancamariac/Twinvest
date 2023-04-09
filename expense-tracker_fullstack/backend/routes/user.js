@@ -1,17 +1,17 @@
 const express = require('express');
-const router =  express.Router();
+const router = express.Router();
 const multer = require('multer');
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype.startsWith('image')) {
-        cb(null, true);
-    } else {
-        cb('Invalid image file!', false);
-    }
+   if (file.mimetype.startsWith('image')) {
+      cb(null, true);
+   } else {
+      cb('Invalid image file!', false);
+   }
 }
 
-const uploads = multer({storage, fileFilter});
+const uploads = multer({ storage, fileFilter });
 
 const { createUser, userSignIn, uploadProfilePicture } = require('../controllers/user');
 const { validateUserSignUp, userValidation, validateUserSignIn } = require('../middleware/validation/user');

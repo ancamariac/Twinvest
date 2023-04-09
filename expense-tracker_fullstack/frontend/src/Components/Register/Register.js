@@ -16,88 +16,78 @@ function Register() {
     const [errorType, setErrorType] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const {saveToken, saveUser} = useGlobalContext();
+    const { saveToken, saveUser } = useGlobalContext();
 
     async function register(e) {
         e.preventDefault()
-        
-        await axios.post(BASE_URL + "create-user", {username, email, password, confirmPassword})
-        .then((result) => {
-            var success = result.data.success;
 
-            if (success) {
-                saveToken(result.data.token);
-                saveUser(result.data);
-                window.location.href = '/home';
-            } else {
-                if (result.data.type) {
-                    setErrorType(result.data.type);
-                    setErrorMessage(result.data.message);
+        await axios.post(BASE_URL + "create-user", { username, email, password, confirmPassword })
+            .then((result) => {
+                var success = result.data.success;
+
+                if (success) {
+                    saveToken(result.data.token);
+                    saveUser(result.data);
+                    window.location.href = '/home';
+                } else {
+                    if (result.data.type) {
+                        setErrorType(result.data.type);
+                        setErrorMessage(result.data.message);
+                    }
                 }
-            }
-        })
-        .catch((err) =>{
-            console.log(err.response.data.message)
-        })
+            })
+            .catch((err) => {
+                console.log(err.response.data.message)
+            })
     }
 
     const handleInputChange = (e) => {
-        const {id , value} = e.target;
+        const { id, value } = e.target;
         console.log(id, value);
-        if(id === "username"){
+        if (id === "username") {
             setUsername(value);
-        } else if(id === "email"){
+        } else if (id === "email") {
             setEmail(value);
-        } else if(id === "password"){
+        } else if (id === "password") {
             setPassword(value);
-        } else if(id === "confirmPassword"){
+        } else if (id === "confirmPassword") {
             setConfirmPassword(value);
         }
     }
 
-    return(
+    return (
         <AppStyled>
-
             <CenteredModal>
-
                 <div className="register">
                     <h1> Register </h1>
-
                     <form className="standard-form">
                         <div className="input-with-error">
-                            <input className="input-line" type="text" required={true} value={username} id="username" onChange = {(e) => handleInputChange(e)} placeholder="Username"/>
-                            <p style={{display: errorType === 'username' ? 'flex' : 'none'}}> {errorMessage} </p>
+                            <input className="input-line" type="text" required={true} value={username} id="username" onChange={(e) => handleInputChange(e)} placeholder="Username" />
+                            <p style={{ display: errorType === 'username' ? 'flex' : 'none' }}> {errorMessage} </p>
                         </div>
-
-                        <div className="input-with-error"> 
-                            <input className="input-line" type="email" required={true}  value={email} id="email" onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
-                            <p style={{display: errorType === 'email' ? 'flex' : 'none'}}> {errorMessage} </p>
-                        </div>
-                        
                         <div className="input-with-error">
-                            <input className="input-line" type="password" required={true}  value={password} id="password" onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
-                            <p style={{display: errorType === 'password' ? 'flex' : 'none'}}> {errorMessage} </p>
+                            <input className="input-line" type="email" required={true} value={email} id="email" onChange={(e) => handleInputChange(e)} placeholder="Email" />
+                            <p style={{ display: errorType === 'email' ? 'flex' : 'none' }}> {errorMessage} </p>
                         </div>
-
                         <div className="input-with-error">
-                            <input className="input-line" type="password" required={true} value={confirmPassword} id="confirmPassword" onChange = {(e) => handleInputChange(e)}  placeholder="Password"/>
-                            <p style={{display: errorType === 'confirmPassword' ? 'flex' : 'none'}}> {errorMessage} </p>
+                            <input className="input-line" type="password" required={true} value={password} id="password" onChange={(e) => handleInputChange(e)} placeholder="Password" />
+                            <p style={{ display: errorType === 'password' ? 'flex' : 'none' }}> {errorMessage} </p>
                         </div>
-
-                        <input  className="submit-button" type="submit" onClick={(e) => register(e)} />
+                        <div className="input-with-error">
+                            <input className="input-line" type="password" required={true} value={confirmPassword} id="confirmPassword" onChange={(e) => handleInputChange(e)} placeholder="Password" />
+                            <p style={{ display: errorType === 'confirmPassword' ? 'flex' : 'none' }}> {errorMessage} </p>
+                        </div>
+                        <input className="submit-button" type="submit" onClick={(e) => register(e)} />
                     </form>
-
                     <br>
                     </br>
                     <div className="change-modal-text">
                         Already have an account?  <Link className="link" to="/">Login</Link>
                     </div>
-
                 </div>
             </CenteredModal>
         </AppStyled>
     );
-
 }
 
 const AppStyled = styled.div`

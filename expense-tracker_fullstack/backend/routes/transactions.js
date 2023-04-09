@@ -6,11 +6,11 @@ const { isAuth } = require("../middleware/auth");
 const router = require('express').Router();
 
 router.post('/add-income', isAuth, addIncome)
-    .get('/get-incomes', isAuth, getIncomes)
-    .delete('/delete-income/:id', deleteIncome)
-    .post('/add-expense', isAuth, addExpense)
-    .get('/get-expenses', isAuth, getExpense)
-    .delete('/delete-expense/:id', deleteExpense)
-    .get('/get-tweets', getTweets)
+   .get('/get-incomes', isAuth, getIncomes)
+   .delete('/delete-income/:id', deleteIncome)
+   .post('/add-expense', isAuth, addExpense)
+   .get('/get-expenses', isAuth, getExpense)
+   .delete('/delete-expense/:id', deleteExpense)
+   .get('/get-tweets', getTweets)
 
 module.exports = router
