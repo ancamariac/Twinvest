@@ -1,5 +1,6 @@
 import React from "react";
 import TweetCard from "react-tweet-card";
+const moment = require('moment');
 
 function Tweet (tweetData) {
 	return (
@@ -11,7 +12,7 @@ function Tweet (tweetData) {
 			image:tweetData.profile_image,
 			}}
 			tweet={tweetData.tweet}
-			time={Date(tweetData.date)}
+         time={moment(tweetData.date).format('h:mm A · MMM D, YYYY')}
 			source={tweetData.source}
 			permalink={tweetData.tweet_link}
 			engagement={{
