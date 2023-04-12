@@ -21,6 +21,11 @@ function MarketNews() {
 
    return (
       <>
+         <div className="container">
+            <div className="row">
+               <h1>Check the latest tweets! 🐦</h1>
+               <br></br>
+            </div>        
          {(tweets !== '') &&
             <TweetStyled>
                <Tweet {...tweets[tweets.length - 1]} />
@@ -32,7 +37,7 @@ function MarketNews() {
                <Tweet {...tweets[tweets.length - 7]} />
                <Tweet {...tweets[tweets.length - 8]} />              
             </TweetStyled>}
-
+         </div>
       </>
    )
 }

@@ -4,7 +4,7 @@ const moment = require('moment');
 
 function Tweet (tweetData) {
 	return (
-	<div style={{'marginTop':'15px', 'marginLeft':'auto', 'marginRight':'auto', 'width':'80%'}}>
+	<div style={{'marginTop':'15px', 'marginLeft':'auto', 'marginRight':'auto', 'width':'1100px', 'fontSize':'15px'}}>
 		<TweetCard 
 			author={{
 			name: tweetData.name,
