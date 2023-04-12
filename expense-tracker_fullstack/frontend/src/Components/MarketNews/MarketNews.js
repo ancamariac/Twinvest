@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useGlobalContext } from '../../context/globalContext';
 import Tweet from '../Tweet/Tweet'
 import axios from 'axios'
 
