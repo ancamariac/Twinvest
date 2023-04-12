@@ -18,18 +18,19 @@ function MarketNews() {
       getTweets()
    }, []);
 
-   console.log(tweets[0])
+
    return (
       <>
          {(tweets !== '') &&
             <TweetStyled>
-               <Tweet {...tweets[0]} />
-               <Tweet {...tweets[1]} />
-               <Tweet {...tweets[2]} />
-               <Tweet {...tweets[3]} />
-               <Tweet {...tweets[4]} />
-               <Tweet {...tweets[5]} />
-               <Tweet {...tweets[6]} />
+               <Tweet {...tweets[tweets.length - 1]} />
+               <Tweet {...tweets[tweets.length - 2]} />
+               <Tweet {...tweets[tweets.length - 3]} />
+               <Tweet {...tweets[tweets.length - 4]} />
+               <Tweet {...tweets[tweets.length - 5]} />
+               <Tweet {...tweets[tweets.length - 6]} />
+               <Tweet {...tweets[tweets.length - 7]} />
+               <Tweet {...tweets[tweets.length - 8]} />              
             </TweetStyled>}
 
       </>

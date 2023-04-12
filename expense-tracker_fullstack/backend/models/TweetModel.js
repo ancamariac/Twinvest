@@ -51,6 +51,11 @@ const TweetSchema = new mongoose.Schema({
       integerOnly: true,
       required: true
    },
+   reply_count: {
+      type: Number,
+      integerOnly: true,
+      required: true
+   },
    hashtags: [String],
    mentions: [String],
    tweet_link: {

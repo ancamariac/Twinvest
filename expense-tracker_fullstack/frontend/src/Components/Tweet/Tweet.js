@@ -1,5 +1,4 @@
 import React from "react";
-
 import TweetCard from "react-tweet-card";
 
 function Tweet (tweetData) {
@@ -15,9 +14,10 @@ function Tweet (tweetData) {
 			time={Date(tweetData.date)}
 			source={tweetData.source}
 			permalink={tweetData.tweet_link}
-			engagement={{  
-			likes:tweetData.likes,
-			retweets:tweetData.retweets,
+			engagement={{
+         replies: tweetData.reply_count,
+			likes: tweetData.likes,
+			retweets: tweetData.retweets,
 			}}
 		/>
 	</div>

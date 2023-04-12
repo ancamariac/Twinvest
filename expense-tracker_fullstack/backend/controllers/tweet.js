@@ -4,9 +4,6 @@ const TweetSchema = require("../models/TweetModel")
 exports.addTweet = async (req, res) => {
    const { name, username, description, date, url, tags } = req.body
 
-   //const userid = req.user["_id"];
-
-   //console.log('User ID:', userid);
    console.log('Tweet:', { name, username, tweet, date, profile_image, followers, likes, spurce, retweets, hashtags, mentions, tweet_link });
 
    const tweet = TweetSchema({
@@ -17,6 +14,7 @@ exports.addTweet = async (req, res) => {
       profile_image,
       followers,
       likes,
+      replies,
       source,
       retweets,
       hashtags,
