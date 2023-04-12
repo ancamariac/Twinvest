@@ -21,14 +21,14 @@ with open(pos_path, 'rb') as f:
     X_pos_train = pickle.load(f)
     Y_pos_train = np.array([1.0] * len(X_pos_train))
 with open(neg_path, 'rb') as f:
-    X_neg_train = pickle.load(f)
-    Y_neg_train = np.array([0.0] * len(X_neg_train))
+   X_neg_train = pickle.load(f)
+   Y_neg_train = np.array([0.0] * len(X_neg_train))
 with open(test_pos_path, 'rb') as f:
-    X_pos_aux = pickle.load(f)
-    Y_pos_aux = np.array([1.0] * len(X_pos_aux))
+   X_pos_aux = pickle.load(f)
+   Y_pos_aux = np.array([1.0] * len(X_pos_aux))
 with open(test_neg_path, 'rb') as f:
-    X_neg_aux = pickle.load(f)
-    Y_neg_aux = np.array([0.0] * len(X_neg_aux))
+   X_neg_aux = pickle.load(f)
+   Y_neg_aux = np.array([0.0] * len(X_neg_aux))
 
 X_train = np.concatenate((X_pos_train, X_neg_train), axis=0)
 Y_train = np.concatenate((Y_pos_train, Y_neg_train), axis=0)
@@ -41,56 +41,56 @@ checkpoint_filepath = os.path.join(os.getcwd(), 'tmp', 'checkpoint')
 
 # grid search dict
 dct_grid_space = {
-    'layer1' : [
-        256,
-        128,
-        64
-    ],
-    'layer2' : [
-        256,
-        128,
-        64
-    ],
-    'dropout1' : [
-        0.1,
-        0.2,
-        0.3
-    ],
-    'activation1' : [
-        'elu',
-        'relu'
-    ],
-    'activation2' : [
-        'relu',
-        'elu'
-    ],
-    'opt_class' : [
-        'sgd',
-        'adam'
-    ],
-    'lr' : [
-        0.001,
-        0.01,
-    ]
+   'layer1' : [
+      256,
+      128,
+      64
+   ],
+   'layer2' : [
+      256,
+      128,
+      64
+   ],
+   'dropout1' : [
+      0.1,
+      0.2,
+      0.3
+   ],
+   'activation1' : [
+      'elu',
+      'relu'
+   ],
+   'activation2' : [
+      'relu',
+      'elu'
+   ],
+   'opt_class' : [
+      'sgd',
+      'adam'
+   ],
+   'lr' : [
+      0.001,
+      0.01,
+   ]
 }
 
 
 # initialize the model
 def create_model(l1, l2, d1, opt):
-    model = Sequential()
-    model.add(l1)
-    model.add(d1)
-    model.add(l2)
-    model.add(Dense(1, activation='sigmoid'))
-    model.compile(loss='binary_crossentropy', metrics=[tf.keras.metrics.Recall(), 'accuracy', tf.keras.metrics.Precision()], optimizer=opt)
-    return model
+   model = Sequential()
+   model.add(l1)
+   model.add(d1)
+   model.add(l2)
+   model.add(Dense(1, activation='sigmoid'))
+   model.compile(loss='binary_crossentropy', metrics=[tf.keras.metrics.Recall(), 'accuracy', tf.keras.metrics.Precision()], optimizer=opt)
+   return model
 
 # generate all combinations for grid search
 grid_params = []
 grid_values = []
 for k in dct_grid_space:
-    grid_params.append(k)
-    grid_values.append(dct_grid_space[k])
+   grid_params.append(k)
+   grid_values.append(dct_grid_space[k])
 grid_combs = list(itertools.product(*grid_values))
 
 
@@ -101,53 +101,53 @@ counter = 1
 
 # try all combinations and save the one with the best accuracy
 for combination in grid_combs:
-    print("Combination ", counter)
-    print(combination)
-    counter += 1
+   print("Combination ", counter)
+   print(combination)
+   counter += 1
 
-    # callbacks to save the best epoch
-    model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
-        filepath=checkpoint_filepath,
-        save_weights_only=True,
-        monitor='val_accuracy',
-        mode='max',
-        save_best_only=True)
+   # callbacks to save the best epoch
+   model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+      filepath=checkpoint_filepath,
+      save_weights_only=True,
+      monitor='val_accuracy',
+      mode='max',
+      save_best_only=True)
 
-    # combination = [l1_num, l2_num, d1, act1, act2,  opt, lr]
-    l1 = Dense(combination[0], input_shape=(768, ), activation=combination[3])
-    l2 = Dense(combination[1], activation=combination[4])
-    d1 = Dropout(combination[2])
-    if combination[5] == 'adam':
-        opt = keras.optimizers.Adam(learning_rate=combination[6])
-    else:
-        opt = keras.optimizers.SGD(learning_rate=combination[6])
+   # combination = [l1_num, l2_num, d1, act1, act2,  opt, lr]
+   l1 = Dense(combination[0], input_shape=(768, ), activation=combination[3])
+   l2 = Dense(combination[1], activation=combination[4])
+   d1 = Dropout(combination[2])
+   if combination[5] == 'adam':
+      opt = keras.optimizers.Adam(learning_rate=combination[6])
+   else:
+      opt = keras.optimizers.SGD(learning_rate=combination[6])
 
-    model = create_model(l1, l2, d1, opt)
-    model.fit(X_train, Y_train, batch_size=128, epochs=20, validation_data=(X_val, Y_val), callbacks=[model_checkpoint_callback], verbose=0)
-    model.load_weights(checkpoint_filepath)
-    scores = model.evaluate(X_test, Y_test)
+   model = create_model(l1, l2, d1, opt)
+   model.fit(X_train, Y_train, batch_size=128, epochs=20, validation_data=(X_val, Y_val), callbacks=[model_checkpoint_callback], verbose=0)
+   model.load_weights(checkpoint_filepath)
+   scores = model.evaluate(X_test, Y_test)
 
-    acc = scores[2]
-    print(f'{model.metrics_names[2]} of {acc*100}%;')
-    if acc > best_acc:
-        best_comb = combination
-        best_acc = acc
+   acc = scores[2]
+   print(f'{model.metrics_names[2]} of {acc*100}%;')
+   if acc > best_acc:
+      best_comb = combination
+      best_acc = acc
 
 # create the model for the best combination
 model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
-    filepath=checkpoint_filepath,
-    save_weights_only=True,
-    monitor='val_accuracy',
-    mode='max',
-    save_best_only=True)
+   filepath=checkpoint_filepath,
+   save_weights_only=True,
+   monitor='val_accuracy',
+   mode='max',
+   save_best_only=True)
 
 l1 = Dense(best_comb[0], input_shape=(768, ), activation=best_comb[3])
 l2 = Dense(best_comb[1], activation=best_comb[4])
 d1 = Dropout(best_comb[2])
 if best_comb[5] == 'adam':
-    opt = keras.optimizers.Adam(learning_rate=best_comb[6])
+   opt = keras.optimizers.Adam(learning_rate=best_comb[6])
 else:
-    opt = keras.optimizers.SGD(learning_rate=best_comb[6])
+   opt = keras.optimizers.SGD(learning_rate=best_comb[6])
 
 model = create_model(l1, l2, d1, opt)
 history = model.fit(X_train, Y_train, batch_size=128, epochs=20, validation_data=(X_val, Y_val), callbacks=[model_checkpoint_callback])
