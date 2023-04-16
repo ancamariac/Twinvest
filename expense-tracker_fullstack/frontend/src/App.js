@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import Home from './Components/Home/Home';
@@ -28,8 +28,9 @@ function App() {
       <div className="app">
          <Router>
             <Routes>
-               <Route path="/" element={<Login goHome={goHome} />} />
-               <Route path="/register" element={<Register />} />
+               <Route exact path="/" element={<Navigate to="login" />} />
+               <Route path="/login" element={<Login goHome={goHome} />} />
+               <Route path="/register" element={<Register />} />            
                <Route path="/home" element={<Home />} />
 
             </Routes>
