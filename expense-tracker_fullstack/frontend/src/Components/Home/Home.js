@@ -9,7 +9,7 @@ import Expenses from '../Expenses/Expenses';
 import MarketNews from '../MarketNews/MarketNews';
 
 function Home() {
-   const [active, setActive] = useState(1)
+   const [active, setActive] = useState(-1)
 
    const displayData = () => {
       switch (active) {

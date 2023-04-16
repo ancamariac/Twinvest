@@ -3,12 +3,33 @@ import avatar from '../../img/avatar.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
 import { useGlobalContext } from "../../context/globalContext";
+import { NavLink } from 'react-router-dom';
 
 function Navigation({ active, setActive }) {
    const { getUser } = useGlobalContext();
 
    let username = getUser().user.username;
+   let page = lastWordCapitalized(window.location.href);
 
+   if (page === 'dashboard') {
+      changePage(1);
+   } else if (page === 'marketnews') {
+      changePage(2);
+   } else if (page === 'incomes') {
+      changePage(3);
+   } else if (page === 'expenses') {
+      changePage(4);
+   }
+
+   function lastWordCapitalized(url) {
+      return url.replace(/^.*\/([^?#\/]+).*$/, function (_, word) {
+        var word = decodeURI(word);
+        return word.charAt(0) + word.slice(1);
+      });
+    }
+   function changePage(id) {
+      setActive(id);
+   }
    function logout() {
       sessionStorage.clear();
       window.location.href = '/';
@@ -27,11 +48,16 @@ function Navigation({ active, setActive }) {
             {menuItems.map((item) => {
                return <li
                   key={item.id}
-                  onClick={() => setActive(item.id)}
-                  className={active === item.id ? 'active' : ''}
+                  onClick={() => changePage(item.id)}
+                  className={active === item.id ? 'active menu-item' : 'menu-item'}
                >
-                  {item.icon}
-                  <span>{item.title}</span>
+                  <NavLink
+                     to={item.link}
+                     onClick={() => setActive(item.id)}
+                  >
+                     {item.icon}
+                     <span>{item.title}</span>
+                  </NavLink>
                </li>
             })}
          </ul>
@@ -83,8 +109,29 @@ const NavStyled = styled.nav`
       flex: 1;
       display: flex;
       flex-direction: column;
+
+      .menu-item {
+         .active span {
+            color: rgba(34, 34, 96, 1);
+         }
+         a { 
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+
+            i {
+               padding-right: 10px;
+            }
+
+            span {
+               font-weight: 600;
+               font-size: 19px;
+               color: rgba(34, 34, 96, 0.6);
+            }
+         }
+      }
       li{
-         display: grid;
+         display: inline-flex;
          grid-template-columns: 40px auto;
          align-items: center;
          margin: .6rem 0;

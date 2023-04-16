@@ -35,7 +35,6 @@ function Chart() {
 
    function pressButton() {
       setDisplayInc(!displayinc);
-      console.log(displayinc)
    }
 
    let incomes_sorted = incomes.sort(function (a, b) {
@@ -46,7 +45,6 @@ function Chart() {
       return new Date(a.date) - new Date(b.date);
    });
 
-   console.log('expenses_sorted', expenses_sorted)
 
    const data_incomes = {
       labels:

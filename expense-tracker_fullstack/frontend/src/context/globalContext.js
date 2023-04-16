@@ -34,7 +34,6 @@ export const GlobalProvider = ({ children }) => {
          }
       })
       setIncomes(response.data)
-      console.log(response.data)
    }
 
    const deleteIncome = async (id) => {
@@ -47,7 +46,6 @@ export const GlobalProvider = ({ children }) => {
       incomes.forEach((income) => {
          totalIncome = totalIncome + income.amount
       })
-      console.log("Total INCOME: ", totalIncome)
       return totalIncome;
    }
 
@@ -73,7 +71,6 @@ export const GlobalProvider = ({ children }) => {
          }
       })
       setExpenses(response.data)
-      console.log(response.data)
    }
 
    const deleteExpense = async (id) => {

@@ -26,7 +26,7 @@ function Login({ goHome }) {
             if (success) {
                saveToken(result.data.token);
                saveUser(result.data);
-               navigate('/home');
+               navigate('/dashboard');
             } else {
                if (result.data.type) {
                   setErrorType(result.data.type);

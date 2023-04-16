@@ -8,10 +8,9 @@ import jwtDecode from 'jwt-decode';
 function App() {
    const [setIsAuthenticated] = useState(false);
 
-
    function goHome() {
       const token = localStorage.getItem('token');
-      console.log(token)
+      //console.log(token)
 
       if (token) {
          const decodedToken = jwtDecode(token);
@@ -31,8 +30,10 @@ function App() {
                <Route exact path="/" element={<Navigate to="login" />} />
                <Route path="/login" element={<Login goHome={goHome} />} />
                <Route path="/register" element={<Register />} />            
-               <Route path="/home" element={<Home />} />
-
+               <Route path="/dashboard" element={<Home/>} />
+               <Route path="/marketnews" element={<Home active={2}/>} />
+               <Route path="/incomes" element={<Home active={3}/>} />
+               <Route path="/expenses" element={<Home active={4}/>} />
             </Routes>
          </Router>
       </div>

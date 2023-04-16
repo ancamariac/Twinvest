@@ -11,18 +11,18 @@ export const menuItems = [
       id: 2,
       title: "Market news",
       icon: dashboard,
-      link: "/dashboard",
+      link: "/marketnews",
    },
    {
       id: 3,
       title: "Incomes",
       icon: trend,
-      link: "/dashboard",
+      link: "/incomes",
    },
    {
       id: 4,
       title: "Expenses",
       icon: expenses,
-      link: "/dashboard",
+      link: "/expenses",
    },
 ]

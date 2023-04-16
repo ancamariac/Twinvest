@@ -17,7 +17,7 @@ function Incomes() {
 				<h1>Incomes</h1>
 			</div>
 			<div className="row content-row">
-				<div class="top-income">
+				<div className="top-income">
 					<h2 className="total-income">Total income: <span>${totalIncome()}</span></h2>
 				</div>
 				<div className="income-content">
