@@ -56,13 +56,18 @@ const AppStyled = styled.div`
       }
 
       .container {
-      height: 100%;
-      padding: 1rem;
+         height: 100%;
+         padding: 1rem;
       }
 
       .content-row {
-      height: 85%;
+         height: 95%;
+         overflow-y: auto;
+         padding-right: 10px;
       }
+
+      overflow-y: auto;
+      height: 100%;
    }
 `;
 

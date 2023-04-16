@@ -42,7 +42,7 @@ function Expenses() {
                   })}
                </div>
             </div>
-         </div>.
+         </div>
       </div>
    )
 }

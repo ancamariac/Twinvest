@@ -98,4 +98,17 @@ export const GlobalStyle = createGlobalStyle`
    .link:hover {
       opacity: 1;
    }
+
+   ::-webkit-scrollbar {
+      width: 8px;
+   }
+   ::-webkit-scrollbar-track {
+      border-radius: 5px;
+      background: initial;
+   }
+   ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: linear-gradient(rgb(120, 199, 167) 40%, rgb(166, 124, 188) 90%);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+   }
 `;

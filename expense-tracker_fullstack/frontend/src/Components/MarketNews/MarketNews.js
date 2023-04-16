@@ -23,20 +23,21 @@ function MarketNews() {
       <>
          <div className="container">
             <div className="row">
-               <h1>Check the latest tweets! 🐦</h1>
-               <br></br>
-            </div>        
-         {(tweets !== '') &&
-            <TweetStyled>
-               <Tweet {...tweets[tweets.length - 1]} />
-               <Tweet {...tweets[tweets.length - 2]} />
-               <Tweet {...tweets[tweets.length - 3]} />
-               <Tweet {...tweets[tweets.length - 4]} />
-               <Tweet {...tweets[tweets.length - 5]} />
-               <Tweet {...tweets[tweets.length - 6]} />
-               <Tweet {...tweets[tweets.length - 7]} />
-               <Tweet {...tweets[tweets.length - 8]} />              
-            </TweetStyled>}
+               <h1> Check the latest tweets! 🐦 </h1>
+            </div>
+            <div className="row content-row">   
+               {(tweets !== '') &&
+                  <TweetStyled>
+                     <Tweet {...tweets[tweets.length - 1]} />
+                     <Tweet {...tweets[tweets.length - 2]} />
+                     <Tweet {...tweets[tweets.length - 3]} />
+                     <Tweet {...tweets[tweets.length - 4]} />
+                     <Tweet {...tweets[tweets.length - 5]} />
+                     <Tweet {...tweets[tweets.length - 6]} />
+                     <Tweet {...tweets[tweets.length - 7]} />
+                     <Tweet {...tweets[tweets.length - 8]} />              
+                  </TweetStyled>}
+               </div>  
          </div>
       </>
    )

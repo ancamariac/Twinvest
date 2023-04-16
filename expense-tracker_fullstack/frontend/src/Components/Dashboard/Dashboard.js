@@ -16,8 +16,10 @@ function Dashboard() {
 
    return (
       <div className="container">
+         <div className="row">
+            <h1> All transactions </h1>
+         </div>
          <div className="row content-row">
-            <h1>All transactions</h1>
             <div className="stats-con">
                <div className="chart-con">
                   <Chart />
