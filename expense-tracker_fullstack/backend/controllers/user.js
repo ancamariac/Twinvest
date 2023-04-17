@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
 const sharp = require('sharp');
 
 exports.createUser = async (req, res) => {
@@ -19,7 +20,7 @@ exports.createUser = async (req, res) => {
 
 exports.userSignIn = async (req, res) => {
    const { email, password } = req.body;
-   console.log(req.body);
+   //console.log(req.body);
    const user = await User.findOne({ email: email });
    if (!user) {
       return res.json({ success: false, type: 'user', message: 'User not found!' });
@@ -32,6 +33,39 @@ exports.userSignIn = async (req, res) => {
          const token = jwt.sign({ userId: user._id }, process.env.JWTSECRETKEY, { expiresIn: '1d' });
          res.json({ success: true, user, token });
       }
+   }
+}
+
+exports.updateInterests = async (req, res) => {
+   try {
+
+      const { id } = req.params;      
+      
+      const user = await User.findById(id);
+      
+      if (!user) {
+         return res.status(404).send('User was not found!');
+      }
+      
+      const filter = { _id: id};
+      const update = { interests: req.body.interests };
+
+      await User.updateOne(filter, update);
+
+      res.status(200).json(user);
+   } catch (err) {
+      console.error(err);
+      res.status(500).send('Error when updating user interests.');
+   }
+}
+
+exports.getInterests = async (req, res) => {
+   const { id } = req.params;
+   try {
+      const user = await User.findById(id);
+      res.status(200).json(user.interests);
+   } catch (error) {
+      res.status(500).json({ message: 'Server Error' })
    }
 }
 

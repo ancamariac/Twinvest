@@ -28,7 +28,7 @@ function Register() {
                 if (success) {
                     saveToken(result.data.token);
                     saveUser(result.data);
-                    window.location.href = '/home';
+                    window.location.href = '/dashboard';
                 } else {
                     if (result.data.type) {
                         setErrorType(result.data.type);

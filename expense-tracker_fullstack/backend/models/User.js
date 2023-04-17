@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true
    },
-   avatar: Buffer
+   avatar: Buffer,
+   interests: {
+      type: [String], 
+      required: false 
+   }
 });
 
 userSchema.pre('save', function (next) {

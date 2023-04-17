@@ -5,8 +5,8 @@ exports.addExpense = async (req, res) => {
 
    const userid = req.user["_id"];
 
-   console.log('User ID:', userid);
-   console.log('Expense data:', { title, amount, category, description, date });
+   // console.log('User ID:', userid);
+   // console.log('Expense data:', { title, amount, category, description, date });
 
    const expense = ExpenseSchema({
       title,
