@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import Income from '../Income/Incomes';
 import Expenses from '../Expenses/Expenses';
 import MarketNews from '../MarketNews/MarketNews';
+import Settings from '../Settings/Settings';
 
 function Home() {
    const [active, setActive] = useState(-1)
@@ -22,7 +23,7 @@ function Home() {
          case 4:
             return <Expenses />
          case 5:
-            return <Expenses />
+            return <Settings />
          default:
             return <Dashboard />
       }

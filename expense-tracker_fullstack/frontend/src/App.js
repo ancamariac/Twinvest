@@ -10,7 +10,6 @@ function App() {
 
    function goHome() {
       const token = localStorage.getItem('token');
-      //console.log(token)
 
       if (token) {
          const decodedToken = jwtDecode(token);
