@@ -21,6 +21,8 @@ function Home() {
             return <Income />
          case 4:
             return <Expenses />
+         case 5:
+            return <Expenses />
          default:
             return <Dashboard />
       }

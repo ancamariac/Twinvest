@@ -19,14 +19,16 @@ function Navigation({ active, setActive }) {
       changePage(3);
    } else if (page === 'expenses') {
       changePage(4);
+   } else if (page === 'settings') {
+      changePage(5);
    }
 
    function lastWordCapitalized(url) {
       return url.replace(/^.*\/([^?#\/]+).*$/, function (_, word) {
-        var word = decodeURI(word);
-        return word.charAt(0) + word.slice(1);
+         var word = decodeURI(word);
+         return word.charAt(0) + word.slice(1);
       });
-    }
+   }
    function changePage(id) {
       setActive(id);
    }
