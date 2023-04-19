@@ -24,8 +24,8 @@ function Expenses() {
                   <ExpenseForm />
                </div>
                <div className="incomes">
-                  {expenses.map((income) => {
-                     const { _id, title, amount, date, category, description, type } = income;
+                  {expenses.map((expense) => {
+                     const { _id, title, amount, date, category, description, type } = expense;
                      return <Item
                         key={_id}
                         id={_id}
