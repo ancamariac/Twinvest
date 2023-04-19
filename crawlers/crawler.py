@@ -22,10 +22,11 @@ client = pymongo.MongoClient(os.getenv("MONGO_URI"))
 db = client.test
 collection = db.tweets
 
-search_words = stocks
+#search_words = stocks
+search_words = "#economy OR #stocks OR #cryptocurrency"
 
 # set the number of tweets to retrieve
-num_of_tweets = 5
+num_of_tweets = 20
 
 # authenticate the API credentials
 auth = tw.OAuthHandler(consumer_key, consumer_secret)
@@ -36,8 +37,8 @@ api = tw.API(auth, wait_on_rate_limit=True)
 tweets = tw.Cursor(api.search_tweets, q=search_words, lang="en", tweet_mode="extended").items(num_of_tweets)
 for tweet in tweets:
    
-   if (tweet.user.followers_count > 500 or tweet.favorite_count > 300
-   or tweet.retweet_count > 50):
+   if ((tweet.user.followers_count > 500 or tweet.favorite_count > 300
+   or tweet.retweet_count > 50) and len(tweet.entities['hashtags']) != 0):
       if hasattr(tweet, "retweeted_status"):
          original_tweet_id = tweet.retweeted_status.id
          original_tweet = api.get_status(original_tweet_id)
@@ -61,4 +62,5 @@ for tweet in tweets:
          "tweet_link": f"https://twitter.com/{tweet.user.screen_name}/status/{tweet.id}"
       }
       print("done")
+      print("tweet.entities['hashtags']: ", tweet.entities['hashtags'])
       collection.insert_one(tweet_data)
