@@ -21,6 +21,6 @@ router.post('/create-user', validateUserSignUp, userValidation, createUser);
 router.post('/sign-in', validateUserSignIn, userValidation, userSignIn);
 router.post('/upload-profile-picture', isAuth, uploads.single('profile'), uploadProfilePicture);
 router.put('/update-interests/:id', updateInterests)
-router.get('/get-interests/:id', getInterests)
+router.get('/get-interests/:id', isAuth, getInterests)
 
 module.exports = router;

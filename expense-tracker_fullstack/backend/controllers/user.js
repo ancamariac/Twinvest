@@ -46,12 +46,20 @@ exports.updateInterests = async (req, res) => {
       if (!user) {
          return res.status(404).send('User was not found!');
       }
-      
-      const filter = { _id: id};
-      const update = { interests: req.body.interests };
 
-      await User.updateOne(filter, update);
+      const newInterest = req.body.interests;
+      const interests = user.interests;
 
+      if (!interests.includes(newInterest)) {
+         interests.push(newInterest);
+
+         const filter = { _id: id };
+         const update = { interests: interests };
+         await User.updateOne(filter, update);
+
+      } else {
+         return res.status(500).send('Interest already exists!');
+      }
       res.status(200).json(user);
    } catch (err) {
       console.error(err);

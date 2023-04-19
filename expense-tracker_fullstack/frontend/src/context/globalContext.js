@@ -11,6 +11,7 @@ export const GlobalProvider = ({ children }) => {
    const [incomes, setIncomes] = useState([])
    const [expenses, setExpenses] = useState([])
    const [error, setError] = useState(null)
+   const [interests, setInterests] = useState([])
 
    //calculate incomes
    const addIncome = async (income) => {
@@ -87,7 +88,6 @@ export const GlobalProvider = ({ children }) => {
       return totalExpenses;
    }
 
-
    const totalBalance = () => {
       return totalIncome() - totalExpenses()
    }
@@ -123,6 +123,29 @@ export const GlobalProvider = ({ children }) => {
       sessionStorage.setItem('user', JSON.stringify(user));
    }
 
+   const getInterests = async (id) => {
+      const token = getToken();
+      const response = await axios.get(`${BASE_URL}get-interests/${id}`, {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      })
+      setInterests(response.data)
+   }
+
+   const addInterest = async (id, interest) => {
+      const token = getToken();
+      const response = await axios.post(`${BASE_URL}update-interests/${id}`, interest, {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      })
+         .catch((err) => {
+            setError(err.response.data.message)
+         })
+      getInterests()
+   }
+
    return (
       <GlobalContext.Provider value={{
          addIncome,
@@ -135,6 +158,9 @@ export const GlobalProvider = ({ children }) => {
          getExpenses,
          deleteExpense,
          totalExpenses,
+         addInterest,
+         getInterests,
+         interests,
          totalBalance,
          transactionHistory,
          error,
