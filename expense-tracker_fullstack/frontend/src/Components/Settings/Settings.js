@@ -16,6 +16,7 @@ function Settings() {
          <div className="row content-row"> 
             <h2> Pick your interests ✍️</h2>
             <br></br>
+            <div style={{display:'flex'}}>
             <div className="selects input-control-interests">
                <select style={{'width':'500px'}}>
                   <option value="" disabled>Select an interest</option>
@@ -28,8 +29,8 @@ function Settings() {
                   <option value="#entrepreneurship">Entrepreneurship</option>
                </select>
             </div> 
-            <br></br>
-            <div className="submit-btn">
+
+            <div className="submit-btn" style={{marginLeft: '15px'}}>
                <Button
                   name={'Add Interest'}
                   icon={plus}
@@ -38,6 +39,7 @@ function Settings() {
                   bg={'var(--color-accent'}
                   color={'#fff'}
                />
+            </div>
             </div>
          </div>        
       </div>
