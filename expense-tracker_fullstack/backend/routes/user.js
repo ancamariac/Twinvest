@@ -13,7 +13,7 @@ const fileFilter = (req, file, cb) => {
 
 const uploads = multer({ storage, fileFilter });
 
-const { createUser, userSignIn, uploadProfilePicture, updateInterests, getInterests } = require('../controllers/user');
+const { createUser, userSignIn, uploadProfilePicture, updateInterests, getInterests, deleteInterest } = require('../controllers/user');
 const { validateUserSignUp, userValidation, validateUserSignIn } = require('../middleware/validation/user');
 const { isAuth } = require('../middleware/auth');
 
@@ -21,6 +21,7 @@ router.post('/create-user', validateUserSignUp, userValidation, createUser);
 router.post('/sign-in', validateUserSignIn, userValidation, userSignIn);
 router.post('/upload-profile-picture', isAuth, uploads.single('profile'), uploadProfilePicture);
 router.put('/update-interests/:id', updateInterests)
-router.get('/get-interests/:id', isAuth, getInterests)
+router.get('/get-interests/:id', isAuth, getInterests) 
+router.put('/delete-interest/:id', deleteInterest)
 
 module.exports = router;

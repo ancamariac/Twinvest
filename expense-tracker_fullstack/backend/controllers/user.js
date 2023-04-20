@@ -77,6 +77,33 @@ exports.getInterests = async (req, res) => {
    }
 }
 
+exports.deleteInterest = async (req, res) => {
+   try {
+      const { id } = req.params;
+
+      const user = await User.findById(id);
+         
+      if (!user) {
+         return res.status(404).send('User was not found!');
+      }
+
+      const interestDeleted = req.body.interests;
+      const interests = user.interests;
+      
+      const filter = { _id: id };
+      const update = { $pull: { interests: interestDeleted } };
+      const result = await User.updateOne(filter, update);
+   
+      if (result.nModified === 0) {
+         return res.status(500).send('Interest does not exist!');
+      }
+      res.status(200).json(user);
+   } catch (err) {
+      console.error(err);
+      res.status(500).send('Error when updating user interests.');
+   }
+}
+
 exports.uploadProfilePicture = async (req, res) => {
    const { user } = req;
    if (!user) {
