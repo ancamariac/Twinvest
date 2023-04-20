@@ -6,11 +6,18 @@ import numpy as np
 import itertools 
 from tensorflow import keras
 import matplotlib.pyplot as plt
+import tensorflow as tf
+import os 
 
 # load dataset
 # X = features
 # Y = labels
-with open('D:\\Workspace\\tweets-sentiment-analysis\\ML_model\\embeddings.pk', 'rb') as f:
+
+path = os.path.join(os.getcwd(), 'ML_model')
+model_path = os.path.join(path, 'model.h5')
+emb_path = os.path.join(path, 'embeddings.pk')
+
+with open(emb_path, 'rb') as f:
    X, Y = pickle.load(f)
 
 Y_aux = []
@@ -29,26 +36,28 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_
 
 X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.125, random_state=42) # 0.125 x 0.8 = 0.1
 
+checkpoint_filepath = os.path.join(os.getcwd(), 'tmp', 'checkpoint')
+
 # grid search dict
 dct_grid_space = {
    'layer1' : [
-      256,
-      128,
+      1024,
       512
    ],
    'layer2' : [
-      256,
-      128,
+      1024,
       512
    ],
    'layer3' : [
-      256,
-      128,
+      1024,
       512
    ],
    'dropout1' : [
       0.1,
-      0.2,
+      0.3
+   ],
+   'dropout2' : [
+      0.1,
       0.3
    ],
    'opt_class' : [
@@ -64,13 +73,25 @@ dct_grid_space = {
 # generate all combinations for grid search
 grid_params = []
 grid_values = []
+
 for k in dct_grid_space:
    grid_params.append(k)
    grid_values.append(dct_grid_space[k])
 # se face produsul cu toate elementele din grid_values
 grid_combs = list(itertools.product(*grid_values))
 
-def create_model(l1, l2, l3, d, opt_name, lr):
+def create_model(l1, l2, l3, d1, d2, opt):
+   model = Sequential()
+   model.add(l1)
+   model.add(d1)
+   model.add(l2)
+   model.add(d2)
+   model.add(l3)
+   model.add(Dense(3, activation='softmax'))
+   model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=opt, run_eagerly=True)
+   return model
+
+'''def create_model(l1, l2, l3, d, opt_name, lr):
    # initialize the model
    model = Sequential()
 
@@ -90,39 +111,86 @@ def create_model(l1, l2, l3, d, opt_name, lr):
    # compile, train and evaluate
    model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=opt)
    
-   return model
+   return model'''
 
-best_accuracy = 0
-best_combination = grid_combs[0]
+best_acc = 0
+best_comb = grid_combs[0]
 
 # pentru fiecare combinare cream cate un model ca sa vedem
 # care are scorul cel mai bun
-for combination in grid_combs:
-   model = create_model(combination[0], combination[1], combination[2],
-                        combination[3], combination[4], combination[5])
-   
-   history = model.fit(X_train, Y_train, batch_size=512, epochs=100, validation_data=(X_val, Y_val), verbose=0)
-   # compara rezultatele cu cele reale -> face metricile modelului(loss, acc)
-   scores = model.evaluate(X_test, Y_test)
-   # print(f'Score: {model.metrics_names[0]} of {scores[0]}; {model.metrics_names[1]} of {scores[1]*100}%')
-   
-   if scores[1] > best_accuracy:
-      best_accuracy = scores[1]
-      best_combination = combination
 
-print(best_combination)
+counter = 0
+
+for combination in grid_combs:
+   ### Modifica aici parametrii
+   print("Combination ", counter)
+   print(combination)
+   counter += 1
+
+   # callbacks to save the best epoch
+   model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+      filepath=checkpoint_filepath,
+      save_weights_only=True,
+      monitor='val_accuracy',
+      mode='max',
+      save_best_only=True)
+
+   # combination = [l1_num, l2_num, d1, act1, act2,  opt, lr]
+   l1 = Dense(combination[0], input_shape=(768, ), activation='relu')
+   l2 = Dense(combination[1], activation='relu')
+   l3 = Dense(combination[2], activation='relu')
+   d1 = Dropout(combination[3])
+   d2 = Dropout(combination[4])
+   if combination[5] == 'adam':
+      opt = keras.optimizers.Adam(learning_rate=combination[6])
+   else:
+      opt = keras.optimizers.SGD(learning_rate=combination[6])
+
+   model = create_model(l1, l2, l3, d1, d2, opt)
+   model.fit(X_train, Y_train, batch_size=128, epochs=50, validation_data=(X_val, Y_val), callbacks=[model_checkpoint_callback])
+   model.load_weights(checkpoint_filepath)
+   scores = model.evaluate(X_val, Y_val)
+
+   acc = scores[1]
+   print(f'{model.metrics_names[1]} of {acc*100}%;')
+   
+   if acc > best_acc:
+      best_comb = combination
+      best_acc = acc
+
+   model.save(os.path.join(path, 'model.h5'))
+
+
+print(best_comb)
 
 # se creeaza modelul cu cea mai buna combinatie obtinuta din grid search
-model = create_model(best_combination[0], best_combination[1], best_combination[2],
-                     best_combination[3], best_combination[4], best_combination[5])
+model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
+   filepath=checkpoint_filepath,
+   save_weights_only=True,
+   monitor='val_accuracy',
+   mode='max',
+   save_best_only=True)
 
-history = model.fit(X_train, Y_train, batch_size=512, epochs=100, validation_data=(X_val, Y_val))
+l1 = Dense(best_comb[0], input_shape=(768, ), activation="relu")
+l2 = Dense(best_comb[1], activation="relu")
+l3 = Dense(best_comb[2], activation="relu")
+d1 = Dropout(best_comb[3])
+d2 = Dropout(best_comb[4])
+if best_comb[5] == 'adam':
+   opt = keras.optimizers.Adam(learning_rate=best_comb[6])
+else:
+   opt = keras.optimizers.SGD(learning_rate=best_comb[6])
+
+model = create_model(l1, l2, l3, d1, d2, opt)
+
+history = model.fit(X_train, Y_train, batch_size=128, epochs=50, validation_data=(X_val, Y_val), callbacks=[model_checkpoint_callback])
+
 # compara rezultatele cu cele reale -> face metricile modelului(loss, acc)
 scores = model.evaluate(X_test, Y_test)
 print(f'Score: {model.metrics_names[0]} of {scores[0]}; {model.metrics_names[1]} of {scores[1]*100}%')
 
 # save the model
-model.save('D:\\Workspace\\tweets-sentiment-analysis\\model.h5')
+model.save(model_path)
 
 # validation loss
 plt.clf()

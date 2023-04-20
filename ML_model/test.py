@@ -3,7 +3,7 @@ import tensorflow as tf
 from transformers import BertTokenizer, TFBertModel
 from tensorflow import keras
 
-NN_model = keras.models.load_model('D:\\Workspace\\tweets-sentiment-analysis\\ML_model\\model.h5')
+NN_model = keras.models.load_model('model.h5')
 
 
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
