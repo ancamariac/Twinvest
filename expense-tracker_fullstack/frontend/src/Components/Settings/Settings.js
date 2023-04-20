@@ -5,7 +5,7 @@ import { plus } from '../../utils/Icons';
 import { useGlobalContext } from '../../context/globalContext';
 
 function Settings() {
-   const { addInterest, error, setError } = useGlobalContext()
+   const { addInterest, error, setError, deleteInterest } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    return (
       <div className="container">

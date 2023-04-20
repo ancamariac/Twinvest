@@ -135,7 +135,20 @@ export const GlobalProvider = ({ children }) => {
 
    const addInterest = async (id, interest) => {
       const token = getToken();
-      const response = await axios.post(`${BASE_URL}update-interests/${id}`, interest, {
+      const response = await axios.put(`${BASE_URL}update-interests/${id}`, interest, {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      })
+         .catch((err) => {
+            setError(err.response.data.message)
+         })
+      getInterests()
+   }
+
+   const deleteInterest = async (id, interest) => {
+      const token = getToken();
+      const response = await axios.put(`${BASE_URL}delete-interest/${id}`, interest, {
          headers: {
             'Authorization': `Basic ${token}`
          }
@@ -160,6 +173,7 @@ export const GlobalProvider = ({ children }) => {
          totalExpenses,
          addInterest,
          getInterests,
+         deleteInterest,
          interests,
          totalBalance,
          transactionHistory,
