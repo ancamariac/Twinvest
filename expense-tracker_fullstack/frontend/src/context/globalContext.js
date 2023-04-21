@@ -124,6 +124,7 @@ export const GlobalProvider = ({ children }) => {
    }
 
    const getInterests = async (id) => {
+      id = '64189cd8b9d5082c1d3d1189'
       const token = getToken();
       const response = await axios.get(`${BASE_URL}get-interests/${id}`, {
          headers: {
@@ -134,6 +135,8 @@ export const GlobalProvider = ({ children }) => {
    }
 
    const addInterest = async (id, interest) => {
+      id = '64189cd8b9d5082c1d3d1189'
+      interest= 'ceva'
       const token = getToken();
       const response = await axios.put(`${BASE_URL}update-interests/${id}`, interest, {
          headers: {
