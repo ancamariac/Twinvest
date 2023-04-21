@@ -37,12 +37,14 @@ function MarketNews() {
                <h1> Check the latest tweets! 🐦 </h1>
             </div>
             <div className="row content-row">   
-               {(tweets !== '') &&
+               {tweets.length > 0 && (
                   <TweetStyled>
-                     <Tweet {...tweets[tweets.length - 1]} />
-                     <Tweet {...tweets[tweets.length - 2]} />            
-                  </TweetStyled>}
-               </div>  
+                     {tweets.map((tweet, index) => (
+                        <Tweet key={index} {...tweet} />
+                     ))}
+                  </TweetStyled>
+               )}
+            </div>  
          </div>
       </>
    )

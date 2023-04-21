@@ -34,8 +34,6 @@ exports.addTweet = async (req, res) => {
       console.log(error)
       res.status(500).json({ message: 'Server Error' })
    }
-
-   console.log(tweet)
 }
 
 exports.getTweets = async (req, res) => {
@@ -55,7 +53,6 @@ exports.getTweets = async (req, res) => {
 
          const tweets = await TweetSchema.find({ hashtags: { $in: tags } }).sort({ createdAt: -1 })
 
-         console.log('tweet_arr ',tweets)
          res.status(200).json(tweets)
 
       } catch (error) {
