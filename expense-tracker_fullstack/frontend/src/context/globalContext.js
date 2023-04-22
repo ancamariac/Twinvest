@@ -123,10 +123,10 @@ export const GlobalProvider = ({ children }) => {
       sessionStorage.setItem('user', JSON.stringify(user));
    }
 
-   const getInterests = async (id) => {
-      id = '64189cd8b9d5082c1d3d1189'
+   const getInterests = async () => {
+
       const token = getToken();
-      const response = await axios.get(`${BASE_URL}get-interests/${id}`, {
+      const response = await axios.get(`${BASE_URL}get-interests`, {
          headers: {
             'Authorization': `Basic ${token}`
          }
@@ -134,17 +134,16 @@ export const GlobalProvider = ({ children }) => {
       setInterests(response.data)
    }
 
-   const addInterest = async (id, interest) => {
-      id = '64189cd8b9d5082c1d3d1189'
-      interest= 'ceva'
+   const addInterest = async (interest) => {
       const token = getToken();
-      const response = await axios.put(`${BASE_URL}update-interests/${id}`, interest, {
+      const response = await axios.put(`${BASE_URL}update-interests`, { interests: interest.interest }, {
          headers: {
             'Authorization': `Basic ${token}`
          }
       })
          .catch((err) => {
             setError(err.response.data.message)
+            console.log(err)
          })
       getInterests()
    }

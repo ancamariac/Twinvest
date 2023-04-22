@@ -5,16 +5,18 @@ import { plus } from '../../utils/Icons';
 import { useGlobalContext } from '../../context/globalContext';
 
 function Settings() {
-   const { addInterest, getInterests, deleteInterest } = useGlobalContext()
+   const { addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
    const handleInput = name => e => {
       setInputState({ ...inputState, [name]: e.target.value })
+      setError('')
    }
 
    const handleSubmit = e => {
-      addInterest('64189cd8b9d5082c1d3d1189', inputState)
+      e.preventDefault()
+      addInterest(inputState)
       getInterests()
       setInputState({interest: ''})
    }
@@ -25,6 +27,7 @@ function Settings() {
 
    return (
       <SettingsStyled onSubmit={handleSubmit}>
+         {error && <p className='error'>{error}</p>}
          <div className="container">
             <div className="row">
                <h1> Choose your preferences! 🎨 </h1>
@@ -35,7 +38,7 @@ function Settings() {
                <br></br>
                <div style={{display:'flex'}}>
                <div className="selects input-control-interests">
-                  <select value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}}>
+                  <select required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}}>
                      <option value="" disabled>Select an interest</option>
                      <option value="#banks">Banks</option>
                      <option value="#cryptocurrency">Cryptocurrency</option>

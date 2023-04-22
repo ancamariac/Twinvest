@@ -36,11 +36,10 @@ exports.userSignIn = async (req, res) => {
 }
 
 exports.updateInterests = async (req, res) => {
-   try {
-
-      const { id } = req.params;      
+   try {  
       
-      const user = await User.findById(id);
+      const userid = req.user["_id"];
+      const user = await User.findById(userid);
       
       if (!user) {
          return res.status(404).send('User was not found!');
@@ -52,7 +51,7 @@ exports.updateInterests = async (req, res) => {
       if (!interests.includes(newInterest)) {
          interests.push(newInterest);
 
-         const filter = { _id: id };
+         const filter = { _id: userid };
          const update = { interests: interests };
          await User.updateOne(filter, update);
 
@@ -67,9 +66,11 @@ exports.updateInterests = async (req, res) => {
 }
 
 exports.getInterests = async (req, res) => {
-   const { id } = req.params;
+
+   const userid = req.user["_id"];
+
    try {
-      const user = await User.findById(id);
+      const user = await User.findById(userid);
       res.status(200).json(user.interests);
    } catch (error) {
       res.status(500).json({ message: 'Server Error' })
