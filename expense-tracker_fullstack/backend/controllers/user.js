@@ -56,7 +56,7 @@ exports.updateInterests = async (req, res) => {
          await User.updateOne(filter, update);
 
       } else {
-         return res.status(500).send('Interest already exists!');
+         return res.status(400).json({ message: 'Interest already exists!' })
       }
       res.status(200).json(user);
    } catch (err) {

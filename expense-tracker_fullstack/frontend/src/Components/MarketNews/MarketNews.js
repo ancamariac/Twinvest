@@ -13,16 +13,13 @@ function MarketNews() {
 
    useEffect(() => {
       async function getTweets() {
-         console.log('test')
          const token = getToken(); 
-         console.log('test1', token)
 
          const response = await axios.get(`${BASE_URL}get-tweets`, {
             headers: {
                'Authorization': `Basic ${token}`
             }
          })
-         console.log('response', response.data)
          setTweets(response.data)
       }
       // Update the document title using the browser API

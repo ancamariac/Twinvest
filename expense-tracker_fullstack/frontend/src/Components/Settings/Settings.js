@@ -27,7 +27,6 @@ function Settings() {
 
    return (
       <SettingsStyled onSubmit={handleSubmit}>
-         {error && <p className='error'>{error}</p>}
          <div className="container">
             <div className="row">
                <h1> Choose your preferences! 🎨 </h1>
@@ -36,29 +35,32 @@ function Settings() {
             <div className="row content-row"> 
                <h2> Pick your interests ✍️</h2>
                <br></br>
+               {error && <p className='error'>{error} </p> }
+               <br></br>
                <div style={{display:'flex'}}>
-               <div className="selects input-control-interests">
-                  <select required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}}>
-                     <option value="" disabled>Select an interest</option>
-                     <option value="#banks">Banks</option>
-                     <option value="#cryptocurrency">Cryptocurrency</option>
-                     <option value="#stockmarket">Stock Market</option>
-                     <option value="#investing">Investing</option>
-                     <option value="#fintech">Fintech</option>
-                     <option value="#startup">Startup</option>
-                     <option value="#entrepreneurship">Entrepreneurship</option>
-                  </select>
-               </div> 
-               <div className="submit-btn" style={{marginLeft: '15px'}}>
-                  <Button
-                     name={'Add Interest'}
-                     icon={plus}
-                     bPad={'.8rem 1.6rem'}
-                     bRad={'30px'}
-                     bg={'var(--color-accent'}
-                     color={'#fff'}
-                  />
-               </div>
+                  <div className="selects input-control-interests">
+                     <select required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}}>
+                        <option value="" disabled>Select an interest</option>
+                        <option value="banks">Banks</option>
+                        <option value="cryptocurrency">Cryptocurrency</option>
+                        <option value="stockmarket">Stock Market</option>
+                        <option value="investing">Investing</option>
+                        <option value="fintech">Fintech</option>
+                        <option value="startup">Startup</option>
+                        <option value="entrepreneurship">Entrepreneurship</option>
+                     </select>
+                  </div> 
+                  <div className="submit-btn" style={{marginLeft: '15px'}}>
+                     <Button
+                        name={'Add Interest'}
+                        icon={plus}
+                        bPad={'.8rem 1.6rem'}
+                        bRad={'30px'}
+                        bg={'var(--color-accent'}
+                        color={'#fff'}
+                     />
+                  </div>
+                  
                </div>
             </div>        
          </div>
