@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react"
 import axios from 'axios'
 
-
 const BASE_URL = "http://localhost:5000/api/v1/";
 
 const GlobalContext = React.createContext()
@@ -148,9 +147,9 @@ export const GlobalProvider = ({ children }) => {
       getInterests()
    }
 
-   const deleteInterest = async (id, interest) => {
+   const deleteInterest = async (interest) => {
       const token = getToken();
-      const response = await axios.put(`${BASE_URL}delete-interest/${id}`, interest, {
+      const response = await axios.put(`${BASE_URL}delete-interest`, { interests: interest }, {
          headers: {
             'Authorization': `Basic ${token}`
          }

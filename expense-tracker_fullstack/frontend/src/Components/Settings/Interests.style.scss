@@ -1,0 +1,9 @@
+.interests {
+   display: flex;
+   flex-wrap: wrap;
+   margin-left: 17px;
+}
+
+.interests > * {
+   margin-right: 12px;
+}

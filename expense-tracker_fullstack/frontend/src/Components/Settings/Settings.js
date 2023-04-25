@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Button from '../Button/Button';
+import InterestItem from '../Interest/Interest';
 import { plus } from '../../utils/Icons';
 import { useGlobalContext } from '../../context/globalContext';
+import './Interests.style.scss';
 
 function Settings() {
-   const { addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
+   const { interests, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
@@ -26,6 +28,7 @@ function Settings() {
 	}, [])
 
    return (
+      <>
       <SettingsStyled onSubmit={handleSubmit}>
          <div className="container">
             <div className="row">
@@ -48,6 +51,9 @@ function Settings() {
                         <option value="fintech">Fintech</option>
                         <option value="startup">Startup</option>
                         <option value="entrepreneurship">Entrepreneurship</option>
+                        <option value="ETHEREUM">ETHEREUM</option>
+                        <option value="BITCOIN">BITCOIN</option>
+                        <option value="DODGECOIN">DODGECOIN</option>
                      </select>
                   </div> 
                   <div className="submit-btn" style={{marginLeft: '15px'}}>
@@ -60,11 +66,22 @@ function Settings() {
                         color={'#fff'}
                      />
                   </div>
-                  
                </div>
-            </div>        
+            </div>
+            <br></br>
          </div>
       </SettingsStyled>
+      <div className='interests'>
+         {interests.map((interestItem) => {
+            const tag = interestItem;
+            return <InterestItem
+               key={tag}
+               data={tag}
+               deleteTag={() => deleteInterest(interestItem)}
+            />
+         })}
+         </div>
+      </>
    )
 }
 

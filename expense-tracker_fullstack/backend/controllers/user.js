@@ -79,23 +79,21 @@ exports.getInterests = async (req, res) => {
 
 exports.deleteInterest = async (req, res) => {
    try {
-      const { id } = req.params;
-
-      const user = await User.findById(id);
+      const userid = req.user["_id"];
+      const user = await User.findById(userid);
          
       if (!user) {
          return res.status(404).send('User was not found!');
       }
-
       const interestDeleted = req.body.interests;
       const interests = user.interests;
       
-      const filter = { _id: id };
-      const update = { $pull: { interests: interestDeleted } };
-      const result = await User.updateOne(filter, update);
-   
-      if (result.nModified === 0) {
-         return res.status(500).send('Interest does not exist!');
+      if (interests.includes(interestDeleted)) {
+         const filter = { _id: userid };
+         const newInterests = interests.filter((interest) => interest !== interestDeleted);
+         const result = await User.updateOne(filter, { $set: { interests: newInterests } });
+      } else {
+         return res.status(400).json({ message: 'Interest does not exist!' })
       }
       res.status(200).json(user);
    } catch (err) {
