@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import { useState } from 'react'
 import {
    Chart as ChartJs,
@@ -45,22 +46,24 @@ function Chart() {
       return new Date(a.date) - new Date(b.date);
    });
 
+   const incomeByMonth = {};
+   for (let income of incomes_sorted) {
+      const monthYear = moment(income.date).format('MMMM');
+      incomeByMonth[monthYear] = (incomeByMonth[monthYear] || 0) + income.amount;
+   }
+
+   const expenseByMonth = {};
+   for (let expense of expenses_sorted) {
+      const monthYear = moment(expense.date).format('MMMM');
+      expenseByMonth[monthYear] = (expenseByMonth[monthYear] || 0) + expense.amount;
+   }
 
    const data_incomes = {
-      labels:
-         incomes_sorted.map((inc) => {
-            const { date } = inc
-            return dateFormat(date)
-         }),
+      labels: Object.keys(incomeByMonth),
       datasets: [
          {
             label: 'Income',
-            data: [
-               ...incomes_sorted.map((income) => {
-                  const { amount } = income
-                  return amount
-               })
-            ],
+            data: Object.values(incomeByMonth),
             backgroundColor: 'green',
             tension: .2
          }
@@ -68,20 +71,11 @@ function Chart() {
    }
 
    const data_expenses = {
-      labels:
-         expenses_sorted.map((inc) => {
-            const { date } = inc
-            return dateFormat(date)
-         }),
+      labels: Object.keys(expenseByMonth),
       datasets: [
          {
             label: 'Expenses',
-            data: [
-               ...expenses_sorted.map((expense) => {
-                  const { amount } = expense
-                  return amount
-               })
-            ],
+            data: Object.values(expenseByMonth),
             backgroundColor: 'red',
             tension: .2
          }
