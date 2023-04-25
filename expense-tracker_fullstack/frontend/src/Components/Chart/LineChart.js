@@ -13,11 +13,9 @@ import {
    ArcElement,
 } from 'chart.js/auto'
 
-
 import { Line } from 'react-chartjs-2'
 import styled from 'styled-components'
 import { useGlobalContext } from '../../context/globalContext'
-import { dateFormat } from '../../utils/dateFormat'
 
 ChartJs.register(
    CategoryScale,

@@ -8,6 +8,14 @@
       grid-column: 1 / 4;
       height: 350px;
 
+      .piechart-con {
+         grid-column: 1 / 4;
+         height: 350px;
+         width: 100%;
+         gap: 2rem;
+         margin-top: 3.5rem;
+      }
+
       .amount-con {
          display: grid;
          grid-template-columns: repeat(4, 1fr);
@@ -53,7 +61,8 @@
    }
 
    .history-con {
-      grid-column: 4 / -1;
+      grid-column: 4 / 6;
+      grid-row: 1 / 2;
 
       h2 {
          margin: 1rem 0;
