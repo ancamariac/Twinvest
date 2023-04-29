@@ -42,6 +42,18 @@ const InterestStyled = styled.div`
    width: fit-content;
    color: #222260;
 
+   .btn-con .fa-trash {
+      font-size: 12px;
+   }
+   .btn-con button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
+   .btn-con:hover {
+      opacity: 0.6!important;
+   }
+
    .content{
       flex: 1;
       display: flex;
