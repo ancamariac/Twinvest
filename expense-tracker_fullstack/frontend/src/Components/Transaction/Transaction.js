@@ -20,7 +20,7 @@ function IncomeItem({
    const incomeCatIcon = () => {
       switch (category) {
          case 'salary':
-            return money;
+            return dollar;
          case 'freelancing':
             return freelance
          case 'investments':
@@ -73,7 +73,7 @@ function IncomeItem({
             <h5>{title}</h5>
             <div className="inner-content">
                <div className="text">
-                  <p>{dollar} {amount}</p>
+                  <p>{money} {amount} {"Lei"}</p>
                   <p>{calender} {dateFormat(date)}</p>
                   <p>
                      {comment}
@@ -101,7 +101,7 @@ function IncomeItem({
 const ItemStyled = styled.div`
    background: #FCF6F9;
    border: 2px solid #FFFFFF;
-   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+   box-shadow: 0px 1px 15px;
    border-radius: 20px;
    padding: 1rem;
    margin-bottom: 1rem;

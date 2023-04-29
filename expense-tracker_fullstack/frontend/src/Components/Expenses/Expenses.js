@@ -17,7 +17,7 @@ function Expenses() {
          </div>
          <div className="row content-row">
             <div className="top-expense">
-               <h2 className="total-income">Total Expense: <span>${totalExpenses()}</span></h2>
+               <h2 className="total-income">Total Expense: <span>{totalExpenses()} {"Lei"}</span></h2>
             </div>
             <div className="income-content">
                <div className="form-container">

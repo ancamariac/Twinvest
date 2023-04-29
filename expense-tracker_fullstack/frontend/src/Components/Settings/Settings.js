@@ -5,9 +5,10 @@ import InterestItem from '../Interest/Interest';
 import { plus } from '../../utils/Icons';
 import { useGlobalContext } from '../../context/globalContext';
 import './Interests.style.scss';
+import "../Dashboard/Dashboard.style.scss";
 
 function Settings() {
-   const { interests, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
+   const { interests, incomes, expenses, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
@@ -80,7 +81,34 @@ function Settings() {
                deleteTag={() => deleteInterest(interestItem)}
             />
          })}
+      </div>
+
+      <div className="container">
+      <div className="row content-row">
+         <div className="stats-con">
+            <div className="history-con">
+               <h2 className="salary-title">Min <span>Income</span>Max</h2>
+               <div className="salary-item">
+                  <p>
+                     {Math.min(...incomes.map(item => item.amount))} {"Lei"}
+                  </p>
+                  <p>
+                     {Math.max(...incomes.map(item => item.amount))} {"Lei"}
+                  </p>
+               </div>
+               <h2 className="salary-title">Min <span>Expense</span>Max</h2>
+               <div className="salary-item">
+                  <p>
+                     {Math.min(...expenses.map(item => item.amount))} {"Lei"}
+                  </p>
+                  <p>
+                     {Math.max(...expenses.map(item => item.amount))} {"Lei"}
+                  </p>
+               </div>
+            </div>
          </div>
+      </div>
+      </div>
       </>
    )
 }
