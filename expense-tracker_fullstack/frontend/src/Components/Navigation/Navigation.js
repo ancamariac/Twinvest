@@ -19,9 +19,11 @@ function Navigation({ active, setActive }) {
       changePage(3);
    } else if (page === 'expenses') {
       changePage(4);
-   } else if (page === 'settings') {
+   } else if (page === 'marketpredictions') {
       changePage(5);
-   }
+   } else if (page === 'settings') {
+      changePage(6);
+   } 
 
    function lastWordCapitalized(url) {
       return url.replace(/^.*\/([^?#\/]+).*$/, function (_, word) {

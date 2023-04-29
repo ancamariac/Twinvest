@@ -24,6 +24,8 @@ function Home() {
             return <Expenses />
          case 5:
             return <Settings />
+         case 6:
+            return <Settings />
          default:
             return <Dashboard />
       }
