@@ -100,7 +100,7 @@ const NavStyled = styled.nav`
          border-radius: 50%;
          object-fit: cover;
          background: #fcf6f9;
-         border: 2px solid #FFFFFF;
+         border: 4px solid var(--primary-color);
          padding: .2rem;
          box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
       }
