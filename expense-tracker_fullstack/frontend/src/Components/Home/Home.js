@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import Income from '../Income/Incomes';
 import Expenses from '../Expenses/Expenses';
 import MarketNews from '../MarketNews/MarketNews';
+import MarketPredictions from '../MarketPredictions/MarketPredictions';
 import Settings from '../Settings/Settings';
 
 function Home() {
@@ -23,7 +24,7 @@ function Home() {
          case 4:
             return <Expenses />
          case 5:
-            return <Settings />
+            return <MarketPredictions />
          case 6:
             return <Settings />
          default:

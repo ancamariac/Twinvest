@@ -33,12 +33,11 @@ function Settings() {
       <SettingsStyled onSubmit={handleSubmit}>
          <div className="container">
             <div className="row">
-               <h1> Choose your preferences! 🎨 </h1>
+               <h1> Choose your preferences 🎨 </h1>
             </div>
             <br></br>
             <div className="row content-row"> 
                <h2> Pick your interests ✍️</h2>
-               <br></br>
                {error && <p className='error'>{error} </p> }
                <br></br>
                <div style={{display:'flex'}}>
