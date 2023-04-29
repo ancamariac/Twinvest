@@ -3,6 +3,34 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const sharp = require('sharp');
 
+const options = [
+   "Bitcoin",
+   "Ethereum",
+   "Dodgecoin",
+   "Tether",
+   "BNB",
+   "USD Coin",
+   "Cardano",
+   "Polygon",
+   "Solana",
+   "Polkadot",
+   "Apple",
+   "Tesla",
+   "Microsoft",
+   "Amazon",
+   "NVIDIA",
+   "Meta",
+   "Coca Cola",
+   "Disney",
+   "Shopify",
+   "Netflix",
+   "Meta",
+   "Roblox",
+   "Coinbase",
+   "Intel",
+   "AMD",
+];
+
 exports.createUser = async (req, res) => {
    const { username, email, password } = req.body;
    const isNewUser = await User.isThisEmailInUse(email);
@@ -47,6 +75,10 @@ exports.updateInterests = async (req, res) => {
 
       const newInterest = req.body.interests;
       const interests = user.interests;
+
+      if (!options.includes(newInterest)) {
+         return res.status(400).json({ message: 'No matches!' });
+      }
 
       if (!interests.includes(newInterest)) {
          interests.push(newInterest);

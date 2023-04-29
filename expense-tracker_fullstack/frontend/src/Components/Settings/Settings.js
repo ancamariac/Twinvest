@@ -12,6 +12,8 @@ function Settings() {
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
+   
+
    const handleInput = name => e => {
       setInputState({ ...inputState, [name]: e.target.value })
       setError('')
@@ -38,21 +40,48 @@ function Settings() {
             <br></br>
             <div className="row content-row"> 
                <h2> Pick your interests ✍️</h2>
+               <br></br>
                {error && <p className='error'>{error} </p> }
                <br></br>
                <div style={{display:'flex'}}>
                   <div className="selects input-control-interests">
-                     <input list="interests" required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}} size="4" placeholder="Type an interest" />
+                     <input 
+                        list="interests" 
+                        required value={interest} 
+                        name="interest" 
+                        id="interest" 
+                        onChange={handleInput('interest')} 
+                        style={{'width':'500px'}} 
+                        size="4" 
+                        placeholder="Type an interest" 
+                     />
                      <datalist id="interests">
                         <option value="Bitcoin" />
                         <option value="Ethereum" />
                         <option value="Dodgecoin" />
+                        <option value="Tether" />
+                        <option value="BNB" />
+                        <option value="USD Coin" />
+                        <option value="Cardano" />
+                        <option value="Polygon" />
+                        <option value="Solana" />
+                        <option value="Polkadot" />
                         <option value="Apple" />
                         <option value="Tesla" />
                         <option value="Microsoft" />
+                        <option value="Amazon" />
+                        <option value="NVIDIA" />
+                        <option value="Meta" />
+                        <option value="Coca Cola" />
+                        <option value="Disney" />
+                        <option value="Shopify" />
+                        <option value="Netflix" />
+                        <option value="Meta" />
+                        <option value="Roblox" />
                         <option value="Coinbase" />
-                        <option value="Litecoin" />
-                        <option value="Cardano" />
+                        <option value="Intel" />
+                        <option value="AMD" />
+                        <option id="noMatchesOption" value="No matches" />
                      </datalist>
                   </div>
                   <div className="submit-btn" style={{marginLeft: '15px'}}>

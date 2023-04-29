@@ -8,7 +8,7 @@ import './MarketPredictions.style.scss';
 import "../Dashboard/Dashboard.style.scss";
 
 function Settings() {
-   const { interests, incomes, expenses, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
+   const { interests, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
