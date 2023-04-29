@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { useState } from 'react'
+import { useState, useEffect, setState } from 'react'
 import {
    Chart as ChartJs,
    CategoryScale,
@@ -29,11 +29,18 @@ ChartJs.register(
 )
 
 function Chart() {
-   const [displayinc, setDisplayInc] = useState(true);
    const { incomes, expenses } = useGlobalContext()
 
-   function pressButton() {
-      setDisplayInc(!displayinc);
+   const [stateSelected, setStateSelected] = useState('expenses');
+
+   function pressButton(param) {
+      if (param === 'expenses') {
+         setStateSelected('expenses')
+         setState(data_expenses);
+      } else {
+         setStateSelected('incomes')
+         setState(data_incomes);
+      }
    }
 
    let incomes_sorted = incomes.sort(function (a, b) {
@@ -79,22 +86,40 @@ function Chart() {
          }
       ]
    }
+
+   const [state, setState] = useState({
+      labels: Object.keys(expenseByMonth),
+      datasets: [
+         {
+            label: 'Expenses',
+            data: Object.values(expenseByMonth),
+            backgroundColor: 'red',
+            tension: .2
+         }
+      ]
+   })
+
    let res;
-   if (displayinc) {
-      res = <div style={{ height: '100%' }}>
-         <button onClick={() => pressButton()} >Expenses</button>
-         <ChartStyled>
-            <Line data={data_incomes} options={options} />
-         </ChartStyled>
-      </div>
-   } else {
-      res = <div style={{ height: '100%' }}>
-         <button onClick={() => pressButton()} >Incomes</button>
-         <ChartStyled>
-            <Line data={data_expenses} options={options} />
-         </ChartStyled>
-      </div>
-   }
+   res = 
+   <div style={{ height: '100%', position: 'relative'}}>
+      <SelectStateStyled>
+         <div class="state margin-right">
+            <div class="state-title">
+               Expenses
+            </div>
+            <input checked={stateSelected === 'expenses'} onClick={() => pressButton('expenses')} type="radio" id="selectData_expenses" name="selectData" value="expenses" ></input>
+         </div>
+         <div class="state">
+            <div class="state-title">
+               Incomes
+            </div>
+            <input checked={stateSelected === 'incomes'} onClick={() => pressButton('incomes')} type="radio" id="selectData_incomes" name="selectData" value="incomes"></input>
+         </div>
+      </SelectStateStyled>
+      <ChartStyled>
+         <Line data={state} options={options} />
+      </ChartStyled>
+   </div>
    return (res)
 }
 
@@ -115,6 +140,34 @@ const ChartStyled = styled.div`
    padding: 1rem;
    border-radius: 20px;
    height: 100%;
+   padding-top: 20px;
 `;
+
+const SelectStateStyled = styled.div`
+   position: absolute;
+   right: 0;
+   top: 0;
+   display: flex;
+   background: rgba(34, 34, 96, 0.6);
+   color: white;
+   border-radius: 0 20px 0 20px;
+   padding: 3px 10px 3px 10px;
+   display: flex;
+   justify-content: space-between;
+   width: auto;
+   .state {
+      display: flex;
+      .state-title {
+         margin-right: 3px;
+         font-size: 13px;
+      }
+      input {
+         cursor: pointer;
+      }
+   }
+   .margin-right {
+      margin-right: 10px;
+   }
+`
 
 export default Chart
