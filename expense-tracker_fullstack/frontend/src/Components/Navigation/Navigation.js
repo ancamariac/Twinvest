@@ -184,10 +184,16 @@ const NavStyled = styled.nav`
       position: relative;
       border: none;
       justify-content: center;
-      padding: 3px 5px 3px 5px;
       display: flex;
       background: initial;
       font-size: 20px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 20px;
+      padding: 8px 15px;
+   }
+   .signout-button:hover {
+      background: var(--color-green);
    }
 `;
 
