@@ -45,16 +45,15 @@ function Settings() {
                   <div className="selects input-control-interests">
                      <input list="interests" required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}} size="4" placeholder="Type an interest" />
                      <datalist id="interests">
-                        <option value="Banks" />
-                        <option value="Cryptocurrency" />
-                        <option value="Stock Market" />
-                        <option value="Investing" />
-                        <option value="Fintech" />
-                        <option value="Startup" />
-                        <option value="Entrepreneurship" />
-                        <option value="ETHEREUM" />
-                        <option value="BITCOIN" />
-                        <option value="DODGECOIN" />
+                        <option value="Bitcoin" />
+                        <option value="Ethereum" />
+                        <option value="Dodgecoin" />
+                        <option value="Apple" />
+                        <option value="Tesla" />
+                        <option value="Microsoft" />
+                        <option value="Coinbase" />
+                        <option value="Litecoin" />
+                        <option value="Cardano" />
                      </datalist>
                   </div>
                   <div className="submit-btn" style={{marginLeft: '15px'}}>
