@@ -12,8 +12,6 @@ function Settings() {
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
-   
-
    const handleInput = name => e => {
       setInputState({ ...inputState, [name]: e.target.value })
       setError('')

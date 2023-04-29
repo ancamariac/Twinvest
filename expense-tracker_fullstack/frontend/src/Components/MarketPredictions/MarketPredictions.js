@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Button from '../Button/Button';
-import InterestItem from '../Interest/Interest';
-import { plus } from '../../utils/Icons';
 import { useGlobalContext } from '../../context/globalContext';
 import './MarketPredictions.style.scss';
 import "../Dashboard/Dashboard.style.scss";
 
 function Settings() {
-   const { interests, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
+   const { interests, getInterests, error, setError } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
+
+   const interestOptions = interests.map((item, index) => (
+      <option key={index} value={item} />
+   ));
+
+   const handleSubmit = e => {
+      e.preventDefault()
+      getInterests()
+      setInputState({interest: ''})
+   }
+
+   const handleInput = name => e => {
+      setInputState({ ...inputState, [name]: e.target.value })
+      setError('')
+   }
 
    useEffect(() => {
       getInterests()
@@ -18,7 +31,7 @@ function Settings() {
 
    return (
       <>
-      <MarketPredictions >
+      <MarketPredictions onSubmit={handleSubmit}>
          <div className="container">
             <div className="row">
                <h1> Let us predict the future! 🔮 </h1>
@@ -31,17 +44,17 @@ function Settings() {
                <br></br>
                <div style={{display:'flex'}}>
                   <div className="selects input-control-interests">
-                     <input list="interests" required value={interest} name="interest" id="interest" style={{'width':'500px'}} size="4" placeholder="Select an item" />
+                     <input 
+                        list="interests" 
+                        required value={interest} 
+                        name="interest" 
+                        id="interest" 
+                        style={{'width':'500px'}} 
+                        onChange={handleInput('interest')}
+                        placeholder='Select an item' 
+                     />
                      <datalist id="interests">
-                        <option value="Bitcoin" />
-                        <option value="Ethereum" />
-                        <option value="Dodgecoin" />
-                        <option value="Apple" />
-                        <option value="Tesla" />
-                        <option value="Microsoft" />
-                        <option value="Coinbase" />
-                        <option value="Litecoin" />
-                        <option value="Cardano" />
+                        {interestOptions}
                      </datalist>
                   </div>
                   <div className="submit-btn" style={{marginLeft: '15px'}}>
