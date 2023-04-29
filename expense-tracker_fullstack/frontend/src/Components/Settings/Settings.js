@@ -42,20 +42,20 @@ function Settings() {
                <br></br>
                <div style={{display:'flex'}}>
                   <div className="selects input-control-interests">
-                     <select required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}}>
-                        <option value="" disabled>Select an interest</option>
-                        <option value="banks">Banks</option>
-                        <option value="cryptocurrency">Cryptocurrency</option>
-                        <option value="stockmarket">Stock Market</option>
-                        <option value="investing">Investing</option>
-                        <option value="fintech">Fintech</option>
-                        <option value="startup">Startup</option>
-                        <option value="entrepreneurship">Entrepreneurship</option>
-                        <option value="ETHEREUM">ETHEREUM</option>
-                        <option value="BITCOIN">BITCOIN</option>
-                        <option value="DODGECOIN">DODGECOIN</option>
-                     </select>
-                  </div> 
+                     <input list="interests" required value={interest} name="interest" id="interest" onChange={handleInput('interest')} style={{'width':'500px'}} size="4" placeholder="Type an interest" />
+                     <datalist id="interests">
+                        <option value="Banks" />
+                        <option value="Cryptocurrency" />
+                        <option value="Stock Market" />
+                        <option value="Investing" />
+                        <option value="Fintech" />
+                        <option value="Startup" />
+                        <option value="Entrepreneurship" />
+                        <option value="ETHEREUM" />
+                        <option value="BITCOIN" />
+                        <option value="DODGECOIN" />
+                     </datalist>
+                  </div>
                   <div className="submit-btn" style={{marginLeft: '15px'}}>
                      <Button
                         name={'Add Interest'}

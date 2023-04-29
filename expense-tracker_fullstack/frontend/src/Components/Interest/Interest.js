@@ -43,7 +43,7 @@ const InterestStyled = styled.div`
    color: #222260;
 
    .btn-con .fa-trash {
-      font-size: 12px;
+      font-size: 15px;
    }
    .btn-con button {
       display: flex;
