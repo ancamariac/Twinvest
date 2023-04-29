@@ -143,5 +143,29 @@ export const GlobalStyle = createGlobalStyle`
       to {
          transform: rotateY(0deg);
       }
-}
+   }
+
+   .app-logo {
+      position: relative;
+      overflow: hidden;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top: 0;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      align-items: center;
+      border-radius: 0 0 100px 100px;
+      background: var(--primary-color);
+      padding: 5px 15px 5px 15px;
+      .app-logo-title {
+         color: white;
+         margin-left: 10px;
+         margin-right: 10px;
+      }
+      .app-logo-icon {
+         color: white;
+      }
 `;

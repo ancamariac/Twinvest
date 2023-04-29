@@ -62,7 +62,7 @@ function Settings() {
                         icon={plus}
                         bPad={'.8rem 1.6rem'}
                         bRad={'30px'}
-                        bg={'var(--color-accent'}
+                        bg={'var(--primary-color'}
                         color={'#fff'}
                      />
                   </div>
