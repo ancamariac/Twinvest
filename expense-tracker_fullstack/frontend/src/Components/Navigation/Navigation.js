@@ -39,6 +39,10 @@ function Navigation({ active, setActive }) {
 
    return (
       <NavStyled>
+         <div className="app-logo shine-effect">
+            <h1 className="app-logo-title"> Expensify </h1>
+            <i  className="fa-solid fa-coins app-logo-icon flip"></i>
+         </div>
          <div className="user-con">
             <img src={avatar} alt="" />
             <div className="text">
@@ -86,6 +90,7 @@ const NavStyled = styled.nav`
    gap: 2rem;
    .user-con{
       height: 100px;
+      margin-top: 40px;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -183,6 +188,31 @@ const NavStyled = styled.nav`
       display: flex;
       background: initial;
       font-size: 20px;
+   }
+
+   .app-logo {
+      position: relative;
+      overflow: hidden;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      top: 0;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      align-items: center;
+      border-radius: 0 0 100px 100px;
+      background: var(--primary-color);
+      padding: 5px 15px 5px 15px;
+      .app-logo-title {
+         color: white;
+         margin-left: 10px;
+         margin-right: 10px;
+      }
+      .app-logo-icon {
+         color: white;
+      }
    }
 `;
 

@@ -111,4 +111,37 @@ export const GlobalStyle = createGlobalStyle`
       background: linear-gradient(rgb(120, 199, 167) 40%, rgb(166, 124, 188) 90%);
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
    }
+
+   /* Class added for a shine effect on hover */
+   .shine-effect {
+      overflow: hidden;
+   }
+   .shine-effect:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -320px;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: skewX(-30deg);
+      transition: 0.3s;
+   } 
+   
+   .shine-effect:hover:before {
+      left: 300px;
+      background: rgba(255, 255, 255, 0.2);
+   }
+   .flip {
+      animation: flip 2s infinite linear;
+   }
+
+   @keyframes flip{
+      from {
+         transform: rotateY(360deg);
+      }
+      to {
+         transform: rotateY(0deg);
+      }
+}
 `;

@@ -103,14 +103,14 @@ function Chart() {
    res = 
    <div style={{ height: '100%', position: 'relative'}}>
       <SelectStateStyled>
-         <div class="state margin-right">
-            <div class="state-title">
+         <div className="state margin-right">
+            <div className="state-title">
                Expenses
             </div>
             <input checked={stateSelected === 'expenses'} onClick={() => pressButton('expenses')} type="radio" id="selectData_expenses" name="selectData" value="expenses" ></input>
          </div>
-         <div class="state">
-            <div class="state-title">
+         <div className="state">
+            <div className="state-title">
                Incomes
             </div>
             <input checked={stateSelected === 'incomes'} onClick={() => pressButton('incomes')} type="radio" id="selectData_incomes" name="selectData" value="incomes"></input>
