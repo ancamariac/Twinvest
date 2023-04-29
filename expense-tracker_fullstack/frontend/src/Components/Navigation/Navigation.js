@@ -40,7 +40,7 @@ function Navigation({ active, setActive }) {
    return (
       <NavStyled>
          <div className="app-logo shine-effect">
-            <h1 className="app-logo-title"> Expensify </h1>
+            <h1 className="app-logo-title"> Twinvest </h1>
             <i  className="fa-solid fa-coins app-logo-icon flip"></i>
          </div>
          <div className="user-con">
