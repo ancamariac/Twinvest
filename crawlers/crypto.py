@@ -1,1 +1,0 @@
-crypto = "#crypto OR #cryptocurrencies OR Bitcoin OR BTC OR Ethereum OR ETH OR Binance Coin OR BNB"
