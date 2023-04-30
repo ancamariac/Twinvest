@@ -3,6 +3,7 @@ import pymongo
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from dateutil.parser import parse
 
 # load the environment variables
 load_dotenv()
@@ -20,10 +21,13 @@ documents = []
 for index, row in df.iterrows():
    title = row['Title']
    link = row['Link']
-   date = row['Date']
+   date_str = row['Date']
    source = row['Source']
    keyword = row['Keyword']
    label = row['Label']
+   
+   # Convertirea șirului de dată în obiect datetime
+   date = parse(date_str)
    
    document = {
       'title': title,

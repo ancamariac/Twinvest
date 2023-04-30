@@ -1,8 +1,8 @@
-const TweetSchema = require("../models/TweetModel")
+const NewsSchema = require("../models/NewsModel")
 const User = require("../models/user")
 const jwt = require('jsonwebtoken');
 
-exports.getTweets = async (req, res) => {
+exports.getNews = async (req, res) => {
    if (req.headers && req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1];
       
@@ -11,15 +11,17 @@ exports.getTweets = async (req, res) => {
          const decode = jwt.verify(token, process.env.JWTSECRETKEY);
          const user = await User.findById(decode.userId);
 
+         console.log('user', user)
+
          if (!user) {
             return res.json({ success: false, message: "Unauthorized access!" });        
          }
          
          const tags = user.interests
 
-         const tweets = await TweetSchema.find({ hashtags: { $in: tags } }).sort({ createdAt: -1 })
+         const news = await NewsSchema.find({ keyword: { $in: tags } }).sort({ createdAt: -1 })
 
-         res.status(200).json(tweets)
+         res.status(200).json(news)
 
       } catch (error) {
          if (error.name == 'JsonWebTokenError') {

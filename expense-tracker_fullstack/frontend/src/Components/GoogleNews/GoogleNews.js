@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import Tweet from '../Tweet/Tweet'
-import axios from 'axios'
 import { useGlobalContext } from '../../context/globalContext';
+import Item from '../Transaction/Transaction';
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
 function GoogleNews() {
 
-   const [tweets, setTweets] = useState('');
-   const { getToken } = useGlobalContext()
+   const { getToken, news, getNews } = useGlobalContext()
 
    useEffect(() => {
-      async function getTweets() {
-         const token = getToken(); 
-
-         const response = await axios.get(`${BASE_URL}get-tweets`, {
-            headers: {
-               'Authorization': `Basic ${token}`
-            }
-         })
-         setTweets(response.data)
-      }
-      // Update the document title using the browser API
-      getTweets()
+      getNews()
    }, []);
 
-
+   console.log('news', news)
    return (
       <>
          <div className="container">
@@ -34,12 +21,24 @@ function GoogleNews() {
                <h1> Stay informed with Google News! 📰 </h1>
             </div>
             <div className="row content-row">   
-               
+               {news.length > 0 && (
+                  <GoogleNewsStyled>
+                     {news.map((item) => ( 
+                        <Item
+			
+                     />
+                     ))}
+                  </GoogleNewsStyled>
+               )}
             </div>  
          </div>
       </>
    )
 }
 
+const GoogleNewsStyled = styled.div`
+   display: block;
+   margin-bottom: 10px;
+`;
 
 export default GoogleNews
