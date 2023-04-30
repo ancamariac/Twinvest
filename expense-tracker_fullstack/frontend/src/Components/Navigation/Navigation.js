@@ -13,16 +13,18 @@ function Navigation({ active, setActive }) {
 
    if (page === 'dashboard') {
       changePage(1);
-   } else if (page === 'marketnews') {
+   } else if (page === 'twitternews') {
       changePage(2);
-   } else if (page === 'incomes') {
+   } else if (page === 'googlenews') {
       changePage(3);
-   } else if (page === 'expenses') {
+   } else if (page === 'incomes') {
       changePage(4);
-   } else if (page === 'marketpredictions') {
+   } else if (page === 'expenses') {
       changePage(5);
-   } else if (page === 'settings') {
+   } else if (page === 'marketpredictions') {
       changePage(6);
+   } else if (page === 'settings') {
+      changePage(7);
    } 
 
    function lastWordCapitalized(url) {

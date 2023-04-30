@@ -6,9 +6,10 @@ import Navigation from "../Navigation/Navigation";
 import Dashboard from '../Dashboard/Dashboard';
 import Income from '../Income/Incomes';
 import Expenses from '../Expenses/Expenses';
-import MarketNews from '../MarketNews/MarketNews';
 import MarketPredictions from '../MarketPredictions/MarketPredictions';
 import Settings from '../Settings/Settings';
+import TwitterNews from '../TwitterNews/TwitterNews';
+import GoogleNews from '../GoogleNews/GoogleNews';
 
 function Home() {
    const [active, setActive] = useState(-1)
@@ -18,14 +19,16 @@ function Home() {
          case 1:
             return <Dashboard />
          case 2:
-            return <MarketNews />
+            return <TwitterNews />
          case 3:
-            return <Income />
+            return <GoogleNews />
          case 4:
-            return <Expenses />
+            return <Income />
          case 5:
-            return <MarketPredictions />
+            return <Expenses />
          case 6:
+            return <MarketPredictions />
+         case 7:
             return <Settings />
          default:
             return <Dashboard />

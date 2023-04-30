@@ -157,7 +157,7 @@ export const GlobalStyle = createGlobalStyle`
       justify-content: center;
       cursor: pointer;
       align-items: center;
-      border-radius: 0 0 100px 100px;
+      border-radius: 20px 20px 100px 100px;
       background: var(--primary-color);
       padding: 5px 15px 5px 15px;
       .app-logo-title {

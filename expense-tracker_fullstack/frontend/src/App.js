@@ -30,11 +30,12 @@ function App() {
                <Route path="/login" element={<Login goHome={goHome} />} />
                <Route path="/register" element={<Register />} />            
                <Route path="/dashboard" element={<Home/>} />
-               <Route path="/marketnews" element={<Home active={2}/>} />
-               <Route path="/incomes" element={<Home active={3}/>} />
-               <Route path="/expenses" element={<Home active={4}/>} />
-               <Route path="/marketpredictions" element={<Home active={5}/>} />
-               <Route path="/settings" element={<Home active={6}/>} />
+               <Route path="/twitternews" element={<Home active={2}/>} />
+               <Route path="/googlenews" element={<Home active={3}/>} />
+               <Route path="/incomes" element={<Home active={4}/>} />
+               <Route path="/expenses" element={<Home active={5}/>} />
+               <Route path="/marketpredictions" element={<Home active={6}/>} />
+               <Route path="/settings" element={<Home active={7}/>} />
                
             </Routes>
          </Router>
