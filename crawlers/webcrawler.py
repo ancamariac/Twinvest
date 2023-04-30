@@ -83,7 +83,7 @@ def archive(news_list, df, keyword):
 
 
 def crawl(page_limit=None, keywords=None):
-   df = pd.DataFrame(columns=['Title', 'Link', 'Date', 'Source', 'Keyword'])
+   df = pd.DataFrame(columns=['Title', 'Link', 'Date', 'Source', 'Keyword', 'Label'])
    df.to_excel('output.xlsx', index=False)
    print('Crawling news...')
    print('-' * 60)
@@ -112,7 +112,6 @@ if __name__ == '__main__':
       'Dodgecoin',
       'Tether',
       'BNB',
-      'USD Coin',
       'Cardano',
       'Polygon',
       'Solana',
@@ -123,7 +122,6 @@ if __name__ == '__main__':
       'Amazon',
       'NVIDIA',
       'Meta',
-      'Coca Cola',
       'Disney',
       'Shopify',
       'Netflix',

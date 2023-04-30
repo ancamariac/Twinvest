@@ -6,7 +6,7 @@ import { useGlobalContext } from '../../context/globalContext';
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
-function MarketNews() {
+function GoogleNews() {
 
    const [tweets, setTweets] = useState('');
    const { getToken } = useGlobalContext()
@@ -31,25 +31,15 @@ function MarketNews() {
       <>
          <div className="container">
             <div className="row">
-               <h1> Check the latest tweets! 🐦 </h1>
+               <h1> Stay informed with Google News! 📰 </h1>
             </div>
             <div className="row content-row">   
-               {tweets.length > 0 && (
-                  <TweetStyled>
-                     {tweets.map((tweet, index) => (
-                        <Tweet key={index} {...tweet} />
-                     ))}
-                  </TweetStyled>
-               )}
+               
             </div>  
          </div>
       </>
    )
 }
 
-const TweetStyled = styled.div`
-   display: block;
-   margin-bottom: 10px;
-`;
 
-export default MarketNews
+export default GoogleNews

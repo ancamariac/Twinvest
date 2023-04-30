@@ -59,7 +59,6 @@ function Settings() {
                         <option value="Dodgecoin" />
                         <option value="Tether" />
                         <option value="BNB" />
-                        <option value="USD Coin" />
                         <option value="Cardano" />
                         <option value="Polygon" />
                         <option value="Solana" />
@@ -70,7 +69,6 @@ function Settings() {
                         <option value="Amazon" />
                         <option value="NVIDIA" />
                         <option value="Meta" />
-                        <option value="Coca Cola" />
                         <option value="Disney" />
                         <option value="Shopify" />
                         <option value="Netflix" />

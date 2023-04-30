@@ -31,7 +31,7 @@ function MarketNews() {
       <>
          <div className="container">
             <div className="row">
-               <h1> Check the latest tweets! 🐦 </h1>
+               <h1> Check out the latest tweets! 🐦 </h1>
             </div>
             <div className="row content-row">   
                {tweets.length > 0 && (
