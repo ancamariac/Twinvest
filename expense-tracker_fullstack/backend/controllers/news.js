@@ -11,8 +11,6 @@ exports.getNews = async (req, res) => {
          const decode = jwt.verify(token, process.env.JWTSECRETKEY);
          const user = await User.findById(decode.userId);
 
-         console.log('user', user)
-
          if (!user) {
             return res.json({ success: false, message: "Unauthorized access!" });        
          }

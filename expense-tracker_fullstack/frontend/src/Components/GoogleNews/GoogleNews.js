@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { useGlobalContext } from '../../context/globalContext';
-import Item from '../Transaction/Transaction';
-
-const BASE_URL = "http://localhost:5000/api/v1/";
+import News from './News';
 
 function GoogleNews() {
 
-   const { getToken, news, getNews } = useGlobalContext()
+   const {news, getNews } = useGlobalContext()
 
    useEffect(() => {
       getNews()
    }, []);
 
-   console.log('news', news)
    return (
       <>
          <div className="container">
             <div className="row">
                <h1> Stay informed with Google News! 📰 </h1>
             </div>
+            <br></br>
             <div className="row content-row">   
                {news.length > 0 && (
                   <GoogleNewsStyled>
-                     {news.map((item) => ( 
-                        <Item
-			
+                     {news.map((item, index) => ( 
+                        <News
+                        key={index}
+								id={index}
+								title={<a href={item.link} className="news-link">{item.title}</a>}
+								label={item.label}
+								keyword={item.keyword}
+                        source={item.source}
+								date={item.date}
+								indicatorColor="var(--color-green)"
                      />
                      ))}
                   </GoogleNewsStyled>
@@ -39,6 +44,11 @@ function GoogleNews() {
 const GoogleNewsStyled = styled.div`
    display: block;
    margin-bottom: 10px;
+
+   .news-link {
+      text-decoration: none; 
+      color: inherit; 
+   }   
 `;
 
 export default GoogleNews

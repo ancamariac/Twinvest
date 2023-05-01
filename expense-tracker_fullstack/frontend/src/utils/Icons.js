@@ -2,6 +2,9 @@ export const dashboard = <i className="fa-solid fa-chart-line"></i>
 export const transactions = <i className="fa-solid fa-credit-card"></i>
 export const news = <i className="fa-solid fa-newspaper"></i>
 export const twitter = <i className="fa fa-twitter"></i>
+export const tag = <i className="fa-solid fa-tag"></i>
+export const robot = <i className="fa-solid fa-robot"></i>
+export const telegram = <i className="fas fa-link"></i>
 export const google = <i className="fa-brands fa-google"></i>
 export const categories = <i className="fa-solid fa-tags"></i>
 export const accounts = <i className="fa-solid fa-wallet"></i>
