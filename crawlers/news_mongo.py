@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from dateutil.parser import parse
 
+# Acest script adauga datele din xlsx in baza de date Mongo
+
 # load the environment variables
 load_dotenv()
 
