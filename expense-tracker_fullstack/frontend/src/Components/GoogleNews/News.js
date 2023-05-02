@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 import { dateFormat } from '../../utils/dateFormat';
-import { calender, trash, tag, telegram, robot } from '../../utils/Icons';
+import { calender, tag, telegram, robot } from '../../utils/Icons';
 import Button from '../Button/Button';
-
+import googleLogo from '../../img/search.png';
 
 function News({
    id,
@@ -20,7 +20,7 @@ function News({
    return (
       <NewsStyled indicator={indicatorColor}>
          <div className="content">
-            <h5><a href={link}>{title}</a></h5>
+            <h5>{React.cloneElement(title, { className: "news-link", target: "_blank" })}</h5>
             <div className="inner-content">
                <div className="text">
                   <p>{tag} {keyword}</p>
@@ -28,17 +28,18 @@ function News({
                   <p>{telegram} {source}</p>
                   <p>{robot} {label}</p>
                </div>
-               <div className="btn-con">
+               <div className="btn-con">                 
                   <Button
-                     icon={trash}
+                     icon={<img src={googleLogo} alt="Google Logo" className="google-logo" />}
                      bPad={'1rem'}
                      bRad={'50%'}
-                     bg={'var(--primary-color'}
-                     color={'#fff'}
-                     iColor={'#fff'}
+                     bg={'transparent'}
+                     color={'#222260'}
+                     iColor={'#222260'}
                      hColor={'var(--color-green)'}
-                     onClick={() => deleteItem(id)}
+                     onClick={() => window.open(link, "_blank")}
                   />
+               
                </div>
             </div>
          </div>
@@ -58,6 +59,10 @@ const NewsStyled = styled.div`
    width: 70%;
    color: #222260;
    margin-left: 13pc;
+
+   .google-logo {
+      width: 40px;
+   }
 
    .content{
       flex: 1;

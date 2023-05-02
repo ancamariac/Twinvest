@@ -142,7 +142,6 @@ export const GlobalProvider = ({ children }) => {
             'Authorization': `Basic ${token}`
          }
       })
-      console.log('response', response)
       setNews(response.data)
    }
 

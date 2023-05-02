@@ -27,7 +27,7 @@ function IncomeItem({
             return stocks;
          case 'stocks':
             return users;
-         case 'bitcoin':
+         case 'crypto':
             return bitcoin;
          case 'bank':
             return card;

@@ -25,12 +25,14 @@ function GoogleNews() {
                         <News
                         key={index}
 								id={index}
-								title={<a href={item.link} className="news-link">{item.title}</a>}
+								title={<a href={item.link} className="news-link" >{item.title}</a>}
 								label={item.label}
 								keyword={item.keyword}
                         source={item.source}
 								date={item.date}
-								indicatorColor="var(--color-green)"
+								indicatorColor={
+                           item.label === "negative" ? "red" : item.label === "positive" ? "var(--color-green)" : "blue"
+                        }
                      />
                      ))}
                   </GoogleNewsStyled>
@@ -48,6 +50,7 @@ const GoogleNewsStyled = styled.div`
    .news-link {
       text-decoration: none; 
       color: inherit; 
+      target: "_blank"
    }   
 `;
 
