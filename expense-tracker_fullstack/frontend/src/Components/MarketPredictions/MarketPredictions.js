@@ -4,15 +4,13 @@ import Button from '../Button/Button';
 import { useGlobalContext } from '../../context/globalContext';
 import './MarketPredictions.style.scss';
 import "../Dashboard/Dashboard.style.scss";
+import PredictCard from './PredictCard'
+import "../Settings/Interests.style.scss";
 
 function Settings() {
    const { interests, getInterests, error, setError } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
-
-   const interestOptions = interests.map((item, index) => (
-      <option key={index} value={item} />
-   ));
 
    const handleSubmit = e => {
       e.preventDefault()
@@ -53,9 +51,6 @@ function Settings() {
                         onChange={handleInput('interest')}
                         placeholder='Select an item' 
                      />
-                     <datalist id="interests">
-                        {interestOptions}
-                     </datalist>
                   </div>
                   <div className="submit-btn" style={{marginLeft: '15px'}}>
                      <Button
@@ -69,13 +64,27 @@ function Settings() {
                </div>
          </div>
       </MarketPredictions>
+      <div className='interests'>
+         {interests.map((interestItem) => {
+            const item = interestItem;
+            return <PredictCard
+               title={item}                     
+            />
+         })}
+      </div>
       </>
    )
 }
 
 const MarketPredictions = styled.form`
-   display: flex;
-   flex-direction: column;
+display: block;
+margin-bottom: 10px;
+
+.news-link {
+   text-decoration: none; 
+   color: inherit; 
+   target: "_blank"
+}
 `;
 
 export default Settings
