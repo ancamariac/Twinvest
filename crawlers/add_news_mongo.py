@@ -16,7 +16,7 @@ db = client.test
 collection = db.news
 
 # Citirea datelor din fișierul Excel
-df = pd.read_excel('output.xlsx')
+df = pd.read_excel('output_labeled.xlsx')
 
 # Iterarea prin rândurile DataFrame-ului și adăugarea în bază de date
 documents = []
