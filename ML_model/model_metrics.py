@@ -39,11 +39,11 @@ X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.
 checkpoint_filepath = os.path.join(os.getcwd(), 'tmp', 'checkpoint')
 
 metrics = [
-           tf.keras.metrics.CategoricalAccuracy(name='accuracy'),
-           tf.keras.metrics.Precision(),
-           tf.keras.metrics.Recall(),
-           tf.keras.metrics.AUC()
-           ]
+         tf.keras.metrics.CategoricalAccuracy(name='accuracy'),
+         tf.keras.metrics.Precision(),
+         tf.keras.metrics.Recall(),
+         tf.keras.metrics.AUC()
+         ]
 
 def create_model(l1, l2, l3, d1, d2, opt):
    model = Sequential()
@@ -58,11 +58,11 @@ def create_model(l1, l2, l3, d1, d2, opt):
 
 
 model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
-    filepath=checkpoint_filepath,
-    save_weights_only=True,
-    monitor='val_accuracy',
-    mode='max',
-    save_best_only=True)
+   filepath=checkpoint_filepath,
+   save_weights_only=True,
+   monitor='val_accuracy',
+   mode='max',
+   save_best_only=True)
 
 # combination = [l1_num, l2_num, d1, act1, act2,  opt, lr]
 l1 = Dense(best_config[0], input_shape=(768, ), activation='relu')
@@ -71,9 +71,9 @@ l3 = Dense(best_config[2], activation='relu')
 d1 = Dropout(best_config[3])
 d2 = Dropout(best_config[4])
 if best_config[5] == 'adam':
-    opt = keras.optimizers.Adam(learning_rate=best_config[6])
+   opt = keras.optimizers.Adam(learning_rate=best_config[6])
 else:
-    opt = keras.optimizers.SGD(learning_rate=best_config[6])
+   opt = keras.optimizers.SGD(learning_rate=best_config[6])
 
 model = create_model(l1, l2, l3, d1, d2, opt)
 history = model.fit(X_train, Y_train, batch_size=512, epochs=100, validation_data=(X_val, Y_val), callbacks=[model_checkpoint_callback])
