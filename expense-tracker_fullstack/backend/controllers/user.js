@@ -22,7 +22,6 @@ const options = [
    "Disney",
    "Shopify",
    "Netflix",
-   "Meta",
    "Roblox",
    "Coinbase",
    "Intel",

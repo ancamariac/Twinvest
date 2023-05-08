@@ -125,3 +125,8 @@ tmp/
 
 .pkl
 .pk
+.h5
+
+*.pkl
+*.pk
+*.h5
