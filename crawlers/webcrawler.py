@@ -104,6 +104,33 @@ def crawl(page_limit=None, keywords=None):
    print('-' * 60)
    df.to_excel("output.xlsx")
 
+import pymongo
+from dotenv import load_dotenv
+from pymongo import MongoClient
+from dateutil.parser import parse
+from datetime import datetime
+
+def delete_old_news_from_mongodb():
+   # load the environment variables
+   load_dotenv()
+
+   # set up the MongoDB connection
+   client = pymongo.MongoClient(os.getenv("MONGO_URI"))
+   db = client.test
+   collection = db.news
+
+   # Setarea orei la miezul nopții pentru a sterge toate stirile mai putin cele din ziua
+   # curenta
+   current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
+   # Construirea filtrului pentru a șterge intrările cu data mai mică decât data curentă
+   filter_query = {'date': {'$lt': current_date}}
+
+   # Ștergerea intrărilor conform filtrului
+   result = collection.delete_many(filter_query)
+
+   print(f'{result.deleted_count} intrări au fost șterse.')
+
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -141,8 +168,170 @@ def apply_ML():
    # se salveaza dataframeul
    df.to_excel('output_labeled.xlsx', index=False)
    
+def add_news_in_mongodb():
+   # load the environment variables
+   load_dotenv()
+
+   # set up the MongoDB connection
+   client = pymongo.MongoClient(os.getenv("MONGO_URI"))
+   db = client.test
+   collection = db.news
+
+   # Citirea datelor din fișierul Excel
+   df = pd.read_excel('output_labeled.xlsx')
+
+   # Iterarea prin rândurile DataFrame-ului și adăugarea în bază de date
+   documents = []
+   for index, row in df.iterrows():
+      title = row['Title']
+      link = row['Link']
+      date_str = row['Date']
+      source = row['Source']
+      keyword = row['Keyword']
+      label = row['Label']
+      
+      # Convertirea șirului de dată în obiect datetime
+      date = parse(date_str)
+      
+      document = {
+         'title': title,
+         'link': link,
+         'date': date,
+         'source': source,
+         'keyword': keyword,
+         'label': label
+      }
+      documents.append(document)
+
+   # Inserarea documentelor în colecția MongoDB 
+   collection.insert_many(documents)   
+
+from openpyxl import load_workbook
+
+def score_labels(keywords=None):
+   # citim datele din fisierul xlsx
+   data = pd.read_excel("output_labeled.xlsx")
+
+   # initializam un dictionar pentru a stoca valorile
+   results = {}
+   for keyword in keywords:
+      results[keyword] = {"positive": 0, "negative": 0, "neutral": 0, "score": 0}
+
+   # calculam numarul de stiri pentru fiecare keyword
+   for index, row in data.iterrows():
+      label = row["Label"]
+      for keyword in keywords:
+         if keyword in row["Keyword"]:
+            results[keyword][label] += 1
+
+   # calculam scorul pentru fiecare keyword
+   for keyword in keywords:
+      results[keyword]["score"] = (-1) * results[keyword]["negative"] + 0.1 * results[keyword]["neutral"] + results[keyword]["positive"]
+
+   # adaugam cuvintele cheie lipsa in dictionar cu valorile implicite
+   for keyword in keywords:
+      results.setdefault(keyword, {"positive": 0, "negative": 0, "neutral": 0, "score": 0})
+
+   # creem dataframe-ul pentru a salva rezultatele
+   df = pd.DataFrame.from_dict(results, orient="index")
+
+   # adaugam o coloana cu data si ora la care a fost rulat scriptul
+   now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+   df["last_update"] = now
+
+   # trendul in functie de scor 
+   # adaugam o coloana pentru trend
+   def get_trend(score):
+      trend_threshold = 1
+      
+      if score >= (-1) * trend_threshold and score <= trend_threshold:
+         return "stable"
+      elif score > trend_threshold:
+         return "rising"
+      else:
+         return "falling"
+
+   df["trend"] = df["score"].apply(get_trend)
+
+   # adaugam valorile in xlsx-ul rezultat sau cream unul nou
+   try:
+      book = load_workbook("results.xlsx")
+      writer = pd.ExcelWriter("results.xlsx", engine="openpyxl")
+      writer.book = book
+      writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
+      df.to_excel(writer, sheet_name="Sheet1", index=True)
+      writer.save()
+      writer.close()
+      print("Rezultatele au fost adaugate in fisierul existent.")
+   except:
+      df.to_excel("results.xlsx", sheet_name="Sheet1", index=True)
+      print("A fost creat un fisier nou cu rezultatele.")
+
+def update_predictions(keywords=None):
+   # load the environment variables
+   load_dotenv()
+
+   # set up the MongoDB connection
+   client = pymongo.MongoClient(os.getenv("MONGO_URI"))
+   db = client.test
+   predictions_collection = db.predictions
+
+   # citim datele din fisierul xlsx
+   data = pd.read_excel("results.xlsx")
+
+   # initializam un dictionar pentru a stoca valorile
+   results = {}
+   for keyword in keywords:
+      results[keyword] = {"positive": 0, "negative": 0, "neutral": 0, "score": 0}
+
+   # calculam numarul de stiri pentru fiecare keyword
+   for index, row in data.iterrows():
+      label = row["Label"]
+      for keyword in keywords:
+         if keyword in row["Keyword"]:
+            results[keyword][label] += 1
+
+   # calculam scorul pentru fiecare keyword
+   for keyword in keywords:
+      results[keyword]["score"] = round((-1) * results[keyword]["negative"] + 0.1 * results[keyword]["neutral"] + results[keyword]["positive"], 2)
+
+   # adaugam cuvintele cheie lipsa in dictionar cu valorile implicite
+   for keyword in keywords:
+      results.setdefault(keyword, {"positive": 0, "negative": 0, "neutral": 0, "score": 0})
+
+   def get_trend(score):
+      trend_threshold = 1
+      
+      if score >= (-1) * trend_threshold and score <= trend_threshold:
+         return "stable"
+      elif score > trend_threshold:
+         return "rising"
+      else:
+         return "falling"
+
+   # actualizam colectia cu valorile noi
+   for keyword in keywords:
+      update_data = {
+         "$set": {
+            "positive": results[keyword]["positive"],
+            "negative": results[keyword]["negative"],
+            "neutral": results[keyword]["neutral"],
+            "score": results[keyword]["score"],
+            "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "trend": get_trend(results[keyword]["score"])
+         }
+      }
+      predictions_collection.update_one({"keyword": keyword}, update_data, upsert=True)
+
+   # afisam mesajul de finalizare a operatiei
+   print("Datele au fost actualizate cu succes in baza de date.")
+
 if __name__ == '__main__':
    path = os.getcwd()
+   # stergerea stirilor vechi din baza de date mongo
+   delete_old_news_from_mongodb()
+
+   # definirea cuvintelor cheie dupa care se vor cauta stiri
    keywords = [
       'Bitcoin',
       'Ethereum',
@@ -168,5 +357,25 @@ if __name__ == '__main__':
       'Intel',
       'AMD'
    ]
+   
+   # obtinerea stirilor care contin cuvintele cheie definite, din ultimele doua zile
+   # rezultatul se salveaza in fisierul output.xlsx
    crawl(None, keywords)
+   
+   # generarea label-urilor (positive/negative/neutral) pentru fiecare stire 
+   # din fisierul generat anterior output.xlsx
+   # rezultatul va fi salvat in fisierul output_labeled.xlsx 
    apply_ML()
+   
+   # adaugarea stirilor din fisierul output_labeled.xlsx in baza de date
+   # pentru a fi prezentate user-ului in sectiune Google News
+   add_news_in_mongodb()
+   
+   # calcularea scorului pentru fiecare keyword in parte, in functie de numarul de stiri
+   # positive/negative/neutral, pentru a fi folosit mai departe in predictii
+   # rezultatul va fi salvat in fisierul results.xlsx
+   score_labels(keywords)
+   
+   # se face update in baza de date pentru colectia predictions in functie de scorurile
+   # calculate anterior si salvate in fisierul results.xlsx
+   update_predictions(keywords)
