@@ -208,6 +208,18 @@ def add_news_in_mongodb():
 
 from openpyxl import load_workbook
 
+# trendul in functie de scor 
+# adaugam o coloana pentru trend
+def get_trend(score):
+   trend_threshold = 1
+   
+   if score >= (-1) * trend_threshold and score <= trend_threshold:
+      return "stable"
+   elif score > trend_threshold:
+      return "rising"
+   else:
+      return "falling"
+
 def score_labels(keywords=None):
    # citim datele din fisierul xlsx
    data = pd.read_excel("output_labeled.xlsx")
@@ -219,9 +231,9 @@ def score_labels(keywords=None):
 
    # calculam numarul de stiri pentru fiecare keyword
    for index, row in data.iterrows():
-      label = row["Label"]
+      label = row['Label']
       for keyword in keywords:
-         if keyword in row["Keyword"]:
+         if keyword in row['Keyword']:
             results[keyword][label] += 1
 
    # calculam scorul pentru fiecare keyword
@@ -239,20 +251,8 @@ def score_labels(keywords=None):
    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
    df["last_update"] = now
 
-   # trendul in functie de scor 
-   # adaugam o coloana pentru trend
-   def get_trend(score):
-      trend_threshold = 1
-      
-      if score >= (-1) * trend_threshold and score <= trend_threshold:
-         return "stable"
-      elif score > trend_threshold:
-         return "rising"
-      else:
-         return "falling"
-
    df["trend"] = df["score"].apply(get_trend)
-
+   
    # adaugam valorile in xlsx-ul rezultat sau cream unul nou
    try:
       book = load_workbook("results.xlsx")
@@ -267,7 +267,7 @@ def score_labels(keywords=None):
       df.to_excel("results.xlsx", sheet_name="Sheet1", index=True)
       print("A fost creat un fisier nou cu rezultatele.")
 
-def update_predictions(keywords=None):
+def update_predictions():
    # load the environment variables
    load_dotenv()
 
@@ -281,27 +281,28 @@ def update_predictions(keywords=None):
 
    # initializam un dictionar pentru a stoca valorile
    results = {}
-   for keyword in keywords:
+   for index, row in data.iterrows():
+      keyword = row[0]
       results[keyword] = {"positive": 0, "negative": 0, "neutral": 0, "score": 0}
 
    # calculam numarul de stiri pentru fiecare keyword
    for index, row in data.iterrows():
-      label = row["Label"]
-      for keyword in keywords:
-         if keyword in row["Keyword"]:
-            results[keyword][label] += 1
-
-   # calculam scorul pentru fiecare keyword
-   for keyword in keywords:
-      results[keyword]["score"] = round((-1) * results[keyword]["negative"] + 0.1 * results[keyword]["neutral"] + results[keyword]["positive"], 2)
-
-   # adaugam cuvintele cheie lipsa in dictionar cu valorile implicite
-   for keyword in keywords:
-      results.setdefault(keyword, {"positive": 0, "negative": 0, "neutral": 0, "score": 0})
+      keyword = row[0]
+      positive = row['positive']
+      negative = row['negative']
+      neutral = row['neutral']
+      score = row['score']
+      last_update = row['last_update']
+      trend = row['trend']
+      
+      results[keyword]['positive'] = positive
+      results[keyword]['negative'] = negative
+      results[keyword]['neutral'] = neutral
+      results[keyword]['score'] = score
 
    def get_trend(score):
       trend_threshold = 1
-      
+
       if score >= (-1) * trend_threshold and score <= trend_threshold:
          return "stable"
       elif score > trend_threshold:
@@ -310,15 +311,15 @@ def update_predictions(keywords=None):
          return "falling"
 
    # actualizam colectia cu valorile noi
-   for keyword in keywords:
+   for keyword in results.keys():
       update_data = {
          "$set": {
-            "positive": results[keyword]["positive"],
-            "negative": results[keyword]["negative"],
-            "neutral": results[keyword]["neutral"],
-            "score": results[keyword]["score"],
-            "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "trend": get_trend(results[keyword]["score"])
+               "positive": results[keyword]["positive"],
+               "negative": results[keyword]["negative"],
+               "neutral": results[keyword]["neutral"],
+               "score": results[keyword]["score"],
+               "last_update": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+               "trend": get_trend(results[keyword]["score"])
          }
       }
       predictions_collection.update_one({"keyword": keyword}, update_data, upsert=True)
@@ -373,9 +374,10 @@ if __name__ == '__main__':
    
    # calcularea scorului pentru fiecare keyword in parte, in functie de numarul de stiri
    # positive/negative/neutral, pentru a fi folosit mai departe in predictii
+   # se vor folosi datele din output_labeled.xlsx
    # rezultatul va fi salvat in fisierul results.xlsx
    score_labels(keywords)
    
    # se face update in baza de date pentru colectia predictions in functie de scorurile
    # calculate anterior si salvate in fisierul results.xlsx
-   update_predictions(keywords)
+   update_predictions()
