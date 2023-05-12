@@ -2,6 +2,7 @@ const { addExpense, getExpense, deleteExpense } = require('../controllers/expens
 const { addIncome, getIncomes, deleteIncome } = require('../controllers/income');
 const { getTweets } = require('../controllers/tweet');
 const { getNews } = require('../controllers/news');
+const { getPredictions } = require('../controllers/predictions');
 const { isAuth } = require("../middleware/auth");
 
 const router = require('express').Router();
@@ -14,5 +15,6 @@ router.post('/add-income', isAuth, addIncome)
    .delete('/delete-expense/:id', deleteExpense)
    .get('/get-tweets', getTweets)
    .get('/get-news', getNews)
+   .get('/get-predictions', getPredictions)
 
 module.exports = router

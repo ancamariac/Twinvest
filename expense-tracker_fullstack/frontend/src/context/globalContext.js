@@ -12,6 +12,7 @@ export const GlobalProvider = ({ children }) => {
    const [error, setError] = useState(null)
    const [interests, setInterests] = useState([])
    const [news, setNews] = useState([])
+   const [predictions, setPredictions] = useState([])
 
    //calculate incomes
    const addIncome = async (income) => {
@@ -145,6 +146,17 @@ export const GlobalProvider = ({ children }) => {
       setNews(response.data)
    }
 
+   const getPredictions = async () => {
+
+      const token = getToken(); 
+      const response = await axios.get(`${BASE_URL}get-predictions`, {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      })
+      setPredictions(response.data)
+   }
+
    const addInterest = async (interest) => {
       const token = getToken();
       const response = await axios.put(`${BASE_URL}update-interests`, { interests: interest.interest }, {
@@ -190,6 +202,8 @@ export const GlobalProvider = ({ children }) => {
          interests,
          news,
          getNews,
+         predictions,
+         getPredictions,
          totalBalance,
          transactionHistory,
          error,

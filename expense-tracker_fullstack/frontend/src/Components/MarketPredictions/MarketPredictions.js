@@ -6,16 +6,17 @@ import './MarketPredictions.style.scss';
 import "../Dashboard/Dashboard.style.scss";
 import PredictCard from './PredictCard'
 import "../Settings/Interests.style.scss";
+import { arrow_up, arrow_down, arrow_const } from '../../utils/Icons';
 
 function Settings() {
-   const { interests, getInterests, error, setError } = useGlobalContext()
-   const [inputState, setInputState] = useState({interest: ''})
-   const { interest } = inputState;
+   const { predictions, getPredictions, error, setError } = useGlobalContext()
+   const [inputState, setInputState] = useState({prediction: ''})
+   const { prediction } = inputState;
 
    const handleSubmit = e => {
       e.preventDefault()
-      getInterests()
-      setInputState({interest: ''})
+      getPredictions()
+      setInputState({prediction: ''})
    }
 
    const handleInput = name => e => {
@@ -24,7 +25,7 @@ function Settings() {
    }
 
    useEffect(() => {
-      getInterests()
+      getPredictions()
 	}, [])
 
    return (
@@ -44,7 +45,7 @@ function Settings() {
                   <div className="selects input-control-interests">
                      <input 
                         list="interests" 
-                        required value={interest} 
+                        required value={prediction} 
                         name="interest" 
                         id="interest" 
                         style={{'width':'500px'}} 
@@ -65,10 +66,13 @@ function Settings() {
          </div>
       </MarketPredictions>
       <div className='interests'>
-         {interests.map((interestItem) => {
-            const item = interestItem;
+         {predictions.map((predictItem) => {
             return <PredictCard
-               title={item}                     
+               title={predictItem.keyword} 
+               date={predictItem.last_update}
+               trend={
+                  predictItem.trend === "rising" ? arrow_up : predictItem.trend === "falling" ? arrow_down : arrow_const 
+               }
             />
          })}
       </div>
