@@ -6,7 +6,7 @@ import './MarketPredictions.style.scss';
 import "../Dashboard/Dashboard.style.scss";
 import PredictCard from './PredictCard'
 import "../Settings/Interests.style.scss";
-import { arrow_up, arrow_down, arrow_const } from '../../utils/Icons';
+import { arrow_up, arrow_down, arrow_const, calender } from '../../utils/Icons';
 
 function Settings() {
    const { predictions, getPredictions, error, setError } = useGlobalContext()
@@ -37,32 +37,17 @@ function Settings() {
             </div>
             <br></br>
             <div className="row content-row"> 
-               <h2> Choose a financial instrument 📈</h2>
-            </div>
-            {error && <p className='error'>{error} </p> }
+               <h2> Interpret different symbols and trends 📈</h2>
                <br></br>
-               <div style={{display:'flex'}}>
-                  <div className="selects input-control-interests">
-                     <input 
-                        list="interests" 
-                        required value={prediction} 
-                        name="interest" 
-                        id="interest" 
-                        style={{'width':'500px'}} 
-                        onChange={handleInput('interest')}
-                        placeholder='Select an item' 
-                     />
-                  </div>
-                  <div className="submit-btn" style={{marginLeft: '15px'}}>
-                     <Button
-                        name={'Predict price'}
-                        bPad={'.8rem 1.6rem'}
-                        bRad={'30px'}
-                        bg={'var(--primary-color'}
-                        color={'#fff'}
-                     />
-                  </div>
-               </div>
+               <h2>Upward Trend {arrow_up}</h2><h3> The stock's value will be on the rise, indicating potential profitability. It could be a good time to consider buying or holding the stock.</h3>
+               <br></br>
+               <h2> Downward Trend {arrow_down}</h2><h3>The stock's value will be declining, which may signify potential losses. It's advisable to exercise caution or consider selling the stock if you already own it.</h3> 
+               <br></br>
+               <h2> Stable Trend {arrow_const}</h2><h3> The stock's value will remain relatively constant, indicating a lack of major fluctuations. It may be a period of consolidation or a time when the market is waiting for new developments before making significant moves.</h3> 
+               <br></br>
+               <h2> Last update {calender}</h2><h3> This data aims to  provide information about the exact moment when the news was retrieved and a prediction was made using sentiment analysis. </h3> 
+            </div>
+         
          </div>
       </MarketPredictions>
       <div className='interests'>

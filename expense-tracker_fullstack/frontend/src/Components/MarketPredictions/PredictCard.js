@@ -35,13 +35,13 @@ const PredictCardStyled = styled.div`
    display: flex;
    align-items: center;
    gap: 1rem;
-   width: 35%;
+   width: 22%;
    color: #222260;
    margin-left: 7pc;
 
    .trend {
       font-size: 50px; 
-      margin-right: 2rem; 
+      margin-right: 1.5rem; 
    }
 
    .content{

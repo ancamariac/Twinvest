@@ -2,7 +2,7 @@ export const dashboard = <i className="fa-solid fa-chart-line"></i>
 export const transactions = <i className="fa-solid fa-credit-card"></i>
 export const arrow_up = <i className="fa-solid fa-circle-chevron-up" style={{ color: "#13b710" }}></i>
 export const arrow_down = <i className="fa-solid fa-circle-chevron-down" style={{ color: "#b81414" }}></i>
-export const arrow_const = <i className="fa-solid fa-circle-minus" style={{ color: "#eaed0c" }}></i>
+export const arrow_const = <i className="fa-solid fa-circle-minus" style={{ color: "blue" }}></i>
 export const news = <i className="fa-solid fa-newspaper"></i>
 export const twitter = <i className="fa fa-twitter"></i>
 export const tag = <i className="fa-solid fa-tag"></i>
