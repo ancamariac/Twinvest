@@ -3,11 +3,45 @@ import styled from 'styled-components';
 import { dateFormat } from '../../utils/dateFormat';
 import { calender } from '../../utils/Icons';
 
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 function PredictCard({
    title,
    date,
    trend
 }) {
+
+   const [realtimePrice, setRealtimePrice] = useState(null);
+
+   useEffect(() => {
+      const fetchStockPrice = async () => {
+
+         const options = {
+            method: 'GET',
+            url: `https://realstonks.p.rapidapi.com/AAPL`,
+            headers: {
+               'X-RapidAPI-Key': 'fe7735952emsh96bdd1cf7c30ec1p1f16d0jsn7f422f6ce455',
+               'X-RapidAPI-Host': 'realstonks.p.rapidapi.com'
+            }
+         };
+
+         try {
+            const response = await axios.request(options);
+            // Setăm procentul de evoluție în state
+            setRealtimePrice(response.data.change_percentage); 
+         } catch (error) {
+            console.error(error);
+         }
+      };
+
+      fetchStockPrice(); // Apelăm funcția de fetch când componenta se montează
+
+      return () => {
+         setRealtimePrice(null);
+      };
+   }, [title]);
+
 
    return (
       <PredictCardStyled>
@@ -16,6 +50,9 @@ function PredictCard({
             <div className="inner-content">
                <div className="text">
                   <p>{calender} {dateFormat(date)}</p>
+                  {realtimePrice !== null && (
+                     <p>Price: {realtimePrice}%</p>
+                  )}
                </div>
             </div>
          </div>
