@@ -334,7 +334,7 @@ if __name__ == '__main__':
 
    # definirea cuvintelor cheie dupa care se vor cauta stiri
    keywords = [
-      'Bitcoin',
+      'BTC',
       'Ethereum',
       'Dodgecoin',
       'Tether',
@@ -352,7 +352,6 @@ if __name__ == '__main__':
       'Disney',
       'Shopify',
       'Netflix',
-      'Meta',
       'Roblox',
       'Coinbase',
       'Intel',
