@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Button from '../Button/Button';
 import { useGlobalContext } from '../../context/globalContext';
-import './MarketPredictions.style.scss';
 import "../Dashboard/Dashboard.style.scss";
 import PredictCard from './PredictCard'
 import "../Settings/Interests.style.scss";

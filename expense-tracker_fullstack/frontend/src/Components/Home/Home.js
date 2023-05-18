@@ -10,6 +10,7 @@ import MarketPredictions from '../MarketPredictions/MarketPredictions';
 import Settings from '../Settings/Settings';
 import TwitterNews from '../TwitterNews/TwitterNews';
 import GoogleNews from '../GoogleNews/GoogleNews';
+import RealtimePrices from '../RealtimePrices/RealtimePrices';
 
 function Home() {
    const [active, setActive] = useState(-1)
@@ -30,6 +31,8 @@ function Home() {
             return <MarketPredictions />
          case 7:
             return <Settings />
+         case 8:
+            return <RealtimePrices />
          default:
             return <Dashboard />
       }

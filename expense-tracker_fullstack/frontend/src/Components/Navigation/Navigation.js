@@ -25,6 +25,8 @@ function Navigation({ active, setActive }) {
       changePage(6);
    } else if (page === 'settings') {
       changePage(7);
+   } else if (page === 'realtimeprices') {
+      changePage(8);
    } 
 
    function lastWordCapitalized(url) {

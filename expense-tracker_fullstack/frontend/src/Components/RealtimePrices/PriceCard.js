@@ -6,7 +6,7 @@ import { calender } from '../../utils/Icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function PredictCard({
+function PriceCard({
    title,
    date,
    trend
@@ -44,24 +44,26 @@ function PredictCard({
 
 
    return (
-      <PredictCardStyled>
+      <PriceCardStyled>
          <div className="content">
             <h5>{title}</h5>
             <div className="inner-content">
                <div className="text">
                   <p>{calender} {dateFormat(date)}</p>
-
+                  {realtimePrice !== null && (
+                     <p>Price: {realtimePrice}%</p>
+                  )}
                </div>
             </div>
          </div>
          <div className="trend"> 
             {trend}                
          </div>
-      </PredictCardStyled>
+      </PriceCardStyled>
    )
 }
 
-const PredictCardStyled = styled.div`
+const PriceCardStyled = styled.div`
    background: #FCF6F9;
    border: 2px solid #04064f;
    border-radius: 25px;
@@ -122,4 +124,4 @@ const PredictCardStyled = styled.div`
    }
 `;
 
-export default PredictCard
+export default PriceCard

@@ -37,10 +37,17 @@ export const menuItems = [
       icon: stocks,
       link: "/marketpredictions",
    },
+   
    {
       id: 7,
       title: "Settings",
       icon: settings,
       link: "/settings",
+   },
+   {
+      id: 8,
+      title: "Realtime Prices",
+      icon: settings,
+      link: "/realtimeprices",
    },
 ]

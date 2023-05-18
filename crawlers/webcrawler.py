@@ -213,7 +213,7 @@ from openpyxl import load_workbook
 def get_trend(score):
    trend_threshold = 1
    
-   if score >= (-1) * trend_threshold and score <= trend_threshold:
+   if score >=  4 and score <= 6:
       return "stable"
    elif score > trend_threshold:
       return "rising"
@@ -290,7 +290,7 @@ def update_predictions():
       keyword = row[0]
       positive = row['positive']
       negative = row['negative']
-      neutral = row['neutral']
+      neutral = row['neutral'] 
       score = row['score']
       last_update = row['last_update']
       trend = row['trend']
@@ -303,7 +303,7 @@ def update_predictions():
    def get_trend(score):
       trend_threshold = 1
 
-      if score >= (-1) * trend_threshold and score <= trend_threshold:
+      if score >= 4 and score <= 6:
          return "stable"
       elif score > trend_threshold:
          return "rising"
@@ -334,7 +334,7 @@ if __name__ == '__main__':
 
    # definirea cuvintelor cheie dupa care se vor cauta stiri
    keywords = [
-      'BTC',
+      'Bitcoin',
       'Ethereum',
       'Dodgecoin',
       'Tether',

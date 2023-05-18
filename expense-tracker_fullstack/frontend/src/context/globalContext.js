@@ -12,7 +12,8 @@ export const GlobalProvider = ({ children }) => {
    const [error, setError] = useState(null)
    const [interests, setInterests] = useState([])
    const [news, setNews] = useState([])
-   const [predictions, setPredictions] = useState([])
+   const [predictions, setPredictions] = useState([]) 
+   const [interestsPrices, setInterestsPrices] = useState([])
 
    //calculate incomes
    const addIncome = async (income) => {
@@ -157,6 +158,24 @@ export const GlobalProvider = ({ children }) => {
       setPredictions(response.data)
    }
 
+   const getInterestsPrices = async () => {
+
+      try {
+         const token = getToken(); 
+         const response = await axios.get(`${BASE_URL}get-interests-prices`, {
+            headers: {
+               'Authorization': `Basic ${token}`
+            }
+         });
+         setInterestsPrices(response.data); // Assuming response.data is an array
+      } catch (error) {
+         // Handle any error that occurred during the API call
+         console.log("flasssssssssssssss")
+         console.error(error);
+         setError('Failed to fetch interests prices');
+      }
+   }
+
    const addInterest = async (interest) => {
       const token = getToken();
       const response = await axios.put(`${BASE_URL}update-interests`, { interests: interest.interest }, {
@@ -204,6 +223,8 @@ export const GlobalProvider = ({ children }) => {
          getNews,
          predictions,
          getPredictions,
+         interestsPrices,
+         getInterestsPrices,
          totalBalance,
          transactionHistory,
          error,

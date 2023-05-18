@@ -36,7 +36,7 @@ function App() {
                <Route path="/expenses" element={<Home active={5}/>} />
                <Route path="/marketpredictions" element={<Home active={6}/>} />
                <Route path="/settings" element={<Home active={7}/>} />
-               
+               <Route path="/realtimeprices" element={<Home active={8}/>} />
             </Routes>
          </Router>
       </div>
