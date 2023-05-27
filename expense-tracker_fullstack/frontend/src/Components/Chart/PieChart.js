@@ -92,7 +92,7 @@ const PieChartStyled = styled.div`
    border-radius: 20px;
    height: 100%;
    width: 100%;
-   margin-right: 2rem;
+   margin-right: 3rem;
 `;
 
 export default PieChart
