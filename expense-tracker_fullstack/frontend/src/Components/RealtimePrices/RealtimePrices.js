@@ -4,7 +4,6 @@ import { useGlobalContext } from '../../context/globalContext';
 import "../Dashboard/Dashboard.style.scss";
 import PriceCard from './PriceCard'
 import "../Settings/Interests.style.scss";
-import { calender } from '../../utils/Icons';
 
 function RealtimePrices() {
    const { interestsPrices, getInterestsPrices, error, setError } = useGlobalContext()
@@ -31,7 +30,7 @@ function RealtimePrices() {
       <RealtimePricesStyled onSubmit={handleSubmit}>
          <div className="container">
             <div className="row">
-               <h1> This is the actual price of  🔮 </h1>
+               <h1> This is the actual price of our financial instruments 📈 </h1>
             </div>
             <br></br>
          

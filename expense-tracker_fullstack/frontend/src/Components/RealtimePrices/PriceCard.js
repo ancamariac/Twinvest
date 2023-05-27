@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { dateFormat } from '../../utils/dateFormat';
-import { calender } from '../../utils/Icons';
+import { calender, trend_down, trend_up } from '../../utils/Icons';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -9,8 +9,7 @@ import axios from 'axios';
 function PriceCard({
    title,
    ticker,
-   date,
-   trend
+   date
 }) {
 
    const [realtimePrice, setRealtimePrice] = useState(null);
@@ -45,20 +44,23 @@ function PriceCard({
 
 
    return (
-      <PriceCardStyled>
+      <PriceCardStyled indicator={realtimePrice > 0 ? 'green' : 'red'}>
          <div className="content">
             <h5>{title}</h5>
             <div className="inner-content">
                <div className="text">
                   <p>{calender} {dateFormat(date)}</p>
                   {realtimePrice !== null && (
-                     <p>Price: {realtimePrice > 0 ? `+${realtimePrice}%` : `${realtimePrice}%`}</p>
+                     <p>
+                        {realtimePrice > 0 ? (
+                           <span>{trend_up} <strong>+{realtimePrice}%</strong></span>
+                        ) : (
+                           <span>{trend_down} <strong>{realtimePrice}%</strong></span>
+                        )}
+                     </p>
                   )}
                </div>
             </div>
-         </div>
-         <div className="trend"> 
-            {trend}                
          </div>
       </PriceCardStyled>
    )
@@ -73,47 +75,37 @@ const PriceCardStyled = styled.div`
    display: flex;
    align-items: center;
    gap: 1rem;
-   width: 22%;
+   width: 23%;
    color: #222260;
    margin-left: 7pc;
+   position: relative;
+   overflow: hidden;
 
    .trend {
       font-size: 50px; 
       margin-right: 1.5rem; 
    }
 
-   .content{
+   .content {
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: .3rem;
-      h5{
+      h5 {
          font-size: 1.3rem;
          padding-left: 1rem;
-         position: relative;
-         &::before{
-               content: '';
-               position: absolute;
-               left: 0;
-               top: 50%;
-               transform: translateY(-50%);
-               width: .8rem;
-               height: .8rem;
-               border-radius: 50%;
-               background: ${props => props.indicator};
-         }
       }
 
-      .inner-content{
+      .inner-content {
          display: flex;
          justify-content: space-between;
          align-items: center;
-         .text{
+         .text {
             display: flex;
             align-items: center;
             gap: 1.5rem;
             margin-left: 1pc;
-            p{
+            p {
                display: flex;
                align-items: center;
                gap: 0.5rem;
@@ -122,6 +114,18 @@ const PriceCardStyled = styled.div`
             }
          }
       }
+   }
+
+   &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 0.4rem;
+      background: ${props => props.indicator};
+      width: 25px; 
+      opacity: 0.8;
    }
 `;
 
