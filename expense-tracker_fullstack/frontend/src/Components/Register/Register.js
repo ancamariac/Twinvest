@@ -43,7 +43,6 @@ function Register() {
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
-        console.log(id, value);
         if (id === "username") {
             setUsername(value);
         } else if (id === "email") {

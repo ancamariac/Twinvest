@@ -10,16 +10,13 @@ exports.getInterestsPrices = async (req, res) => {
 
          const decode = jwt.verify(token, process.env.JWTSECRETKEY);
          const user = await User.findById(decode.userId);
-         console.log('user', user)
          if (!user) {
             return res.json({ success: false, message: "Unauthorized access!" });        
          }
          
          const tags = user.interests
-         console.log('tags', tags)
 
          const interests = await InterestSchema.find({ keyword: { $in: tags } }).sort({ createdAt: -1 })
-         console.log('interests', interests)
          res.status(200).json(interests
             )
 

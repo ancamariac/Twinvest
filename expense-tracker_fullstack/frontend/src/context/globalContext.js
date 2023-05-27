@@ -170,7 +170,6 @@ export const GlobalProvider = ({ children }) => {
          setInterestsPrices(response.data); // Assuming response.data is an array
       } catch (error) {
          // Handle any error that occurred during the API call
-         console.log("flasssssssssssssss")
          console.error(error);
          setError('Failed to fetch interests prices');
       }

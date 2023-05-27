@@ -8,6 +8,7 @@ import axios from 'axios';
 
 function PriceCard({
    title,
+   ticker,
    date,
    trend
 }) {
@@ -19,7 +20,7 @@ function PriceCard({
 
          const options = {
             method: 'GET',
-            url: `https://realstonks.p.rapidapi.com/AAPL`,
+            url: `https://realstonks.p.rapidapi.com/${ticker}`,
             headers: {
                'X-RapidAPI-Key': 'fe7735952emsh96bdd1cf7c30ec1p1f16d0jsn7f422f6ce455',
                'X-RapidAPI-Host': 'realstonks.p.rapidapi.com'
@@ -40,7 +41,7 @@ function PriceCard({
       return () => {
          setRealtimePrice(null);
       };
-   }, [title]);
+   }, [title, ticker]);
 
 
    return (
@@ -51,7 +52,7 @@ function PriceCard({
                <div className="text">
                   <p>{calender} {dateFormat(date)}</p>
                   {realtimePrice !== null && (
-                     <p>Price: {realtimePrice}%</p>
+                     <p>Price: {realtimePrice > 0 ? `+${realtimePrice}%` : `${realtimePrice}%`}</p>
                   )}
                </div>
             </div>

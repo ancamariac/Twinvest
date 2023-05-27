@@ -40,8 +40,8 @@ function RealtimePrices() {
       <div className='interests'>
          {interestsPrices.map((interest) => {
             return <PriceCard
-               title={interest.keyword} 
-               
+               title={interest.keyword}
+               ticker={interest.ticker} 
             />
          })}
       </div>
