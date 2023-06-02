@@ -78,11 +78,7 @@ function Register() {
                         </div>
                         <input className="submit-button" type="submit" onClick={(e) => register(e)} />
                     </form>
-                    <br>
-                    </br>
-                    <div className="change-modal-text">
-                        Already have an account?  <Link className="link" to="/">Login</Link>
-                    </div>
+                    
                 </div>
             </CenteredModal>
         </AppStyled>

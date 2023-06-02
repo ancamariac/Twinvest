@@ -55,7 +55,7 @@ const AppStyled = styled.div`
    width: 100%;
    background-image: url(${props => props.bg});
    position: relative;
-   background: rgba(34, 34, 96, .6);
+   background: linear-gradient(rgb(84 66 98), rgb(62 32 94), rgb(43 27 79));
    main{
       flex: 1;
       background: rgba(252, 246, 249, 0.78);

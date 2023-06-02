@@ -33,6 +33,7 @@ export const GlobalStyle = createGlobalStyle`
       width:100%;
       font-size: 30x;
       padding: 4px;
+      height: 40px !important;
    }
 
    .input-with-error {
