@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/globalContext";
@@ -7,8 +7,8 @@ import { CenteredModal } from "../../styles/Layouts";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import image from '../../img/home.png';
-
+import image from '../../img/work.svg';
+import { twitter_logo } from '../../utils/Icons';
 
 function Login({ goHome }) {
    const [emailLogin, setEmailLogin] = useState('');
@@ -28,6 +28,65 @@ function Login({ goHome }) {
    const navigate = useNavigate();
 
    const [imageUrl, setImageUrl] = useState(image);
+
+   const texts = [
+      'Unleashing Data Insights for Profitable Decision-making',
+      'Effective Budget Management using Latest News',
+      'Informed Investing via Twitter at Your Fingertips',
+      'Unlocking the Potential of Stocks and Crypto',
+      'Empowering Smart Investments through Sentiment Analysis'
+   ];
+   
+   const Typewriter = ({ texts }) => {
+      const [currentTextIndex, setCurrentTextIndex] = useState(0);
+      const [currentText, setCurrentText] = useState('');
+      const [isDeleting, setIsDeleting] = useState(false);
+      const [typingSpeed, setTypingSpeed] = useState(80);
+      const [deletingSpeed, setDeletingSpeed] = useState(30);
+      const [showCursor, setShowCursor] = useState(true);
+   
+      useEffect(() => {
+         const type = () => {
+         const currentWord = texts[currentTextIndex];
+         if (isDeleting) {
+            setCurrentText(currentWord.substring(0, currentText.length - 1));
+            setTypingSpeed(deletingSpeed);
+         } else {
+            setCurrentText(currentWord.substring(0, currentText.length + 1));
+            setTypingSpeed(typingSpeed);
+         }
+   
+         if (!isDeleting && currentText === currentWord) {
+            setIsDeleting(true);
+            setTypingSpeed(1000);
+         } else if (isDeleting && currentText === '') {
+            setIsDeleting(false);
+            setCurrentTextIndex((currentTextIndex + 1) % texts.length);
+            setTypingSpeed(100);
+         }
+      };
+   
+         const timer = setTimeout(type, typingSpeed);
+         return () => clearTimeout(timer);
+      }, [currentText, currentTextIndex, isDeleting, deletingSpeed, texts, typingSpeed]);
+   
+      useEffect(() => {
+         const cursorTimer = setInterval(() => {
+         setShowCursor((prevShowCursor) => !prevShowCursor);
+      }, 500);
+
+         return () => clearInterval(cursorTimer);
+      }, []);
+   
+      return (
+         <div className="typewriter">
+            <div className="title">
+               {currentText}
+               {showCursor && <span className="cursor">|</span>}
+            </div>
+         </div>
+      );
+   };
 
    async function login(e) {
       e.preventDefault();
@@ -90,19 +149,17 @@ async function register(e) {
          })
 }
 
-   
-
    return (
       <AppStyled>
          <Container style={{height: '100%'}}>
             <Row style={{height: '100%', alignItems: 'center', paddingBottom: '10vh'}}>
-               <Col lg={2}>
-                  <div className="title">
-                     Expense Tracker, the best app in this Universe!
-                  </div>
-                  <Row>
-                  </Row>
-               </Col>              
+               <Col lg={2} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Typewriter texts={texts} />
+                  <div className="secondary-title">
+                     Twinvest {twitter_logo}
+                  </div> 
+                  <img src={image} alt="Stats" className="stats-image" /> 
+               </Col>  
                <Col lg={3} style={{height: '70vh'}}>
                   <div className="main">
                      <input type="checkbox" id="chk" aria-hidden="true"/>
@@ -142,6 +199,7 @@ async function register(e) {
                               <p style={{ display: errorType === 'password' ? 'flex' : 'none' , justifyContent: 'center' }}> {errorMessage} </p>
                            </div>
                            <input className="submit-button" type="submit" onClick={(e) => login(e)} />
+                           <input className="submit-button" type="submit" value="Reset Password"/>
                         </form>
                      </div>
                   </div>
@@ -175,9 +233,17 @@ const AppStyled = styled.div`
       box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
    }
 
+   .stats-image {
+      position: absolute;
+      left: 10pc;
+      top: 6.5pc;
+      width: 50pc; 
+      height: auto;
+   }
+
    .title {
       font-family: 'Jost', sans-serif;
-      font-size: 50px;
+      font-size: 40px;
       font-weight: bold;
       margin-top: 20px;
       margin-left: 20px;
@@ -185,7 +251,28 @@ const AppStyled = styled.div`
       position: absolute;
       top: 20px;
       left: 20px;
+    }
+    
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+      opacity: 0;
+      }
    }
+   
+   .secondary-title {
+      font-family: 'Jost', sans-serif;
+      font-size: 70px;
+      font-weight: bold;
+      margin-top: 3pc;
+      margin-left: 1.5pc;
+      color: white;
    }
 
    .main{
@@ -196,8 +283,8 @@ const AppStyled = styled.div`
       background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
       border-radius: 10px;
       box-shadow: 5px 20px 50px #000;
-      margin-right: 14pc; /* Adaugă această linie pentru marginea din dreapta */
-      margin-top: 8pc; 
+      margin-right: 12pc; /* Adaugă această linie pentru marginea din dreapta */
+      margin-top: 4pc; 
    }
 
    #chk{
@@ -248,7 +335,7 @@ const AppStyled = styled.div`
       justify-content: center;
       display: block;
       color: #fff;
-      background: #65477e;
+      background: #9574b9;
       font-size: 1.3em;
       font-weight: bold;
       margin-top: 40px;
