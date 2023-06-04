@@ -93,6 +93,7 @@ function Settings() {
                </div>
             </div>
             <br></br>
+            <br></br>
          </div>
       </SettingsStyled>
       <div className='interests'>
@@ -105,32 +106,32 @@ function Settings() {
             />
          })}
       </div>
-
+         
       <div className="container">
-      <div className="row content-row">
-         <div className="stats-con">
-            <div className="history-con">
-               <h2 className="salary-title">Min <span>Income</span>Max</h2>
-               <div className="salary-item">
-                  <p>
-                     {Math.min(...incomes.map(item => item.amount))} {"Lei"}
-                  </p>
-                  <p>
-                     {Math.max(...incomes.map(item => item.amount))} {"Lei"}
-                  </p>
-               </div>
-               <h2 className="salary-title">Min <span>Expense</span>Max</h2>
-               <div className="salary-item">
-                  <p>
-                     {Math.min(...expenses.map(item => item.amount))} {"Lei"}
-                  </p>
-                  <p>
-                     {Math.max(...expenses.map(item => item.amount))} {"Lei"}
-                  </p>
+         <div className="row content-row">
+            <div className="stats-con">
+               <div className="history-con">
+                  <h2 className="salary-title">Min <span>Income</span>Max</h2>
+                  <div className="salary-item">
+                     <p>
+                        {Math.min(...incomes.map(item => item.amount))} {"Lei"}
+                     </p>
+                     <p>
+                        {Math.max(...incomes.map(item => item.amount))} {"Lei"}
+                     </p>
+                  </div>
+                  <h2 className="salary-title">Min <span>Expense</span>Max</h2>
+                  <div className="salary-item">
+                     <p>
+                        {Math.min(...expenses.map(item => item.amount))} {"Lei"}
+                     </p>
+                     <p>
+                        {Math.max(...expenses.map(item => item.amount))} {"Lei"}
+                     </p>
+                  </div>
                </div>
             </div>
          </div>
-      </div>
       </div>
       </>
    )
@@ -139,6 +140,7 @@ function Settings() {
 const SettingsStyled = styled.form`
    display: flex;
    flex-direction: column;
+   justify-content: center;
 `;
 
 export default Settings

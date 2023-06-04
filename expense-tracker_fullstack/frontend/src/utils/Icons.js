@@ -6,6 +6,7 @@ export const arrow_const = <i className="fa-solid fa-circle-minus" style={{ colo
 export const trend_up = <i className="fa-solid fa-arrow-trend-up" style={{ color: "green" }}></i>
 export const trend_down = <i class="fa-solid fa-arrow-trend-down" style={{color: "#eb3737"}}></i>
 export const news = <i className="fa-solid fa-newspaper"></i>
+export const chart = <i class="fa fa-bar-chart"></i>
 export const twitter = <i className="fa fa-twitter" ></i>
 export const twitter_logo = <i className="fa fa-twitter" style={{color: "#9574b9"}}></i>
 export const tag = <i className="fa-solid fa-tag"></i>

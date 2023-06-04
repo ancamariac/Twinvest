@@ -1,4 +1,4 @@
-import { dashboard, piggy, expenses, transactions, trend, settings, stocks, news, twitter, google } from '../utils/Icons'
+import { chart, dashboard, piggy, expenses, transactions, trend, settings, stocks, news, twitter, google } from '../utils/Icons'
 
 export const menuItems = [
    {
@@ -47,7 +47,7 @@ export const menuItems = [
    {
       id: 8,
       title: "Realtime Prices",
-      icon: settings,
+      icon: chart,
       link: "/realtimeprices",
    },
 ]
