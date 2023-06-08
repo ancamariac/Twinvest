@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import image from '../../img/work.svg';
-import { twitter_logo } from '../../utils/Icons';
+import { coins } from '../../utils/Icons';
 
 function Login({ goHome }) {
    const [emailLogin, setEmailLogin] = useState('');
@@ -156,7 +156,7 @@ async function register(e) {
                <Col lg={2} style={{ display: 'flex', flexDirection: 'column' }}>
                   <Typewriter texts={texts} />
                   <div className="secondary-title">
-                     Twinvest {twitter_logo}
+                     Twinvest {coins}
                   </div> 
                   <img src={image} alt="Stats" className="stats-image" /> 
                </Col>  

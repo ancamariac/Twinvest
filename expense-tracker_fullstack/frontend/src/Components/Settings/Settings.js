@@ -37,8 +37,13 @@ function Settings() {
             </div>
             <br></br>
             <div className="row content-row"> 
-               <h2> Pick your interests ✍️</h2>
+               <h2> Change your password </h2>
                <br></br>
+               <br></br>
+               <br></br>
+               <br></br>
+               <br></br>
+               <h2> Pick your interests ✍️</h2>
                {error && <p className='error'>{error} </p> }
                <br></br>
                <div style={{display:'flex'}}>
@@ -93,7 +98,6 @@ function Settings() {
                </div>
             </div>
             <br></br>
-            <br></br>
          </div>
       </SettingsStyled>
       <div className='interests'>
@@ -106,9 +110,10 @@ function Settings() {
             />
          })}
       </div>
-         
+
       <div className="container">
          <div className="row content-row">
+         <h2> Set your smart goals!  </h2>
             <div className="stats-con">
                <div className="history-con">
                   <h2 className="salary-title">Min <span>Income</span>Max</h2>
