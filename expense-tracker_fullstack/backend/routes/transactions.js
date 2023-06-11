@@ -14,9 +14,9 @@ router.post('/add-income', isAuth, addIncome)
    .post('/add-expense', isAuth, addExpense)
    .get('/get-expenses', isAuth, getExpense)
    .delete('/delete-expense/:id', deleteExpense)
-   .get('/get-tweets', getTweets)
-   .get('/get-news', getNews)
-   .get('/get-predictions', getPredictions)
+   .get('/get-tweets', isAuth, getTweets)
+   .get('/get-news', isAuth, getNews)
+   .get('/get-predictions', isAuth, getPredictions)
    .get('/get-interests-prices', isAuth, getInterestsPrices) 
 
 module.exports = router

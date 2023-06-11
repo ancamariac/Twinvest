@@ -19,7 +19,6 @@ const { isAuth } = require('../middleware/auth');
 
 router.post('/create-user', validateUserSignUp, userValidation, createUser);
 router.post('/sign-in', validateUserSignIn, userValidation, userSignIn);
-router.post('/upload-profile-picture', isAuth, uploads.single('profile'), uploadProfilePicture);
 router.put('/update-interests', isAuth, updateInterests)
 router.get('/get-interests', isAuth, getInterests) 
 router.put('/delete-interest', isAuth, deleteInterest) 
