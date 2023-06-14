@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react"
 import axios from 'axios'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const BASE_URL = "http://localhost:5000/api/v1/";
 
@@ -202,6 +204,26 @@ export const GlobalProvider = ({ children }) => {
       getInterests()
    }
 
+   async function changePassword(password) {
+      let userId = getUser().user._id;
+      console.log(userId);
+      const token = getToken();
+      await axios.put(`${BASE_URL}change-password`, {password: password}, 
+      {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      }).then(
+         (result) => {
+            NotificationManager.success('Success', 'Successfully changed password!', 4000);
+         }
+      ).catch((error) => {
+         NotificationManager.error('Error', error, 4000);
+         console.log(error);
+      })
+   }
+
+
    return (
       <GlobalContext.Provider value={{
          addIncome,
@@ -231,7 +253,8 @@ export const GlobalProvider = ({ children }) => {
          saveToken,
          saveUser,
          getToken,
-         getUser
+         getUser,
+         changePassword
       }}>
          {children}
       </GlobalContext.Provider>

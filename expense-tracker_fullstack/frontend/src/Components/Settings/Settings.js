@@ -6,11 +6,15 @@ import { plus } from '../../utils/Icons';
 import { useGlobalContext } from '../../context/globalContext';
 import './Interests.style.scss';
 import "../Dashboard/Dashboard.style.scss";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 function Settings() {
-   const { interests, incomes, expenses, addInterest, getInterests, deleteInterest, error, setError } = useGlobalContext()
+   const { interests, incomes, expenses, addInterest, getInterests, deleteInterest, error, setError, changePassword } = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
+
+   const [password, setPassword] = useState('');
+   const [confirmPassword, setConfirmPassword] = useState('');
 
    const handleInput = name => e => {
       setInputState({ ...inputState, [name]: e.target.value })
@@ -22,6 +26,26 @@ function Settings() {
       addInterest(inputState)
       getInterests()
       setInputState({interest: ''})
+   }
+
+   const handleInputChange = (e) => {
+      const { id, value } = e.target;
+      if (id === "password") {
+         setPassword(value);
+      } else if (id === "confirmPassword") {
+         setConfirmPassword(value);
+      }
+  }
+
+
+   async function changeUserPassword(e) {
+      e.preventDefault()
+      console.log(password, confirmPassword);
+      if (password === confirmPassword) {
+         changePassword(password);
+      } else {
+         NotificationManager.error("Error", "Passwords don't match!");
+      }
    }
 
    useEffect(() => {
@@ -37,11 +61,22 @@ function Settings() {
             </div>
             <br></br>
             <div className="row content-row"> 
-               <h2> Change your password </h2>
-               <br></br>
-               <br></br>
-               <br></br>
-               <br></br>
+            <form className="change-password-form">
+                  <h2 className='margin-bottom-15'> Change your password </h2>
+                  <label for="password" id="password"  name="password">
+                     Enter your new password:
+                  </label>
+                  <input minLength={8}  onChange={(e) => handleInputChange(e)}  className='margin-bottom-15' type="password"  value={password} id="password" name="password"  ></input>
+                  <label for="confirmPassword">
+                     Confirm password:
+                  </label>
+                  <input minLength={8}  onChange={(e) => handleInputChange(e)}  value={confirmPassword} id="confirmPassword" name="confirmPassword"  className='margin-bottom-15' type="password" ></input>
+                  <div className="submit-btn">
+                     <button className="submit-button" onClick={(e) => changeUserPassword(e)} >
+                        Submit
+                     </button>
+                  </div>
+               </form>
                <br></br>
                <h2> Pick your interests ✍️</h2>
                {error && <p className='error'>{error} </p> }
@@ -146,6 +181,37 @@ const SettingsStyled = styled.form`
    display: flex;
    flex-direction: column;
    justify-content: center;
+
+   .change-password-form {
+      display: flex;
+      flex-wrap: wrap;
+      width: 400px;
+      .submit-btn {
+         width: 100%;
+      }
+      input {
+         width: 100%;
+      }
+      .margin-bottom-15 {
+         margin-bottom: 15px;
+      }
+   
+   }
+   .submit-button {
+      outline: none;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      cursor: pointer;
+      transition: all .4s ease-in-out;
+      padding: .8rem 1.6rem;
+      border-radius: 30px;
+      width: auto;
+      background: var(--primary-color);
+   }
 `;
 
 export default Settings

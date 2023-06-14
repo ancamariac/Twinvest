@@ -31,6 +31,8 @@ function RealtimePrices() {
          <div className="container">
             <div className="row">
                <h1> This is the actual price of our financial instruments 📈 </h1>
+               <br></br>
+               <h2> The data is retrieved directly from RealStonks  </h2>
             </div>
             <br></br>
          

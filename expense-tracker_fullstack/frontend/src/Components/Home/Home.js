@@ -11,6 +11,8 @@ import Settings from '../Settings/Settings';
 import TwitterNews from '../TwitterNews/TwitterNews';
 import GoogleNews from '../GoogleNews/GoogleNews';
 import RealtimePrices from '../RealtimePrices/RealtimePrices';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 function Home() {
    const [active, setActive] = useState(-1)
