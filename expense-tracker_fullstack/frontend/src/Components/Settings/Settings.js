@@ -10,7 +10,7 @@ import {NotificationManager} from 'react-notifications';
 import axios from 'axios'
 
 function Settings() {
-   const { interests, addInterest, getInterests, deleteInterest, error, setError, changePassword, modifyExpenseLimit, modifyIncomeObjective, getToken} = useGlobalContext()
+   const { interests, addInterest, getInterests, deleteInterest, error, setError, changePassword, modifyExpenseLimit, modifyIncomeObjective, getToken, totalIncome, totalExpenses} = useGlobalContext()
    const [inputState, setInputState] = useState({interest: ''})
    const { interest } = inputState;
 
@@ -90,7 +90,6 @@ function Settings() {
    }
 
    async function initExpenseLimitValue(e) {
-      e.preventDefault()
       var checkNumber = new RegExp('^[1-9]\d*|0$ ');
       if (checkNumber.test(expenseLimit) === true) {
          modifyExpenseLimit(expenseLimit);
@@ -100,7 +99,6 @@ function Settings() {
    }
 
    async function initIncomeObjectiveValue(e) {
-      e.preventDefault()
       var checkNumber = new RegExp('^[1-9]\d*|0$ ');
       if (checkNumber.test(incomeObjective) === true) {
          modifyIncomeObjective(incomeObjective);
@@ -248,9 +246,9 @@ function Settings() {
                   </div>
                   <div className="expense-progress">
                      <div className="childTitle">
-                        Reached 20% of your Expense Limit!
+                        Reached  {(totalExpenses() / expenseLimit * 100).toFixed(1)}% of Expense Limit
                      </div>
-                     <div className = "childDiv" style = {{ width: `${20}%` }}>
+                     <div className = "childDiv" style = {{ width: `${(totalExpenses() / expenseLimit * 100).toFixed(1)}%` }}>
                         <span> </span>
                      </div>
                   </div> 
@@ -270,9 +268,9 @@ function Settings() {
                   </div>
                   <div className = "objective-progress">
                      <div className="childTitle">
-                        Reached 100% of your Income Objective!
+                        Reached {(totalIncome() / incomeObjective * 100).toFixed(1)}% of Income Objective
                      </div>
-                     <div className = "childDiv" style = {{ width: `${100}%` }}>
+                     <div className = "childDiv" style = {{ width: `${(totalIncome() / incomeObjective * 100).toFixed(1)}%` }}>
                         <span> </span>
                      </div>
                   </div> 
@@ -395,6 +393,7 @@ const SettingsStyled = styled.form`
       background-color: var(--color-green) !important;
       border-radius: 12px;
       text-align: left;
+      max-width: 100%!important;
    }
 
    .expense-progress .childDiv {
@@ -404,7 +403,7 @@ const SettingsStyled = styled.form`
    .childTitle {
       position: absolute;
       top: -30px;
-      left: 23%;
+      left: 3%;
    }
 
    .smart-goals-section {
