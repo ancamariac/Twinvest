@@ -333,30 +333,7 @@ if __name__ == '__main__':
    delete_old_news_from_mongodb()
 
    # definirea cuvintelor cheie dupa care se vor cauta stiri
-   keywords = [
-      'Bitcoin',
-      'Ethereum',
-      'Dodgecoin',
-      'Tether',
-      'BNB',
-      'Cardano',
-      'Polygon',
-      'Solana',
-      'Polkadot',
-      'Apple',
-      'Tesla',
-      'Microsoft',
-      'Amazon',
-      'NVIDIA',
-      'Meta',
-      'Disney',
-      'Shopify',
-      'Netflix',
-      'Roblox',
-      'Coinbase',
-      'Intel',
-      'AMD'
-   ]
+   keywords = ['Bitcoin','Ethereum','Dodgecoin','Tether','BNB','Cardano','Polygon','Solana','Polkadot','Apple','Tesla','Microsoft','Amazon','NVIDIA','Meta','Disney','Shopify','Netflix','Roblox','Coinbase','Intel','AMD']
    
    # obtinerea stirilor care contin cuvintele cheie definite, din ultimele doua zile
    # rezultatul se salveaza in fisierul output.xlsx

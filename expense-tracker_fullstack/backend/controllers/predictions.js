@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 exports.getPredictions = async (req, res) => {
    if (req.headers && req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1];
-      
+
       try {
 
          const decode = jwt.verify(token, process.env.JWTSECRETKEY);
@@ -14,7 +14,7 @@ exports.getPredictions = async (req, res) => {
          if (!user) {
             return res.json({ success: false, message: "Unauthorized access!" });        
          }
-         
+
          const tags = user.interests
 
          const predictions = await PredictionSchema.find({ keyword: { $in: tags } }).sort({ createdAt: -1 })
