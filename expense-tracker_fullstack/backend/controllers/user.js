@@ -2,6 +2,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const sharp = require('sharp');
+const bcrypt = require('bcrypt');
 
 const options = [
    "Bitcoin",
@@ -101,6 +102,87 @@ exports.getInterests = async (req, res) => {
    try {
       const user = await User.findById(userid);
       res.status(200).json(user.interests);
+   } catch (error) {
+      res.status(500).json({ message: 'Server Error' })
+   }
+}
+
+exports.initIncomeObjective = async (req, res) => {
+   try {  
+      const userid = req.user["_id"];
+      const user = await User.findById(userid);
+
+      if (!user) {
+         return res.status(404).send('User was not found!');
+      }
+
+      const incomeObjective = req.body.incomeObjective;
+      await User.findByIdAndUpdate(userid, {incomeObjective: incomeObjective}).then(result => {
+         res.status(200).json(user);
+      })
+   } catch (err) {
+      console.error(err);
+      res.status(500).send('Error when updating income objective.');
+   }
+}
+
+exports.initExpenseLimit = async (req, res) => {
+   try {  
+      const userid = req.user["_id"];
+      const user = await User.findById(userid);
+
+      if (!user) {
+         return res.status(404).send('User was not found!');
+      }
+
+      const expenseLimit = req.body.expenseLimit;
+      await User.findByIdAndUpdate(userid,  { expenseLimit: expenseLimit }).then(result => {
+         res.status(200).json(user);
+      })
+   } catch (err) {
+      console.error(err);
+      res.status(500).send('Error when updating expense limit.');
+   }
+}
+
+exports.getExpenseLimit = async (req, res) => {
+   const userid = req.user["_id"];      
+   try {
+      const user = await User.findById(userid);
+      res.status(200).json(user.expenseLimit);
+   } catch (error) {
+      res.status(500).json({ message: 'Server Error' })
+   }
+}
+
+exports.getIncomeObjective = async (req, res) => {
+   const userid = req.user["_id"];      
+   try {
+      const user = await User.findById(userid);
+      res.status(200).json(user.incomeObjective);
+   } catch (error) {
+      res.status(500).json({ message: 'Server Error' })
+   }
+}
+
+exports.changePassword = async (req, res) => {
+   try {
+      const userid = req.user._id;
+      const user = await User.findById(userid);
+      if (!user) {
+         return res.status(404).send('User was not found!');
+      }
+      bcrypt.hash(req.body.password, 8, (err, hash) => {
+         if (err) {
+            return next(err);
+         } else {
+            let password = hash;
+            console.log(password);
+            User.findByIdAndUpdate(userid, { password: password }).then(result => {
+               res.status(201).json({ success: true, message: "Your password has been successfully changed!" });
+            });
+         }
+      })
    } catch (error) {
       res.status(500).json({ message: 'Server Error' })
    }

@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
    interests: {
       type: [String], 
       required: false 
+   },
+   incomeObjective: {
+      type: Number,
+      required: false
+   },
+   expenseLimit: {
+      type: Number,
+      required: false
    }
 });
 

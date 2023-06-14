@@ -16,7 +16,7 @@ export const GlobalProvider = ({ children }) => {
    const [news, setNews] = useState([])
    const [predictions, setPredictions] = useState([]) 
    const [interestsPrices, setInterestsPrices] = useState([])
-
+ 
    //calculate incomes
    const addIncome = async (income) => {
       const token = getToken();
@@ -191,6 +191,38 @@ export const GlobalProvider = ({ children }) => {
       getInterests()
    }
 
+   async function modifyIncomeObjective(incomeObjective) {
+      const token = getToken();
+      const response = await axios.put(`${BASE_URL}initIncomeObjective`, { incomeObjective: incomeObjective }, {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      })
+      .catch((err) => {
+         setError(err.response.data.message)
+         console.log(err)
+      })
+      if (response.status === 200) {
+         NotificationManager.success("Success", "Income objective was successfully changed!");
+      }
+   }
+
+   async function modifyExpenseLimit (expenseLimit) {
+      const token = getToken();
+      const response = await axios.put(`${BASE_URL}initExpenseLimit`, { expenseLimit: expenseLimit }, {
+         headers: {
+            'Authorization': `Basic ${token}`
+         }
+      })
+      .catch((err) => {
+         setError(err.response.data.message)
+         console.log(err)
+      })
+      if (response.status === 200) {
+         NotificationManager.success("Success", "Expense limit was successfully changed!");
+      }
+   }
+
    const deleteInterest = async (interest) => {
       const token = getToken();
       const response = await axios.put(`${BASE_URL}delete-interest`, { interests: interest }, {
@@ -206,7 +238,6 @@ export const GlobalProvider = ({ children }) => {
 
    async function changePassword(password) {
       let userId = getUser().user._id;
-      console.log(userId);
       const token = getToken();
       await axios.put(`${BASE_URL}change-password`, {password: password}, 
       {
@@ -222,7 +253,6 @@ export const GlobalProvider = ({ children }) => {
          console.log(error);
       })
    }
-
 
    return (
       <GlobalContext.Provider value={{
@@ -253,8 +283,10 @@ export const GlobalProvider = ({ children }) => {
          saveToken,
          saveUser,
          getToken,
-         getUser,
-         changePassword
+         getUser, 
+         changePassword,
+         modifyExpenseLimit, 
+         modifyIncomeObjective
       }}>
          {children}
       </GlobalContext.Provider>
