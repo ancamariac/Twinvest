@@ -17,6 +17,7 @@ model = TFBertModel.from_pretrained("bert-base-uncased")
 x_data = []
 y_data = []
 i = 0
+
 for index, row in df.iterrows():
    # transform labelul intr-un numar
    if row[0] == 'neutral':

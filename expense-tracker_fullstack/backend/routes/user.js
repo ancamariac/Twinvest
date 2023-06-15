@@ -17,15 +17,15 @@ const { createUser, userSignIn, uploadProfilePicture, updateInterests, getIntere
 const { validateUserSignUp, userValidation, validateUserSignIn } = require('../middleware/validation/user');
 const { isAuth } = require('../middleware/auth');
 
-router.post('/create-user', validateUserSignUp, userValidation, createUser);
-router.post('/sign-in', validateUserSignIn, userValidation, userSignIn);
-router.put('/update-interests', isAuth, updateInterests)
-router.get('/get-interests', isAuth, getInterests) 
-router.put('/delete-interest', isAuth, deleteInterest) 
-router.put('/change-password', isAuth, changePassword)
-router.put('/initIncomeObjective', isAuth, initIncomeObjective)
-router.put('/initExpenseLimit', isAuth, initExpenseLimit);
-router.get('/getExpenseLimit', isAuth, getExpenseLimit);
-router.get('/getIncomeObjective', isAuth, getIncomeObjective);
+router.post('/create-user', validateUserSignUp, userValidation, createUser)
+   .post('/sign-in', validateUserSignIn, userValidation, userSignIn)
+   .put('/update-interests', isAuth, updateInterests)
+   .get('/get-interests', isAuth, getInterests) 
+   .put('/delete-interest', isAuth, deleteInterest) 
+   .put('/change-password', isAuth, changePassword)
+   .put('/initIncomeObjective', isAuth, initIncomeObjective)
+   .put('/initExpenseLimit', isAuth, initExpenseLimit)
+   .get('/getExpenseLimit', isAuth, getExpenseLimit)
+   .get('/getIncomeObjective', isAuth, getIncomeObjective)
 
 module.exports = router;
