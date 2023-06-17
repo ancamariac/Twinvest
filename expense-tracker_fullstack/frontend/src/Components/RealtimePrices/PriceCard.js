@@ -16,7 +16,6 @@ function PriceCard({
 
    useEffect(() => {
       const fetchStockPrice = async () => {
-
          const options = {
             method: 'GET',
             url: `https://realstonks.p.rapidapi.com/${ticker}`,
@@ -25,7 +24,6 @@ function PriceCard({
                'X-RapidAPI-Host': 'realstonks.p.rapidapi.com'
             }
          };
-
          try {
             const response = await axios.request(options);
             // Setăm procentul de evoluție în state
