@@ -1,3 +1,0 @@
-ruta: /login -> formularul de login
-ruta: /register -> formularul de register
-ruta: /home -> pagina de dashboard
